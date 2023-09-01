@@ -1,0 +1,21 @@
+﻿td > .hrevert-updatelink-section {
+ opacity:0;
+}
+tr:hover td > .hrevert-updatelink-section{
+ opacity:1;
+ cursor:pointer; 
+}
+td > .hrevert-updatelink-section > a {
+  margin: 0 0.25em 0 0;
+  color: #0094ff;
+  text-decoration: none;
+  border-radius: 2px;
+  cursor: pointer;
+  padding: 3px;
+ }
+tr.hrevert-activeLink{
+    background-color:#e1acac ;
+}
+tr.hrevert-inactiveLink {
+    background: #ffffff;
+}

@@ -1,0 +1,220 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Journal Master</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="panel panel-default" ng-show="!showModal">
+        <div class="panel-heading">
+            <div class="col-md-2" ng-show="selected.length>0">
+                <button class="btn btn-danger" value="Delete Selected" ng-click="vm.deleteSelected(selected)"> Delete Selected</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="open()"><span class="fa fa-plus"></span> New Journal Master</button>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control date" placeholder="Search Journal Master" ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+            <div class="col-md-2">
+                <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.searchParamChanged()"/> Include Inactive</label>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control select" data-selected-text-format="count" ng-options="pagesize as pagesize for pagesize in vm.pageSizes track by pagesize" ng-model="vm.pageSize" ng-change="vm.searchParamChanged()"></select>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width:5%"><input type="checkbox" ng-model="selectAll" name="" ng-click="vm.checkAll()" /></th>
+                            <th style="width:5%">#</th>
+                            <th style="width:20%">Description</th>
+                            <th style="width:10%">Journal Type</th>
+                            <th style="width:10%">Posted Date</th>
+                            <th style="width:10%">Credit</th>
+                            <th style="width:10%">Debit</th>
+                            <th style="width:10%">Printed</th>
+                          <!--  <th style="width:15%">Action</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="journal in vm.allJournalMaster | filter:q as results" ng-hide="vm.allJournalMaster.length==0" ng-class="journal.active ?'hrevert-inactiveLink' :'hrevert-activeLink'">
+                            <td><input type="checkbox" ng-model="selected" name="" ng-checked="vm.exist(journal)" ng-click="vm.toggleSelection(journal, $event)" /></td>
+                            <td>{{($index+1)+(vm.pageNumber-1)* vm.pageSize}}</td>
+                            <td>
+                                {{journal.description}}
+                                <div class="hrevert-updatelink-section" ng-show="journal.active">
+                                    <span><a ng-click="vm.journalMasterTermActionChanged(journal, 1)">Edit </a></span>|
+                                    <span><a ng-click="vm.journalMasterTermActionChanged(journal, 2)">Delete</a></span>
+
+                                </div>
+                                <div class="hrevert-updatelink-section" ng-show="!journal.active">
+                                    <span ng-click="vm.activateJournalMaster(journal)"><a>Activate</a></span>
+                                </div>
+                            </td>
+                            <td>
+                                <span ng-if="journal.journalType==1">General</span>
+                                <span ng-if="journal.journalType==2">Purchase</span>
+                                <span ng-if="journal.journalType==3">Payment</span>
+                                <span ng-if="journal.journalType==4">Sales</span>
+                                <span ng-if="journal.journalType==5">Receipt</span>
+                            </td>
+                            <td>{{journal.postedDate| date:'yyyy-MM-dd'}}</td>
+                            <td>{{journal.credit}}</td>
+                            <td>{{journal.debit}}</td>
+                            <td>
+                                <span ng-if="journal.printed==true">Printed</span>
+                                <span ng-if="journal.printed!=true">Not Printed</span>
+                            </td>
+                            <!--<td ng-show="journal.active">
+                                <div class="push-down-10">
+                                    <button class="btn btn-default" ng-click="vm.journalMasterTermActionChanged(journal, 1)"><span class="fa fa-pencil"></span> Edit</button>
+                                    <button class="btn btn-default" ng-click="vm.journalMasterTermActionChanged(journal, 2)"><span class="fa fa-recycle"></span> Delete</button>
+                                </div>-->
+                                <!--<select class="form-control select" ng-model="action" ng-options="action.id as action.name for action in vm.actionItems" ng-change="vm.actionChanged($event, journal, action)">
+                        <option class="" style="display: none" value="">Option</option>
+                    </select>-->
+                            <!--</td>
+                            <td ng-show="!journal.active">
+                                <button type="button" class="btn btn-info waves-effect" ng-click="vm.activateJournalMaster(journal)"> Activate</button>
+                            </td>-->
+                        </tr>
+                        <tr ng-show="vm.allJournalMaster.length==0">
+                            <td colspan="7">There is no data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           
+            <nav class="pull-right" ng-if="vm.totalPage >= 2">
+                <div paging
+                     page="vm.pageNumber"
+                     page-size="1"
+                     total="vm.totalPage"
+                     show-prev-next="true"
+                     show-first-last="true"
+                     text-first="&laquo;"
+                     text-last="&raquo;"
+                     text-next="&rsaquo;"
+                     text-prev="&lsaquo;"
+                     text-title-page="Page {page}"
+                     text-title-first="First Page"
+                     text-title-last="Last Page"
+                     text-title-next="Next Page"
+                     text-title-prev="Previous"
+                     paging-action="vm.pageChanged(page)">
+                </div>
+            </nav>
+        </div>
+
+    </div>
+
+    <div class="row" ng-show="showModal">
+        <div class="col-md-12">
+
+            <form class="form-horizontal" name="vm.journalMasterForm">
+
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Journal Master</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Journal Type*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <select class="form-control show-tick date" name="journalType" data-selected-text-format="count" ng-options="journal.id as journal.value for journal in vm.journalTypes" ng-model="vm.activeJournalMaster.journalType" required>
+                                            <option class="" value="" style="display:none;">Select Journal Type</option>
+                                        </select>
+                                        <span ng-show="vm.journalMasterForm.journalType.$touched && vm.journalMasterForm.journalType.$error.required" style="color:red;">Required</span>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Posted Date*</label>
+                                    <div class="col-md-9">
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                                <div class="input-group">
+                                                    <input type="text" name="postedDate" placeholder="Ex: 30/07/2016" class="form-control" data-ng-model="vm.activeJournalMaster.postedDate" data-date-time-input="YYYY-MM-DD" id="date" required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                </div>
+                                                <span ng-show="vm.journalMasterForm.postedDate.$touched && vm.journalMasterForm.postedDate.$error.required" style="color:red;">Required</span>
+
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                <datetimepicker data-ng-model="vm.activeJournalMaster.postedDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2',startView:'day', minView:'day'}" />
+                                            </ul>
+                                        </div>
+                                       <!-- <input type="text" placeholder="Ex: 30/07/2016" id="materialDatePicker" class="form-control date" ng-model="vm.activeJournalMaster.postedDate" required>-->
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Debit*</label>
+                                    <div class="col-md-9">
+                                        <input type="number" name="debit" min="0" class="form-control date" placeholder="Debit" ng-pattern="/^\-?\d+$/" ng-model="vm.activeJournalMaster.debit" required>
+                                        <span ng-show="vm.journalMasterForm.debit.$touched && vm.journalMasterForm.debit.$error.required" style="color:red;">Required</span>
+                                        <span ng-show="vm.journalMasterForm.debit.$touched && vm.journalMasterForm.debit.$error.number" style="color:red;">Integers Only</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="col-md-3 col-xs-12 control-label">Credit*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="number" name="credit" min="0" class="form-control date" placeholder="Credit" ng-pattern="/^\-?\d+$/" ng-model="vm.activeJournalMaster.credit" required>
+                                        <span ng-show="vm.journalMasterForm.credit.$touched && vm.journalMasterForm.credit.$error.required" style="color:red;">Required</span>
+                                        <span ng-show="vm.journalMasterForm.credit.$touched && vm.journalMasterForm.credit.$error.number" style="color:red;">Integers Only</span>
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Notes</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" class="form-control date" placeholder="Notes" ng-model="vm.activeJournalMaster.note">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Description</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input class="form-control" ng-model="vm.activeJournalMaster.description" placeholder="Description" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-click="vm.saveJournalMaster(vm.activeJournalMaster)" ng-disabled="vm.journalMasterForm.$invalid">{{vm.journalMasterBtnText}}<span class="fa fa-floppy-o fa-right"></span></button>
+                            <button class="btn btn-primary" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+<!--<script>
+    $(document).ready(function () {
+        $('#materialDatePicker').bootstrapMaterialDatePicker({
+            time: false,
+            clearButton: true,
+            weekStart: 0
+        });
+        $('.date').tooltip();
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>-->

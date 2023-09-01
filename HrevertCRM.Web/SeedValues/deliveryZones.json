@@ -1,0 +1,58 @@
+﻿[
+  {
+    "zoneName": "Mechi",
+    "zoneCode": "MCH"
+  },
+  {
+    "zoneName": "Koshi",
+    "zoneCode": "KOS"
+  },
+  {
+    "zoneName": "Sagarmatha",
+    "zoneCode": "SGR"
+  },
+  {
+    "zoneName": "Janakpur",
+    "zoneCode": "JNK"
+  },
+  {
+    "zoneName": "Narayani",
+    "zoneCode": "NAR"
+  },
+  {
+    "zoneName": "Bagmati",
+    "zoneCode": "BAG"
+  },
+  {
+    "zoneName": "Lumbini",
+    "zoneCode": "LMB"
+  },
+  {
+    "zoneName": "Gandaki",
+    "zoneCode": "GND"
+  },
+  {
+    "zoneName": "Dhawalagiri",
+    "zoneCode": "DWG"
+  },
+  {
+    "zoneName": "Rapti",
+    "zoneCode": "RPT"
+  },
+  {
+    "zoneName": "Bheri",
+    "zoneCode": "BHR"
+  },
+  {
+    "zoneName": "Seti",
+    "zoneCode": "SET"
+  },
+  {
+    "zoneName": "Karnali",
+    "zoneCode": "KRN"
+  },
+  {
+    "zoneName": "Mahakali",
+    "zoneCode": "MHK"
+  }
+]

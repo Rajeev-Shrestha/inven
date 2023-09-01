@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>setup</title>
+</head>
+<body>
+    <div class="page-loader-wrapper" ng-show="vm.isLoading">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+<div class="container-fluid" ng-show="!vm.isLoading">
+    <!-- Hover Zoom Effect -->
+    <!--<div class="block-header">
+        <div class="col-md-6">
+            <h2>Company Setup</h2>
+        </div>
+        <div class="col-md-6">
+
+        </div>
+       
+        </div>-->
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="">
+                    <h2></h2>
+                </div>
+                <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" id="errorMessage"></div>
+                <br />
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p>
+                        <h3>Company Setup</h3>
+                        <h5 class="pull-right">All the fields with  * are required</h5>
+                    </p>
+                    
+                </div>
+                
+                <br />
+                <form name="vm.companySetupForm" novalidate>
+                    <div class="row clearfix">
+                        <div class="row" style="padding:10px;">
+                            <div class="col-md-4 col-sm-4">
+                                <div class="col-md-4  col-sm-4 form-control-label">
+                                    <label for="companyName" style="white-space:nowrap;">Company Name*</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="companyName" class="form-control" placeholder="Company Name" ng-model="vm.companySetup.name" disabled required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-4">
+
+                                <div class="col-md-4  col-sm-4 form-control-label">
+
+                                    <label for="productCode" style="white-space:nowrap;">GPO box Number</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" name="gpo" ng-pattern="/^\d+$/" id="productCode" class="form-control" placeholder="GPO box number" ng-model="vm.companySetup.gpoBoxNumber">
+                                            <span ng-show="vm.companySetupForm.gpo.$touched && vm.companySetupForm.gpo.$error.pattern" style="color:red;">Digits only</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="col-md-4  col-sm-4 form-control-label">
+                                    <label for="phoneNumber" style="white-space:nowrap;">Phone No*</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" name="phoneNumber" id="phoneNumber" class="form-control" ng-pattern="/^\d+$/" placeholder="Phone Number" ng-model="vm.companySetup.phoneNumber" required>
+                                            <span ng-show="vm.companySetupForm.phoneNumber.$touched && vm.companySetupForm.phoneNumber.$error.required" style="color:red;">Required</span>
+                                            <span ng-show="vm.companySetupForm.phoneNumber.$touched && vm.companySetupForm.phoneNumber.$error.pattern" style="color:red;">Digits only</span>
+
+                                          <!--  <span ng-show="vm.companySetupForm.phoneNumber.$touched && vm.companySetupForm.phoneNumber.$error.maxlength || vm.companySetupForm.phoneNumber.$error.minlength " style="color:red;">Phone Number should be of 10 digits</span>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="padding:10px;">
+                            <div class="col-md-4 col-sm-4">
+                                <div class="col-md-4  col-sm-4 form-control-label">
+                                    <label for="fiscal" style="white-space:nowrap;">Fiscal Type*</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <select class="form-control date" name="fiscalType" ng-model="vm.companySetup.fiscalYearFormat" ng-options="fiscalYearType.id as fiscalYearType.name for fiscalYearType in vm.fiscalYearType" ng-disabled="vm.fiscaltypeDisabled" required>
+                                                <option class="" style="display: none" value="">Fiscal Type</option>
+                                            </select>
+                                            <!--<select class="form-control date" name="fiscalType" ng-show="vm.companySetup.fiscalYearFormat" ng-model="vm.companySetup.fiscalYearFormat" ng-options="fiscalYearType.id as fiscalYearType.name for fiscalYearType in vm.fiscalYearType" disabled  required>
+                                                <option class="" style="display: none" value="">Fiscal Type</option>
+                                            </select>-->
+                                            <span ng-show="vm.companySetupForm.fiscalType.$touched && vm.companySetupForm.fiscalType.$error.required" style="color:red;">Required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="col-md-4  col-sm-4 form-control-label">
+                                    <label for="website" style="white-space:nowrap;">Website*</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" name="website" id="website" class="form-control" placeholder="Website URL" ng-model="vm.companySetup.websiteUrl" required>
+                                            <span ng-show="vm.companySetupForm.website.$touched && vm.companySetupForm.website.$error.required" style="color:red;">Required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="col-md-4  col-sm-4 form-control-label">
+                                    <label for="email" style="white-space:nowrap;">Fax Number</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" name="faxNumber" ng-pattern="/^\d+$/" id="email" class="form-control" placeholder="Fax number" ng-model="vm.companySetup.faxNo">
+                                            <span ng-show="vm.companySetupForm.faxNumber.$touched && vm.companySetupForm.faxNumber.$error.pattern" style="color:red;">Digits Only</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="col-md-1 form-control-label">
+                    <label for="email" style="white-space:nowrap;">Email*</label>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" id="email" class="form-control" placeholder="Email" ng-model="vm.companySetup.email" ng-pattern="^/[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/" required>
+                        </div>
+                    </div>
+                </div>-->
+                        </div>
+                        <div class="row" style="padding:10px;">
+                            <div class="col-md-4 col-sm-4">
+
+                                <div class="col-md-4  col-sm-4 form-control-label">
+
+                                    <label for="email" style="white-space:nowrap;">Vat Number</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" name="vatNumer" ng-pattern="/^\d+$/" id="email" class="form-control" placeholder="Vat Number" ng-model="vm.companySetup.vatRegistrationNo">
+                                              <span ng-show="vm.companySetupForm.vatNumer.$touched && vm.companySetupForm.vatNumer.$error.pattern" style="color:red;">Digits Only</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+
+                                <div class="col-md-4  col-sm-4 form-control-label">
+
+                                    <label for="email" style="white-space:nowrap;">Pan number</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" name="panNumber" ng-pattern="/^\d+$/" id="email" class="form-control" placeholder="Pan number" ng-model="vm.companySetup.panRegistrationNo">
+                                               <span ng-show="vm.companySetupForm.panNumber.$touched && vm.companySetupForm.panNumber.$error.pattern" style="color:red;">Digits Only</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="col-md-4  col-sm-4 form-control-label">
+                                    <label for="address" style="white-space:nowrap;">Address*</label>
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" name="address" id="address" class="form-control" placeholder="Address" ng-model="vm.companySetup.address" required>
+                                            <span ng-show="vm.companySetupForm.address.$touched && vm.companySetupForm.address.$error.required" style="color:red;">Required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="padding:10px;">
+                            <button type="button" class="btn btn-primary waves-effect pull-right" ng-click="vm.createCompany(vm.companySetup)" ng-disabled="vm.companySetupForm.$invalid">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+
+        <!--<div class="col-md-12">
+            <div class="col-md-6"><h2>Company Logo Setting</h2></div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3"></div>
+
+            <div class="col-md-12">
+                <div class="col-md-12" ng-hide="vm.logo.id>0">
+                    <button class="btn btn-primary" ng-click="vm.addCompanyLogo()">Add Company Logo</button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-3" ng-show="vm.logo.id>0">
+                    <img src="../../{{vm.logo.mediaUrl}}" class="img-responsive" /><br />
+                    <button type="button" class="btn btn-primary waves-effect" ng-click="vm.removeLogo(vm.logo)">
+                        <span class="fa fa-recycle"></span> Remove Image
+                    </button>
+                </div>
+            </div>
+
+        </div>-->
+
+
+        <br />
+        <br />
+        <div class="col-md-12"></div>
+    </div>
+</div>
+<div id="companyModal" class="modal fade" role="dialog" modal="showCompanyModal">
+    <div class="modal-dialog" style="margin: 0px; width: 100%; height: 100%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--<span class="pull-right">All fileds with * are required</span>-->
+                <h4 class="modal-title">Add Company Logo</h4>
+                <!--<div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" id="errorMessage"></div>-->
+            </div>
+            <form name="vm.companyLogoForm" novalidate>
+                <div class="modal-body">
+                    <section>
+                        <div class="container-fluid">
+                            <!-- Input Group -->
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+                                            <div class="row clearfix">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-2 form-control-label">
+                                                        <label for="companyName" style="white-space:nowrap;">Company Name*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" class="form-control date" placeholder="Company Name" ng-model="vm.companyLogo.companyName" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row col-md-12">
+                                                    <div>Select an image file: <input type="file" id="fileInput" class="form-control" /></div>
+                                                    <div class="col-lg-6">
+                                                        <div class="cropArea">
+                                                            <img-crop image="logoImage" area-type="rectangle" aspect-ratio="1" result-image="logoCroppedImage" result-image-size='[{w: 80,h: 80}]' result-array-image='logoArray'></img-crop>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-offset-2 col-lg-4">
+                                                        <h3>Preview Image:</h3>
+                                                        <div>
+                                                            <img id="img" ng-src="{{logoArray[0].dataURI}}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- #END# Input Group -->
+
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="vm.closeCompanyModal()">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="vm.updateCompanyLogo(vm.companyLogo,logoCroppedImage)" ng-disabled="vm.companyLogoForm.$invalid">Save</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+    <style>
+     .cropArea {
+        background: #E4E4E4;
+        overflow: hidden;
+        width: 495px;
+        height: 300px;
+    }
+    </style>
+</body>
+</html>

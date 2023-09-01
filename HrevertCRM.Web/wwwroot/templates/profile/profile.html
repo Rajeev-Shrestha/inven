@@ -1,0 +1,164 @@
+﻿
+    <div class="container-fluid">
+        <!-- Input Group -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="body" style="margin: 20px;">
+                        <div class="row clearfix">
+                            <div class="row clearfix">
+                                <h2 class="col-md-12">User's Profile</h2>
+                            </div>
+                            <div class="row clearfix" id="successMessage"></div>
+                            <form name="vm.profileForm" novalidate>
+
+                                <div class="row clearfix">
+                                    <div class="col-md-1 form-control-label">
+                                        <label for="firstName" style="white-space:nowrap">First Name*</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control required" placeholder="First Name" ng-model="vm.activeUser.firstName" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1 form-control-label">
+                                        <label for="middleName" style="white-space:nowrap">Middle Name</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control required" placeholder="Middle Name" ng-model="vm.activeUser.middleName">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1 form-control-label">
+                                        <label for="firstName" style="white-space:nowrap">Last Name*</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control" placeholder="Last Name" ng-model="vm.activeUser.lastName" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row clearfix">
+                                    <div class="col-md-1 form-control-label">
+                                        <label for="userName" style="white-space:nowrap">User Name*</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control date" placeholder="Username" ng-model="vm.activeUser.userName" required ng-disabled="vm.userName">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1 form-control-label">
+                                        <label for="gender">Gender*</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <select class="form-control show-tick date" ng-model="vm.activeUser.gender" ng-options="gender.id  as gender.name for gender in vm.gender" required>
+                                                    <option class="" style="display: none" value="">Select a gender</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1 form-control-label">
+                                        <label for="userType" style="white-space:nowrap;">User Type*</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <select class="form-control show-tick date" ng-model="vm.activeUser.userType" ng-options="userType.id as userType.value for userType in vm.userType" required>
+                                                    <option class="" style="display: none" value="">Select user type</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row clearfix">
+                                    <div class="col-md-1 form-control-label">
+                                        <label for="address" style="white-space:nowrap">Address*</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control date" placeholder="Addresses" ng-model="vm.activeUser.address" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1 form-control-label">
+                                        <label for="phoneNumber" style="white-space:nowrap">Phone Number</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control date" placeholder="Phone Number" ng-model="vm.activeUser.phone">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1 form-control-label">
+                                        <label for="email">Email*</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" class="form-control date" placeholder="Email" ng-model="vm.activeUser.email" required ng-disabled="vm.userEmail" ng-pattern="/^[a-z]+[a-z0-9._]+@[A-Za-z]+(\.[a-z.]{2,5})?$/">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row clearfix">
+                                    <div class="col-md-1 form-control-label">
+                                        <label for="password">Password*</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="password" class="form-control date" placeholder="Password" ng-model="vm.activeUser.password" ng-required="vm.passwordRequired === true">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 form-control-label">
+                                        <label for="confirmPassword" style="white-space:nowrap;">Confirm Password*</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="password" class="form-control date" placeholder="Confirm Password" ng-model="vm.activeUser.confirmPassword" ng-required="vm.confirmPasswordRequired === true">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row clearfix">
+                                    <div class="col-md-2 pull-right">
+                                        <button type="button" class="btn btn-primary" ng-disabled="vm.profileForm.$invalid" ng-click="vm.updateUser(vm.activeUser)">Update</button>
+                                    </div>
+                                   
+                                </div>
+
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

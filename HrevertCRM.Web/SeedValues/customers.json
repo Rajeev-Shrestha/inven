@@ -1,0 +1,60 @@
+[
+  //put security groups in same order for seeding correctly
+  {
+    "customerCode": "C-00000001", 
+    "firstName": "David",
+    "middleName": "Richard",
+    "lastName": "Hudson",
+    "email": "david@hrevert.com",
+    "Password": "p@77w0rd",
+    "companyName": "Sample Technologies",
+    "displayName": "David Hudson"
+  },
+  {
+    "customerCode": "C-00000002",
+    "firstName": "Ramesh",
+    "lastName": "Bhandari",
+    "email": "ramesh@hrevert.com",
+    "Password": "p@77w0rd",
+    "companyName": "Hrevert Technologies",
+    "displayName": "R Bhandari"
+  },
+  {
+    "customerCode": "C-00000003",
+    "firstName": "Suresh",
+    "lastName": "Bhandari",
+    "email": "suresh@hrevert.com",
+    "Password": "p@77w0rd",
+    "companyName": "Hrevert Technologies",
+    "displayName": "S Bhandari"
+  },
+  {
+    "customerCode": "C-00000004",
+    "firstName": "Sanjeeb",
+    "lastName": "Sapkota",
+    "email": "sanjeeb@hrevert.com",
+    "Password": "p@77w0rd",
+    "companyName": "Sample Technologies",
+    "displayName": "S Sapkota"
+  },
+  {
+    "customerCode": "C-00000005",
+    "firstName": "Kamlesh",
+    "middleName": "Kumar",
+    "lastName": "Thakur",
+    "email": "kamlesh@hrevert.com",
+    "Password": "p@77w0rd",
+    "companyName": "Sample Technologies",
+    "displayName": "K Thakur"
+  },
+  {
+    "customerCode": "C-00000006",
+    "firstName": "Arjun",
+    "lastName": "Paudel",
+    "email": "arjun@hrevert.com",
+    "Password": "p@77w0rd",
+    "companyName": "Hrevert Technologies",
+    "displayName": "Arjun P"
+  }
+
+]

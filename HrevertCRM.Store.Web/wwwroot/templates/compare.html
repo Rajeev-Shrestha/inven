@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>compare</title>
+</head>
+<body ng-cloak>
+    <div class="check-out">
+        <div class="container">
+            <div class="columns-container">
+                <div class="bs-example2" data-example-id="simple-responsive-table">
+                    <div class="table-responsive">
+                        <table class="table-heading simpleCart_shelfItem">
+                            <tr>
+                                <th class="table-grid">Item</th>
+                                <th>Prices</th>
+                                <th>Long Description</th>
+                                <th>Availability</th>
+                                <th></th>
+                            </tr>
+                            <tr class="cart-header" ng-repeat='compareList in vm.compareItemList'>
+
+                                <td class="ring-in">
+                                    <a href="single.html" class="at-in"><img src="{{vm.crmLocation + '/'}}{{compareList.mediumImageUrls[0]}}" class="img-responsive" alt="" style="width:120px; height:120px;"></a>
+                                    <div class="sed">
+                                        <h5><a href="/items/{{compareList.id}}" target="_self">{{compareList.name}}</a></h5>
+                                        <p>{{compareList.shortDescription}} </p>
+
+                                    </div>
+                                </td>
+                                <td>{{compareList.unitPrice}}</td>
+                                <td class="item_price">{{compareList.longDescription}}</td>
+                                <td class="item_price">
+                                    <span ng-show="compareList.quantityOnHand > 0">In stock ({{compareList.quantityOnHand}} items)</span><span ng-show="compareList.quantityOnHand <= 0">Out Of Stock</span>
+                                </td>
+                                <td class="item_price">
+                                    <a href="" class="hvr-skew-backward" ng-click="vm.addToCart(compareList)" ng-disabled="compareList.quantityOnHand <= 0"><i class="glyphicon glyphicon-shopping-cart icon"></i></a>
+                                    <a href="" class="hvr-skew-backward"><i class="glyphicon glyphicon-heart"></i></a>
+                                    <a href="" class="hvr-skew-backward" ng-click="vm.removeCompareItem(compareList, $index)"><i class="glyphicon glyphicon-remove"></i></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

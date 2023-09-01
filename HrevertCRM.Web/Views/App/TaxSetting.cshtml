@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "TaxSetting";
+    Layout = "_Layout";
+}
+@section Scripts{
+   
+<script src="~/js/taxsetting/app-taxSetting.js" asp-append-version="true"></script>
+<script src="~/js/taxsetting/taxSetting.controller.js" asp-append-version="true"></script>
+<script src="~/js/taxsetting/taxSetting.service.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("taxSetting"), ['app-taxSetting']);
+    </script>
+}
+@section css{
+}
+<div ng-non-bindable>
+    <div class="" id="taxSetting">
+        <ui-view></ui-view>
+    </div>
+</div>

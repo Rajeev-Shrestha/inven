@@ -1,0 +1,794 @@
+﻿[
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-01-DellInspiron_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-01-DellInspiron_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-01-DellInspiron_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-01-DellInspiron_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-01-DellInspiron_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-01-DellInspiron_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-01-DellInspiron_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-01-DellInspiron_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-01-DellInspiron_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-02-DellInspiron15_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-02-DellInspiron15_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-02-DellInspiron15_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-02-DellInspiron15_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-02-DellInspiron15_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-02-DellInspiron15_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-02-DellInspiron15_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-02-DellInspiron15_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-02-DellInspiron15_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-3-HPSpectre_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-3-HPSpectre_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-3-HPSpectre_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-3-HPSpectre_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-3-HPSpectre_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-3-HPSpectre_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-3-HPSpectre_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-3-HPSpectre_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-3-HPSpectre_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-4-HPEnvy_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-4-HPEnvy_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-4-HPEnvy_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-4-HPEnvy_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-4-HPEnvy_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-4-HPEnvy_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-4-HPEnvy_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-4-HPEnvy_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-4-HPEnvy_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-5-LenovoThinkpad_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-5-LenovoThinkpad_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-5-LenovoThinkpad_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-5-LenovoThinkpad_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-5-LenovoThinkpad_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-5-LenovoThinkpad_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-5-LenovoThinkpad_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-5-LenovoThinkpad_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-5-LenovoThinkpad_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-6-LenovoYoga_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-6-LenovoYoga_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-6-LenovoYoga_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-6-LenovoYoga_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-6-LenovoYoga_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-6-LenovoYoga_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-6-LenovoYoga_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-6-LenovoYoga_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-6-LenovoYoga_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-7-DynamicRTBike_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-7-DynamicRTBike_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-7-DynamicRTBike_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-7-DynamicRTBike_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-7-DynamicRTBike_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-7-DynamicRTBike_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-7-DynamicRTBike_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-7-DynamicRTBike_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-7-DynamicRTBike_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-8-HondaHornet_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-8-HondaHornet_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-8-HondaHornet_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-8-HondaHornet_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-8-HondaHornet_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-8-HondaHornet_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-8-HondaHornet_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-8-HondaHornet_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-8-HondaHornet_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-9-Hyosung_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-9-Hyosung_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-9-Hyosung_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-9-Hyosung_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-9-Hyosung_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-9-Hyosung_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-9-Hyosung_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-9-Hyosung_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-9-Hyosung_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-10-SamsungGalaxy_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-10-SamsungGalaxy_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-10-SamsungGalaxy_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-10-SamsungGalaxy_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-10-SamsungGalaxy_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-10-SamsungGalaxy_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-10-SamsungGalaxy_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-10-SamsungGalaxy_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-10-SamsungGalaxy_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-11-SamsungLed_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-11-SamsungLed_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-11-SamsungLed_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-11-SamsungLed_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-11-SamsungLed_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-11-SamsungLed_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-11-SamsungLed_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-11-SamsungLed_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-11-SamsungLed_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-12-SamsungiWatch_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-12-SamsungiWatch_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Small/product-12-SamsungiWatch_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 1
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-12-SamsungiWatch_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-12-SamsungiWatch_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Medium/product-12-SamsungiWatch_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 2
+  },
+
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-12-SamsungiWatch_1.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-12-SamsungiWatch_2.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  },
+  {
+    "mediaType": 1,
+    "mediaUrl": "companyMM/1/Large/product-12-SamsungiWatch_3.png",
+    "webActive": true,
+    "active": true,
+    "imageSize": 3
+  }
+
+]

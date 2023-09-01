@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@section Scripts {
+
+    <script src="~/js/index/app-index.js" asp-append-version="true"></script>
+    <script src="~/js/index/index.service.js" asp-append-version="true"></script>
+<script src="~/js/index/index.controller.js" asp-append-version="true"></script>
+@*<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.js"></script>*@
+    @*<script src="~/manual/angular-ui-swiper.min.js"></script>*@
+
+
+@*<link href="~/manual/angular-ui-swiper.css" rel="stylesheet" />*@
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("index"), ['app-index']);
+</script>
+    
+}
+
+@section css{
+
+    @*<link href="~/css/bootstrap-dialog.css" rel="stylesheet" />*@
+
+@*<link rel="stylesheet" href="~/manual/multilevelCarousel/owl.theme.min.css" />
+<link rel="stylesheet" href="~/manual/multilevelCarousel/owl.transitions.min.css" />*@
+}
+<div ng-non-bindable>
+    <div class="" id="index">
+        <ui-view></ui-view>
+    </div>
+</div>

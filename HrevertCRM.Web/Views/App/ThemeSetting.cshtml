@@ -1,0 +1,29 @@
+﻿@section css{
+<link href="~/manual/themeSetting/InternalCss/index-style.css" rel="stylesheet" />
+   <link href="https://rawgit.com/buberdds/angular-bootstrap-colorpicker/master/css/colorpicker.css" rel="stylesheet" />
+}
+
+
+@{
+    ViewBag.Title = "Theme Setting";
+    Layout = "_Layout";
+}
+@section Scripts{
+<script src="~/js/themeSetting/app-themeSetting.js" asp-append-version="true"></script>
+<script src="~/js/themeSetting/themeSetting.Controller.js" asp-append-version="true"></script>
+    <script src="~/js/themeSetting/themeSetting.Service.js" asp-append-version="true"></script>
+    
+<script src="~/lib/ng-cropper/dist/ngCropper.all.js"></script>
+<link href="~/lib/ng-cropper/dist/ngCropper.all.css" rel="stylesheet" />
+<script src="~/manual/base64.js"></script>
+<script src="https://rawgit.com/buberdds/angular-bootstrap-colorpicker/master/js/bootstrap-colorpicker-module.min.js"></script>
+
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("themeSetting"), ['app-themeSetting']);
+</script>
+}
+<div ng-non-bindable>
+    <div class="" id="themeSetting">
+        <ui-view></ui-view>
+    </div>
+</div>  

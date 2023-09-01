@@ -1,0 +1,76 @@
+﻿[
+  {
+    "termCode": "N07",
+    "termName": "Net 07",
+    "webActive": true,
+    "dueType": 3,
+    "dueDateType": 1,
+    "dueDateValue": 7,
+    "discountType": 1,
+    "discountValue": 5.45,
+    "discountDays": 5,
+    "termType": 1
+  },
+  {
+    "termCode": "N15",
+    "termName": "Net 15",
+    "webActive": true,
+    "dueType": 3,
+    "dueDateType": 1,
+    "dueDateValue": 15,
+    "discountType": 1,
+    "discountValue": 5.45,
+    "discountDays": 5,
+    "termType": 1
+  },
+  {
+    "termCode": "N30",
+    "termName": "Net 30",
+    "webActive": true,
+    "dueType": 3,
+    "dueDateType": 1,
+    "dueDateValue": 30,
+    "discountType": 1,
+    "discountValue": 5.45,
+    "discountDays": 5,
+    "termType": 1
+  },
+  {
+    "termCode": "N45",
+    "termName": "Net 45",
+    "webActive": true,
+    "dueType": 3,
+    "dueDateType": 1,
+    "dueDateValue": 45,
+    "discountType": 1,
+    "discountValue": 5.45,
+    "discountDays": 5,
+    "termType": 1
+  },
+  {
+    "termCode": "N90",
+    "termName": "Net 90",
+    "webActive": true,
+    "dueType": 3,
+    "dueDateType": 1,
+    "dueDateValue": 90,
+    "discountType": 1,
+    "discountValue": 5.45,
+    "discountDays": 5,
+    "termType": 1
+  },
+  {
+    "termCode": "CC",
+    "termName": "Credit Cards",
+    "webActive": true,
+    "dueType": 1,
+    "termType": 3
+  },
+  {
+    "termCode": "COD",
+    "termName": "Cash On Delivery",
+    "webActive": true,
+    "dueType": 2,
+    "termType": 2
+  }
+]

@@ -1,0 +1,981 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>myaccount</title>
+</head>
+<body>
+    <div class="containor" style="margin:15px;">
+
+        <div class="row">
+            <div class="col-md-3" style="margin-left: 20px;">
+
+                <div class="borderBox">
+                    <span class="center"><h3>My Account</h3></span>
+                    <img src="../images/no-user-image.png" class="img-responsive accountImageStyle" />
+
+                    <span class="center"><h3 style="margin-top:15px;">{{vm.userDetails.billingAddress.firstName}}&nbsp;{{vm.userDetails.billingAddress.lastName}}</h3></span>
+                    <span class="center"><h3>{{vm.userDetails.displayName}}</h3></span>
+                </div>
+                <div class="orderList">
+                    <ul>
+                        <li ng-repeat="option in vm.optionList" ng-click="vm.listClick(option)">{{option.name}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div id="accountDashboard" ng-show="vm.showItem === 1">
+                    <h2>Account Dashboard</h2>
+                    <div class="col-md-6 blueBackground">
+                        <h3>Hello, {{vm.userDetails.billingAddress.firstName}}</h3>
+                        <p>From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</p>
+                    </div>
+                    <div class="col-md-6 greenBackGround">
+                        <h3>Recent Activities</h3>
+                        <p>Your cart contains : </p>
+                        <p>Your gift card : </p>
+                    </div>
+                    <br />
+                    <div class="col-md-12">
+                        <h2>My Orders</h2>
+                        <table class="table table-bordered table-wishlist">
+                            <thead>
+                                <tr>
+                                    <th><b>Order ID</b></th>
+                                    <th><b>Invoice Number</b></th>
+                                    <th><b>Order Status</b></th>
+                                    <th><b>Ordered Date</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="order in vm.myOrder">
+                                    <td>{{order.id}}</td>
+                                    <td>{{order.purchaseOrderNumber}}</td>
+                                    <td>
+                                        <div ng-if="order.status==1">Sales Quote</div>
+                                        <div ng-if="order.status==2">Sales Order</div>
+                                        <div ng-if="order.status==3">Sales Invoice</div>
+                                        <div ng-if="order.status==4">Credit Quote</div>
+                                        <div ng-if="order.status==5">Credit Order</div>
+                                        <div ng-if="order.status==6">Credit Memo</div>
+                                    </td>
+                                    <td>{{order.invoicedDate | date}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="addressBook" ng-show="vm.showItem === 2">
+                    <div class="col-md-12">
+                        <span><h2>Address Book</h2></span>
+                        <div class="col-md-12">                           
+                            <br />
+                            <div class="col-md-12" style="margin-bottom:10px;">
+                                <button class="btn btn-primary" ng-click="vm.editUser(vm.userDetails)" data-toggle="modal" data-target="#addressBookModal">Edit</button>
+                               
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-6" style="white-space:nowrap;">
+                                    Full Name : <b>{{vm.userDetails.billingAddress.firstName}}&nbsp;{{vm.userDetails.billingAddress.lastName}}</b>
+                                </div>
+                                <div class="col-md-6" style="white-space:nowrap;">
+                                    Email: <b>{{vm.userDetails.billingAddress.email}}</b>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-6"  style="white-space:nowrap;">
+                                    Telephone : <b>{{vm.userDetails.billingAddress.telephone}}</b>
+                                </div>
+
+                                <div class="col-md-6"  style="white-space:nowrap;">
+                                    Mobile No: <b>{{vm.userDetails.billingAddress.mobilePhone}}</b>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-6">
+                                    Country: <b>{{vm.userDetails.billingAddress.countryId}}</b>
+                                </div>
+                                <div class="col-md-6">
+                                    State: <b>{{vm.userDetails.billingAddress.state}}</b>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-6">
+                                    City: <b>{{vm.userDetails.billingAddress.city}}</b>
+                                </div>
+                                <div class="col-md-6">
+                                    Opening Balance: <b>{{vm.userDetails.openingBalance}}</b>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12"></div>
+
+                            <div class="col-md-12">
+                                <h2>Shipping Address</h2>
+                                <div class="row" style="margin-top:10px;">
+                                    <button class="btn btn-primary" ng-click="vm.addUserShippingAddress(vm.userDetails)" data-toggle="modal" data-target="#userDetailAddressModal"><i class="glyphicon glyphicon-plus"></i> Add</button>
+
+
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-wishlist" ng-show="vm.userDetails.addresses.length>0">
+                                        <thead>
+                                            <tr>
+                                                <th><b>Name</b></th>
+                                                <th><b>Email</b></th>
+                                                <th><b>Country</b></th>
+                                                <th><b>State</b></th>
+                                                <th><b>City</b></th>
+                                                <th><b>Action</b></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="address in vm.userDetails.addresses">
+                                                <td>{{address.firstName}}&nbsp;{{address.lastName}}</td>
+                                                <td>{{address.email}}</td>
+                                                <td>{{address.countryId}}</td>
+                                                <td>{{address.state}}</td>
+                                                <td>{{address.city}}</td>
+                                                <td>
+                                                    <a href="#" ng-click="vm.editUserShippingAddress(vm.userDetails,address)" data-toggle="modal" data-target="#userDetailAddressModal"><i class="fa fa-edit"></i></a>|
+                                                    <a href="#" ng-click="vm.removeRow(vm.userDetails,address,$index)"><i class="fa fa-close"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                
+                                <br />
+                                <div class="row" ng-show="vm.userDetails.addresses.length==0">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary" ng-click="vm.addUserShippingAddress(vm.userDetails)" data-toggle="modal" data-target="#userDetailAddressModal">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                   
+
+                    </div>
+                </div>
+                <div id="myOrder" ng-show="vm.showItem === 3">
+                    <div class="col-md-12">
+                        <h2>My Orders</h2>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-wishlist">
+                                <thead>
+                                    <tr>
+                                        <th><b>Order ID</b></th>
+                                        <th><b>Invoice Number</b></th>
+                                        <th><b>Order Status</b></th>
+                                        <th><b>Ordered Date</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="order in vm.myOrder">
+                                        <td>{{order.id}}</td>
+                                        <td>{{order.purchaseOrderNumber}}</td>
+                                        <td>
+                                            <div ng-if="order.status==1">Sales Quote</div>
+                                            <div ng-if="order.status==2">Sales Order</div>
+                                            <div ng-if="order.status==3">Sales Invoice</div>
+                                            <div ng-if="order.status==4">Credit Quote</div>
+                                            <div ng-if="order.status==5">Credit Order</div>
+                                            <div ng-if="order.status==6">Credit Memo</div>
+                                        </td>
+                                        <td>{{order.invoicedDate | date}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div id="myReturn" ng-show="vm.showItem === 4">
+                    <div class="col-md-12">
+                        <h2>My Return</h2>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-wishlist">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Invoice Number</th>
+                                        <th>Order Status</th>
+                                        <th>Ordered Date</th>
+                                        <th>action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="order in vm.orders">
+                                        <td>{{order.id}}</td>
+                                        <td>{{order.invoiceNumber}}</td>
+                                        <td>{{order.status}}</td>
+                                        <td>{{order.date}}</td>
+                                        <td class="text-center"><a href="#"><i class="fa fa-close"></i></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div id="history" ng-show="vm.showItem === 5">
+                    <div class="col-md-12">
+                        <h2>View History</h2>
+                        <br />
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#shippedSalesOrder">Shipped Sales Orders</a></li>
+                            <li><a data-toggle="tab" href="#pendingSalesOrder">Pending Sales Order</a></li>
+                            <li><a data-toggle="tab" href="#partiallyShipped">Partially Shipped Order</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div id="shippedSalesOrder" class="tab-pane fade in active">
+                                <br />
+                                <h3>Shipped Sales Order</h3>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-wishlist">
+                                                <thead>
+                                                    <tr>
+                                                        <th><b>Invoiced Date</b></th>
+                                                        <th><b>Paid Amount</b></th>
+                                                        <th><b>Due Date</b></th>
+                                                        <th><b>Total Item</b></th>
+                                                        <th><b>Total Ammount</b></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="order in vm.recentHistory" ng-if="order.shippingStatus === 1" ng-click="vm.viewOrderHistoryById(order.id, $event)">
+                                                        <td>{{order.invoicedDate | date}}</td>
+                                                        <td>{{order.paidAmount}}</td>
+                                                        <td>{{order.dueDate | date}}</td>
+                                                        <td>{{order.salesOrderLines.length}}</td>
+                                                        <td>{{order.totalAmount}}</td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="pendingSalesOrder" class="tab-pane fade">
+                                <br />
+                                <h3>Pending Sales Order</h3>
+                                <br />
+                               <div class="row col-md-12">
+                                   <div class="table-responsive">
+                                       <table class="table table-bordered table-wishlist">
+                                           <thead>
+                                               <tr>
+                                                   <th><b>Invoiced Date</b></th>
+                                                   <th><b>Paid Amount</b></th>
+                                                   <th><b>Due Date</b></th>
+                                                   <th><b>Total Item</b></th>
+                                                   <th><b>Total Ammount</b></th>
+                                               </tr>
+                                           </thead>
+                                           <tbody>
+                                               <tr ng-repeat="order in vm.recentHistory" ng-if="order.shippingStatus === 3" ng-click="vm.viewOrderHistoryById(order.id, $event)">
+                                                   <td>{{order.invoicedDate | date}}</td>
+                                                   <td>{{order.paidAmount}}</td>
+                                                   <td>{{order.dueDate | date}}</td>
+                                                   <td>{{order.salesOrderLines.length}}</td>
+                                                   <td>{{order.totalAmount}}</td>
+                                               </tr>
+                                           </tbody>
+                                       </table>
+                                   </div>
+                                   
+                               </div>
+                            </div>
+                            <div id="partiallyShipped" class="tab-pane fade">
+                                <br />
+                                <h3>Partially Shipped Order</h3>
+                                <br />
+                                <div class="row col-md-12">
+                                    <table class="table table-bordered table-wishlist">
+                                        <thead>
+                                            <tr>
+                                                <th><b>Invoiced Date</b></th>
+                                                <th><b>Paid Amount</b></th>
+                                                <th><b>Due Date</b></th>
+                                                <th><b>Total Item</b></th>
+                                                <th><b>Total Ammount</b></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="order in vm.recentHistory" ng-if="order.shippingStatus === 2" ng-click="vm.viewOrderHistoryById(order.id, $event)">
+                                                <td>{{order.invoicedDate | date}}</td>
+                                                <td>{{order.paidAmount}}</td>
+                                                <td>{{order.dueDate | date}}</td>
+                                                <td>{{order.salesOrderLines.length}}</td>
+                                                <td>{{order.totalAmount}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="giftCard" ng-show="vm.showItem === 6">
+                    giftCard
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <style>
+        md-toolbar.md-table-toolbar.alternate {
+            color: #1e88e5;
+            background-color: #e3f2fd;
+        }
+
+            md-toolbar.md-table-toolbar.alternate .md-toolbar-tools {
+                font-size: 16px;
+            }
+
+        md-card:first-child {
+            padding: 8px 8px 8px 24px;
+        }
+
+        .checkboxes > md-checkbox {
+            margin: 0;
+            padding: 16px;
+            min-width: 300px;
+            flex: 0 0 auto;
+        }
+
+        md-dialog.fullscreen-dialog {
+            max-width: 100%;
+            max-height: 100%;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+        }
+
+        .checkboxMd {
+            background-color: none;
+        }
+
+        .blueBackground {
+            background-color: #21afb0;
+            border: 10px solid;
+            border-color: white;
+            color: white;
+        }
+
+        .greenBackGround {
+            background-color: #344955;
+            border: 10px solid;
+            border-color: white;
+            color: white;
+        }
+
+        .borderBox {
+            border: 2px solid;
+            border-color: azure;
+            border-radius: 15px;
+        }
+
+        .listStyle {
+            height: 20px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .orderList {
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+        }
+
+            .orderList li {
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                list-style-type: none;
+            }
+
+                .orderList li:hover {
+                    height: 50px;
+                    line-height: 50px;
+                    text-align: center;
+                    border: 2px dashed #f69c55;
+                }
+
+        .accountImageStyle {
+            height: auto;
+            width: 40%;
+            display: block;
+            margin: auto;
+        }
+    </style>
+
+
+
+</body>
+
+</html>
+
+
+<div id="addressBookModal" class="modal fade" role="dialog" modal="showModal">
+    <div class="modal-dialog" style="margin: 0px; width: 100%; height: 100%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="pull-right">All fileds with * are required</span>
+                <h4 class="modal-title">Edit Profile</h4>
+                <div class="row clearfix" id="errorMessage"></div>
+            </div>
+            <form name="vm.profileForm" novalidate>
+                <div class="modal-body">
+                    <section>
+                        <div class="container-fluid">
+                            <!-- Input Group -->
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+                                            <div class="row clearfix">
+
+                                                <div class="row clearfix">
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="customerCode" style="white-space:nowrap;">Customer Code</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text"name="customerCode" class="input form-control" ng-model="vm.editingItem.customerCode" placeholder="XXXXXX" maxlength="{{vm.customerCodeLength}}" ng-disabled="vm.customerCode" ng-change="vm.validateCustomerCode(vm.editingItem.customerCode)" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="title">Title*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <select class="input form-control" name="title" ng-model="vm.editingItem.billingAddress.title" ng-options="title.id as title.value for title in vm.titles" required>
+                                                                    <option class="" value="">Select Title</option>
+                                                                </select>
+                                                                <span ng-show="vm.profileForm.title.$touched && vm.profileForm.title.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="firstName">First Name*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" name="firstName" class="input form-control" placeholder="First Name" ng-model="vm.editingItem.billingAddress.firstName" ng-change="vm.nameChange(vm.editingItem.billingAddress.firstName,vm.editingItem.billingAddress.lastName)" required />
+                                                                <span ng-show="vm.profileForm.firstName.$touched && vm.profileForm.firstName.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="lastName">Last Name*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" name="lastName" class="input form-control" placeholder="Last Name" ng-model="vm.editingItem.billingAddress.lastName" ng-change="vm.nameChange(vm.editingItem.billingAddress.firstName,vm.editingItem.billingAddress.lastName)" required />
+                                                                <span ng-show="vm.profileForm.lastName.$touched && vm.profileForm.lastName.$error.required" style="color:red;">Required</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                           
+                                            <div class="row clearfix">
+                                                   
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="displayName" style="white-space:nowrap;">Display Name</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" class="input form-control" ng-model="vm.editingItem.displayName" placeholder="Display Name" required ng-disabled="vm.customerDisplayName" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="suffix">Suffix*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <select class="input form-control" name="suffix" ng-model="vm.editingItem.billingAddress.suffix" ng-options="suffix.id as suffix.value for suffix in vm.suffixes" required>
+                                                                <option class="" value="">Select Suffix</option>
+                                                            </select>
+                                                            <span ng-show="vm.profileForm.suffix.$touched && vm.profileForm.suffix.$error.required" style="color:red;">Required</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="zone">Zone*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <select class="input form-control" name="zone" ng-model="vm.editingItem.billingAddress.deliveryZoneId" ng-options="zone.id as zone.zoneName for zone in vm.zone" required>
+                                                                <option class="" value="">Select Zone</option>
+                                                            </select>
+                                                            <span ng-show="vm.profileForm.zone.$touched && vm.profileForm.zone.$error.required" style="color:red;">Required</span>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                    <div class="col-md-1 form-control-label">
+                                                    <label for="email">Email*</label>
+                                                </div>
+                                                    <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <input type="email" name="email" class="input form-control" placeholder="Email" ng-model="vm.editingItem.billingAddress.email" ng-disabled="vm.customerEmail" ng-pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/" required />
+                                                            <span ng-show="vm.profileForm.email.$touched && vm.profileForm.email.$error.required" style="color:red;">Required</span>
+                                                            <span ng-show="vm.profileForm.email.$touched && vm.profileForm.email.$error.pattern" style="color:red;">Invalid Emailo</span>                                                            
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                                <div class="row clearfix">
+                                   
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="customerlevel" style="white-space:nowrap;">Customer Level*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <select class="input form-control" name="customerLevel" ng-model="vm.editingItem.customerLevelId" ng-options="level.id as level.name for level in vm.customerLevel" required>
+                                                                    <option class="" value="">Select Customer Level</option>
+                                                                </select>
+                                                                <span ng-show="vm.profileForm.customerLevel.$touched && vm.profileForm.customerLevel.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="mobilePhone" style="white-space:nowrap;">Mobile Phone*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" name="mobilePhone" placeholder="Mobile Number" class="input form-control" ng-model="vm.editingItem.billingAddress.mobilePhone" required>
+                                                                <span ng-show="vm.profileForm.mobilePhone.$touched && vm.profileForm.mobilePhone.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="zipCode" style="white-space:nowrap;">Zip Code*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" name="zipCode" placeholder="Zip Code" class="input form-control" ng-model="vm.editingItem.billingAddress.zipCode" required>
+                                                                <span ng-show="vm.profileForm.zipCode.$touched && vm.profileForm.zipCode.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="city" style="white-space:nowrap;">City*</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" name="city" placeholder="City" class="input form-control" ng-model="vm.editingItem.billingAddress.city" required>
+                                                                <span ng-show="vm.profileForm.city.$touched && vm.profileForm.city.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                  
+
+                                                </div>
+
+                                                <div class="row clearfix">
+                                                    
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="addressLine1" style="white-space:nowrap;">Address Line-1</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" placeholder="Address Line-1" class="input form-control" ng-model="vm.editingItem.billingAddress.addressLine1">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="state" style="white-space:nowrap;">State</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" placeholder="State" class="input form-control" ng-model="vm.editingItem.billingAddress.state">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="country" style="white-space:nowrap;">Country</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <select class="input form-control" name="country" ng-model="vm.editingItem.billingAddress.countryId" ng-options="country.id as country.name for country in vm.countries" required>
+                                                                    <option class="" value="">Select Country</option>
+                                                                </select>
+                                                                <span ng-show="vm.profileForm.country.$touched && vm.profileForm.country.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row clearfix">
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="password" style="white-space:nowrap;">Password*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="password" name="password" placeholder="Password" class="input form-control" ng-pattern="vm" ng-model="vm.editingItem.password" required>
+                                                                <span ng-show="vm.profileForm.password.$touched && vm.profileForm.password.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="confirmPassword" style="white-space:nowrap;">Confirm Password*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="password" name="confirmPassword" placeholder="Confirm Password" class="input form-control" ng-pattern="vm.editingItem.password" ng-model="vm.editingItem.confirmPassword"  required>
+                                                                <span ng-show="vm.profileForm.confirmPassword.$touched && vm.profileForm.confirmPassword.$error.required" style="color:red;">Required</span>
+                                                                <span ng-show="vm.profileForm.confirmPassword.$touched && vm.profileForm.confirmPassword.$error.pattern" style="color:red;">Password Mismatch</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- #END# Input Group -->
+
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="vm.updateCustomer(vm.editingItem)" ng-disabled="vm.profileForm.$invalid">Save</button>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div id="userDetailAddressModal" class="modal fade" role="dialog" modal="userDetailAddressShowModal">
+    <div class="modal-dialog" style="margin: 0px; width: 100%; height: 100%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="pull-right">All fileds with * are required</span>
+                <h4 class="modal-title">Add/Edit Shipping Address </h4>
+                <div class="row clearfix" id="errorMessageForAddress"></div>
+            </div>
+            <form name="vm.shippingAddressForm" novalidate>
+                <div class="modal-body">
+                    <section>
+                        <div class="container-fluid">
+                            <!-- Input Group -->
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+                                            <div class="row clearfix">
+
+                                                <div class="row clearfix">
+
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="title">Title*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <select class="input form-control" name="title" ng-model="vm.newAddress.title" ng-options="title.id as title.value for title in vm.titles" required>
+                                                                    <option class="" value="">Select Title</option>
+                                                                </select>
+                                                                <span ng-show="vm.shippingAddressForm.title.$touched && vm.shippingAddressForm.title.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="firstName" style="white-space:nowrap;">First Name*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" name="firstName" class="input form-control date" placeholder="First Name" ng-model="vm.newAddress.firstName" required>
+                                                                <span ng-show="vm.shippingAddressForm.firstName.$touched && vm.shippingAddressForm.firstName.$error.required" style="color:red;">Required</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="lastName" style="white-space:nowrap;">Last Name*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" name="lastName" class="input form-control date" placeholder="Last Name" ng-model="vm.newAddress.lastName" required>
+                                                                <span ng-show="vm.shippingAddressForm.lastName.$touched && vm.shippingAddressForm.lastName.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row clearfix">
+                                                 
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="suffix">Suffix*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <select class="input form-control" name="suffix" ng-model="vm.newAddress.suffix" ng-options="suffix.id as suffix.value for suffix in vm.suffixes" required>
+                                                                    <option class="" value="">Select Suffix</option>
+                                                                </select>
+                                                                <span ng-show="vm.shippingAddressForm.suffix.$touched && vm.shippingAddressForm.suffix.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="mobileNumber" style="white-space:nowrap;">Mobile Number*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" name="mobileNumber" class="input form-control date" placeholder="Mobile Number" ng-model="vm.newAddress.mobilePhone" required>
+                                                                <span ng-show="vm.shippingAddressForm.mobileNumber.$touched && vm.shippingAddressForm.mobileNumber.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                   
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="email" style="white-space:nowrap;">Email*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" name="email" class="input form-control date" placeholder="Email address" ng-disabled="vm.newAddressEmail" ng-model="vm.newAddress.email" ng-pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/" required>
+                                                                <span ng-show="vm.shippingAddressForm.email.$touched && vm.shippingAddressForm.email.$error.required" style="color:red;">Required</span>
+                                                                <span ng-show="vm.shippingAddressForm.email.$touched && vm.shippingAddressForm.email.$error.pattern" style="color:red;">Invalid Email</span>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                 
+                                                </div>
+
+                                                <div class="row clearfix">
+                                                   
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="telephone" style="white-space:nowrap;">Zip Code*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" name="zipCode" class="input form-control date" placeholder="Zip code" ng-model="vm.newAddress.zipCode" required>
+                                                                <span ng-show="vm.shippingAddressForm.zipCode.$touched && vm.shippingAddressForm.zipCode.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="lastName" style="white-space:nowrap;">Addresss Line 1*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" name="addressLine1" class="input form-control date" placeholder="Address line 1" ng-model="vm.newAddress.addressLine1" required>
+                                                                <span ng-show="vm.shippingAddressForm.addressLine1.$touched && vm.shippingAddressForm.addressLine1.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="addressType" style="white-space:nowrap;">Address Type*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <select class="input form-control show-tick date" name="addressType"
+                                                                        ng-model="vm.newAddress.addressType" ng-options="add.id as add.value for add in vm.allAddressType" required>
+                                                                    <option class="" style="display: none" value="">Select Address Type</option>
+                                                                </select>
+                                                                <span ng-show="vm.shippingAddressForm.addressType.$touched && vm.shippingAddressForm.addressType.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row clearfix">
+                                                    <!--<div class="col-md-1 form-control-label">
+                                                        <label for="addressLine2" style="white-space:nowrap;">Address Line 2</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" class="form-control date" placeholder="Address line 2" ng-model="vm.newAddress.addressLine2">
+                                                            </div>
+                                                        </div>
+                                                    </div>-->
+
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="zone">Zone*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <select class="input form-control" name="zone" ng-model="vm.newAddress.deliveryZoneId" ng-options="zone.id as zone.zoneName for zone in vm.zone" required>
+                                                                    <option class="" value="">Select Zone</option>
+                                                                </select>
+                                                                <span ng-show="vm.shippingAddressForm.zone.$touched && vm.shippingAddressForm.zone.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="city" style="white-space:nowrap;">City*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" name="city" class="input form-control date" placeholder="City" ng-model="vm.newAddress.city" required>
+                                                                <span ng-show="vm.shippingAddressForm.city.$touched && vm.shippingAddressForm.city.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="state" style="white-space:nowrap;">State*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" name="state" class="input form-control date" placeholder="State" ng-model="vm.newAddress.state" required>
+                                                                <span ng-show="vm.shippingAddressForm.state.$touched && vm.shippingAddressForm.state.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row clearfix">
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="country" style="white-space:nowrap;">Country*</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <select class="input form-control" name="country" ng-model="vm.newAddress.countryId" ng-options="country.id as country.name for country in vm.countries" required>
+                                                                    <option class="" value="">Select Country</option>
+                                                                </select>
+                                                                <span ng-show="vm.shippingAddressForm.country.$touched && vm.shippingAddressForm.country.$error.required" style="color:red;">Required</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                   
+
+                                                    <div class="col-md-4">
+                                                        <div class="demo-checkbox">
+                                                            <input type="checkbox" id="basic_checkbox_6" ng-model="vm.newAddress.isDefault" />
+                                                            <label for="basic_checkbox_6">Is Default</label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- #END# Input Group -->
+
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="vm.updateAddress(vm.newAddress)" ng-disabled="vm.shippingAddressForm.$invalid">Save</button>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,340 @@
+﻿<!--<div class="multi-sortable" sv-root>
+
+    <div class="col-md-6 sortable-container" sv-part="vm.stages">
+
+        <button class="col-md-12" ng-repeat="stage in vm.stages" sv-element >{{stage.stageName}}</button>
+
+        </div>
+    <div class="col-md-6 sortable-container" sv-part="vm.salesOpportunities">
+
+        <button class="col-md-12" ng-repeat="sale in vm.salesOpportunities" sv-element>{{sale.customerName}}
+        </button>
+    </div>
+</div>-->
+
+<style>
+    .hrevertcrm-salesOpportunity-stage {
+        background: #e7ebf1;
+    }
+
+        .hrevertcrm-salesOpportunity-stage h4 {
+            color: #1caf9a;
+        }
+        .container-outer {overflow-x: auto;  width: 1000px; height: 210px; white-space: nowrap; }
+.container-inner { width:10000px; }
+        
+</style>
+<div class="container-outer">
+    <div class="container-inner">
+        <div class="hrevertcrm-salesOpportunity">
+            <div class="row">
+                <div class="hrevertcrm-salesopportunitytitle">
+                    <h1>Sales Opportunity</h1>
+                </div>
+                <div>
+                    <div class="stage-wrapper" sv-root>
+                        <div class="col-md-2 sortable-container" style="width:250px;" ng-repeat="stage in vm.stages">
+                            <div class="hrevertcrm-salesOpportunity-stage">
+                                <h4>{{stage.stageName}}</h4>
+                                <div>
+                                    <div class="opportunity-data sortable-container" sv-part="vm.salesOpportunities">
+                                        <div class="card" ng-if="stage.id === sale.stageId" ng-repeat="sale in vm.salesOpportunities" sv-element data-toggle="modal" data-target="#myModal" style="color:black; font-size:12px;">
+                                            <div ng-show="sale.active == true"><button class="pull-right" ng-click="vm.deleteOpportunity(sale)" title="Activate"><span class="glyphicon glyphicon-remove" title="Deactivate"></span></button></div>
+                                            <div ng-show="sale.active == false"><button class="pull-right" ng-click="vm.activateOpportunity(sale)" title="Activate"><span class="glyphicon glyphicon-ok" title="Activate"></span></button></div>
+                                            <div style="display:none">{{sale.id}}</div>
+                                            <div class="card-title" ng-if="sale.priority == 3" style="background-color:red; color:white">Follow Up</div>
+                                            <div class="card-title" ng-if="sale.priority == 0" style="background-color:orange; color:white">High</div>
+                                            <div class="card-title" ng-if="sale.priority == 2" style="background-color:yellow; color:white">Normal</div>
+                                            <div class="card-title" ng-if="sale.priority == 1" style="background-color:green; color:white">Low</div>
+                                            <div class="card-header">{{sale.customerName}}</div>
+                                            <div class="card-header">{{sale.businessValue}}</div>
+                                            <div class="card-header">{{sale.salesRepresentativeName}}</div>
+                                            <div class="card-header">
+                                                <b ng-if="sale.gradeId == 1">Grading&nbsp;<span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty "></span><span class="glyphicon glyphicon-star-empty "></span><span class="glyphicon glyphicon-star-empty "></span><span class="glyphicon glyphicon-star-empty "></span></b>
+                                                <b ng-if="sale.gradeId == 2">Grading&nbsp;<span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty "></span><span class="glyphicon glyphicon-star-empty "></span><span class="glyphicon glyphicon-star-empty "></span></b>
+                                                <b ng-if="sale.gradeId == 3">Grading&nbsp;<span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty "></span><span class="glyphicon glyphicon-star-empty "></span></b>
+                                                <b ng-if="sale.gradeId == 4">Grading&nbsp;<span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty "></span></b>
+                                                <b ng-if="sale.gradeId == 5">Grading&nbsp;<span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span></b>
+                                            </div>
+                                            <div ng-show="sale.active == true"><button class="pull-right" ng-click="vm.showSalesOpportunity(sale)" title="Edit"><span class="glyphicon glyphicon-pencil" title="Edit"></span></button></div>
+                                        </div>
+                                        <hr style="background-color: #f2f2f1;height: 5px;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+       </div>
+    </div>
+
+
+
+
+    <div class="container-fluid">
+
+        <div class="row" style="margin-bottom:10px; padding:10px; margin-right:10px; margin-left:10px;">
+            <div class="col-md-12">
+                <div class="col-md-2 glyphicon glyphicon-user" style="font-size:45px; margin-top:15px;"></div>
+                <div class="col-md-10"> <h2 style="color:black; ">Sales Opportunity</h2></div>
+            </div>
+        </div>
+        <div>
+            <input type="checkbox" class="pull-right" style="margin-right:20px;" ng-model="vm.check" ng-click="vm.checkInActivateCard(vm.check)" value="Include Inactives" />
+        </div>
+
+        <div ui-sortable ng-model="vm.stages">
+            <div class="card multi-sortable" sv-root sv-on-sort="vm.checkDirty($item)">
+
+                <div class="table-responsive sortable-container" sv-part="vm.salesOpportunitites" ng-repeat="stage in vm.stages">
+                    <table class="table" style="width:auto; height:auto;">
+                        <thead>
+                            <tr>
+                                <th>{{stage.stageName}}<button type="button" class="btn btn-primary btn-sm pull-left btn-add" data-toggle="modal" data-target="#myModal" ng-click="vm.loadAllData(stage)"><span class="glyphicon glyphicon-plus pull-right" title="Add"></span> </button>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td ng-if="stage.id === sale.stageId" ng-repeat="sale in vm.salesOpportunities" style="padding:5px;">
+                                    <div class="card" style="color:black; border:1px solid #9a5959; width:200px; font-size:12px;">
+                                        <div ng-show="sale.active == true"><button class="pull-right" ng-click="vm.deleteOpportunityCard(sale)" title="Activate"><span class="glyphicon glyphicon-remove" title="Deactivate"></span></button></div>
+                                        <div ng-show="sale.active == false"><button class="pull-right" ng-click="vm.activateOpportunity(sale)" title="Activate"><span class="glyphicon glyphicon-ok" title="Activate"></span></button></div>
+                                        <div style="display:none">{{sale.id}}</div>
+                                        <div class="card-title" ng-if="sale.priority == 3" style="background-color:red; color:white">Follow Up</div>
+                                        <div class="card-title" ng-if="sale.priority == 0" style="background-color:orange; color:white">High</div>
+                                        <div class="card-title" ng-if="sale.priority == 2" style="background-color:yellow; color:white">Normal</div>
+                                        <div class="card-title" ng-if="sale.priority == 1" style="background-color:green; color:white">Low</div>
+                                        <div class="card-header">{{sale.customerName}}</div>
+                                        <div class="card-header">{{sale.businessValue}}</div>
+                                        <div class="card-header">{{sale.salesRepresentativeName}}</div>
+                                        <div class="card-header">
+                                            <b ng-if="sale.gradeId == 1">Grading&nbsp;<span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty "></span><span class="glyphicon glyphicon-star-empty "></span><span class="glyphicon glyphicon-star-empty "></span><span class="glyphicon glyphicon-star-empty "></span></b>
+                                            <b ng-if="sale.gradeId == 2">Grading&nbsp;<span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty "></span><span class="glyphicon glyphicon-star-empty "></span><span class="glyphicon glyphicon-star-empty "></span></b>
+                                            <b ng-if="sale.gradeId == 3">Grading&nbsp;<span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty "></span><span class="glyphicon glyphicon-star-empty "></span></b>
+                                            <b ng-if="sale.gradeId == 4">Grading&nbsp;<span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty "></span></b>
+                                            <b ng-if="sale.gradeId == 5">Grading&nbsp;<span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span><span class="glyphicon glyphicon-star-empty" style="color:red;"></span></b>
+                                        </div>
+                                        <div ng-show="sale.active == true"><button class="pull-right" data-toggle="modal" data-target="#myModal" ng-click="vm.showSalesOpportunity(sale)" title="Edit"><span class="glyphicon glyphicon-pencil" title="Edit"></span></button></div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!--</div>-->
+    <!--</div>
+            </div>-->
+    <!--  </div>-->
+    <!--end-->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Model Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="vm.reset()"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="font-size:20px;">General</h4>
+                </div>
+                <hr />
+                <div class="col-md-12">
+                    <div><span class="col-md-1 glyphicon glyphicon-pencil" style="font-size:18px;"></span><h3>Specify the general information for this opportunity</h3></div>
+                </div>
+
+                <!-- Model Body -->
+                <form role="form">
+                    <div class="modal-body">
+                        <div style="padding-left: 3px;margin-top:15px;">
+                            <div class="row" style="padding:3px;">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="vm.salesOpportunity.title" name="salesOpportunityTitle" id="salesOpportunityTitle" placeholder="Sales Opportunity Title" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding:3px;">
+                                <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <select class="form-control" ng-model="vm.salesOpportunity.customerId" ng-options="customer.id as customer.displayName for customer in vm.customers">
+                                            <option style="display: none" value="">Select Customer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <select class="form-control" ng-model="vm.salesOpportunity.salesRepresentative" ng-options="salesRepresentative.id as salesRepresentative.firstName for salesRepresentative in vm.salesRepresentatives">
+                                            <option style="display: none" value="">Select Sales Representative</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row" style="padding:3px;">
+                                <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <select class="form-control" ng-model="vm.salesOpportunity.stageId" ng-options="stage.id as stage.stageName for stage in vm.stages" ng-disabled="vm.disableStage">
+                                            <option style="display: none" value="">Select Stage</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <select class="form-control" ng-model="vm.salesOpportunity.sourceId" ng-options="source.id as source.sourceName for source in vm.sources">
+                                            <option style="display: none" value="">Select Source</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding:3px;">
+                                <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <select class="form-control" ng-model="vm.salesOpportunity.gradeId" ng-options="grade.id as grade.gradeName for grade in vm.grades">
+                                            <option style="display: none" value="">Select Grade</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <select class="form-control" ng-model="vm.salesOpportunity.reasonClosedId" ng-options="reason.id as reason.reason for reason in vm.reasons">
+                                            <option style="display: none" value="">Select Reason</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4 class="modal-title" id="myModalLabel" style="margin-left:8px; font-size:20px;"><b>Value</b></h4>
+                            <hr />
+                            <div class="row" style="padding:3px;">
+                                <div class="col-md-12">
+                                    <div class="col-md-1 glyphicon glyphicon-hand-right" style="font-size:30px;">
+
+                                    </div>
+                                    <div class="col-md-11" style="font-size:18px; margin-bottom:17px;">
+                                        Define the value and estimated close date for this opportunity
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding:3px;">
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" name="probability" id="probability" ng-model="vm.salesOpportunity.probability" class="form-control input-md" placeholder="Probability %" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" name="business-value" id="business-value" ng-model="vm.salesOpportunity.businessValue" class="form-control input-md" placeholder="Business Value" />
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <select class="form-control" ng-options="priority.id as priority.name for priority in vm.salesPriorities" ng-model="vm.salesOpportunity.priority">
+                                            <option style="display: none" value="">Select Priority</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding:3px;">
+                                <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                            <div class="input-group hrevert-date-picker">
+                                                <input type="text" class="form-control" data-ng-model="vm.salesOpportunity.closingDate" placeholder="Estimated Date" style="padding:6px;"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-ng-model="vm.salesOpportunity.closingDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown1' }" />
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 sales-opportunities-btnDate">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                            <div class="input-group hrevert-date-picker">
+                                                <input type="text" class="form-control" data-ng-model="vm.salesOpportunity.closedDate" placeholder="Close Date" style="padding:6px;"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-ng-model="vm.salesOpportunity.closedDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }" />
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:3px;">
+                            <div class="col-xs-12 col-sm-12 col-md-6"></div>
+                            <div class="col-xs-12 col-sm-12 col-md-3 sales-opportunities-button">
+                                <!--<div class="col-xs-12 col-sm-12 col-md-3">-->
+                                <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="vm.createOpportunity(vm.salesOpportunity)">{{vm.buttonText}}</button>
+                                <!-- </div>
+                                <div class="col-xs-12 col-sm-12 col-md-3">-->
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3 sales-opportunities-button" ng-show="showReset">
+                                <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="vm.reset()">Reset</button>
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--</div>-->
+    <style>
+        .modal-dialog {
+            width: 74%;
+            height: 80%;
+            margin: 0 auto;
+        }
+
+        .modal-content {
+            margin: 71px 0px 0px 40px;
+            background-color: #F3F5F6;
+        }
+
+        .modal-header {
+            padding: 13px 15px 0px 19px;
+        }
+
+        .modal-header2 {
+            padding: 13px 15px 0px 19px;
+        }
+
+        .form-group .form-control {
+            border: 1px solid #aaa;
+            padding: 7px;
+            color: none;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            /* Set the hr color */
+            color: #333; /* old IE */
+            background-color: #333; /* Modern Browsers */
+        }
+    </style>
+<script>
+    $(document).ready(function () {
+        var container_width = $(".container-inner h4").length;
+        $(".container-inner").css("width", container_width);
+    });
+</script>

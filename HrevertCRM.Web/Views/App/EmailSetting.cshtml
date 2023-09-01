@@ -1,0 +1,25 @@
+﻿
+
+@{
+    ViewBag.Title = "Email Setting";
+    Layout = "_Layout";
+}
+@section Scripts{
+
+    <script src="~/js/emailsetting/app-emailSetting.js" asp-append-version="true"></script>
+    <script src="~/js/emailsetting/emailSetting.controller.js" asp-append-version="true"></script>
+    <script src="~/js/emailsetting/emailSetting.service.js" asp-append-version="true"></script>
+    <script src="~/manual/angular-messages.js"></script>
+    <script src="~/manual/angularSortable.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("emailSetting"), ['app-emailSetting']);
+</script>
+}
+@section css{
+
+}
+<div ng-non-bindable>
+    <div class="" id="emailSetting">
+        <ui-view></ui-view>
+    </div>
+</div>

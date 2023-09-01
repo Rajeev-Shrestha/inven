@@ -1,0 +1,348 @@
+﻿<html>
+<head>
+    <title></title>
+    <style>
+        ul {
+          list-style-type: none;
+        }
+        .noBackground{
+            background:none;
+        }
+    </style>
+</head>
+<body ng-cloak>
+    <div class="check-out">
+        <div class="container">
+            <form name="vm.checkOutForm">
+                <div class="page-content checkout-page">
+                    <h3 class="checkout-sep">1. Billing Informations</h3>
+                    <div class="box-border">
+                        <ul>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">First Name</label>
+                                    <div class="login-mail">
+                                        <input type="text" id="first_name" class="noBackground" ng-model="vm.address.billingAddress.firstName" required="required" ng-disabled="true">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Middle Name</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="middle_name" class="noBackground" ng-model="vm.address.billingAddress.middleName" ng-disabled="true">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Last Name</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="last_name" class="noBackground" ng-model="vm.address.billingAddress.lastName" required="required" ng-disabled="true">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Email Address</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="email_address" class="noBackground" ng-model="vm.address.billingAddress.email" required="required" ng-disabled="true">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Address Line 1</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="address_line1" class="noBackground" ng-model="vm.address.billingAddress.addressLine1" required="required" ng-disabled="true">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Address Line 2</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="address_line2" class="noBackground" ng-model="vm.address.billingAddress.addressLine2" ng-disabled="true">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">City</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="city" class="noBackground" ng-model="vm.address.billingAddress.city" required="required" ng-disabled="true">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">State</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="syate" class="noBackground" ng-model="vm.address.billingAddress.state" required="required" ng-disabled="true">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Country</label>
+                                    <div>
+                                        <select name="paymentTerm" class="login-mail noBackground" style="width:100%" ng-model="vm.address.billingAddress.countryId" disabled ng-options="country.id as country.name for country in vm.countries" required>
+                                            <option value="">Choose one... </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Zip/Postal Code</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="postal_code" class="noBackground" ng-model="vm.address.billingAddress.zipCode" required="required" ng-disabled="true">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Telephone</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="telephone" class="noBackground" ng-model="vm.address.billingAddress.telephone" ng-disabled="true">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Mobile No</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="fax" class="noBackground" ng-model="vm.address.billingAddress.mobilePhone" required="required" ng-disabled="true">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                            </li>
+
+
+
+                        </ul>
+                    </div>
+                    <h3 class="checkout-sep">2. Shipping Information</h3>
+                    <div class="box-border">
+                        <ul>
+                            <li class="row">
+                                <div class="col-sm-10">
+
+                                    <label class="required">Select Shipping Method</label>
+                                    <label for="first_name" class="required">Country</label>
+                                    <div>
+                                        <select name="paymentTerm" class="login-mail noBackground" style="width:100%" ng-model="vm.defaultShippingAddressId" ng-options="address as address.email for address in vm.address.addresses" ng-change="vm.shippingAddressSelect(vm.defaultShippingAddressId)">
+                                            <option value="">Choose one... </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="required">&nbsp;</label>
+                                    <a href="" class="add-to item_add hvr-skew-backward" ng-click="vm.newAddress()">Add New</a>
+                                </div>
+
+                            </li><!--/ .row -->
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">First Name</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="first_name" class="noBackground" id="first_name" ng-model="vm.billingAddress.firstName" ng-disabled="vm.disableForm" required>
+                                        
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Middle Name</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="middle_name" class="noBackground" ng-model="vm.billingAddress.middleName" ng-disabled="vm.disableForm">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Last Name</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="last_name" class="noBackground" ng-model="vm.billingAddress.lastName" required="required" ng-disabled="vm.disableForm">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Email Address</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="email_address" class="noBackground" ng-model="vm.billingAddress.email" required="required" ng-disabled="vm.disableForm">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Address Line 1</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="address_line1" class="noBackground" ng-model="vm.billingAddress.addressLine1" ng-disabled="vm.disableForm">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Address Line 2</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="address_line2" class="noBackground" ng-model="vm.billingAddress.addressLine2" ng-disabled="vm.disableForm">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">City</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="city" class="noBackground" ng-model="vm.billingAddress.city" required="required" ng-disabled="vm.disableForm">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">State</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="syate" class="noBackground" ng-model="vm.billingAddress.state" required="required" ng-disabled="vm.disableForm">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Country</label>
+                                    <div>
+                                        <select name="paymentTerm" class="login-mail noBackground" style="width:100%" ng-model="vm.billingAddress.countryId" ng-disabled="vm.disableForm" ng-options="country.id as country.name for country in vm.countries">
+                                            <option value="">Choose one... </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Zip/Postal Code</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="postal_code" class="noBackground" ng-model="vm.billingAddress.zipCode" ng-disabled="vm.disableForm">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="row">
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Telephone</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="telephone" class="noBackground" ng-model="vm.billingAddress.telephone" ng-disabled="vm.disableForm">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="first_name" class="required">Mobile No</label>
+                                    <div class="login-mail">
+                                        <input type="text" name="" id="fax" class="noBackground" ng-model="vm.billingAddress.mobilePhone" ng-disabled="vm.disableForm">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                    </div>
+                                </div>
+                            </li>
+
+
+
+                        </ul>
+
+
+
+                        
+                    </div>
+                    <h3 class="checkout-sep">3. Delivery Method</h3>
+                    <div class="col-sm-12">
+                        <label for="delivery_mothod" class="required">Select Delivery Method</label>
+                        <div>
+                            <select name="paymentTerm" class="login-mail noBackground" style="width:100%" ng-model="item.deliveryMethodId" ng-options="delivery.id as delivery.description for delivery in vm.deliveryMethod" required>
+                                <option value="">Choose one... </option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--<div class="box-border">
+                        <label class="required">Select Delivery Method</label>
+                        <div class="custom_select">
+                            <select name="deliveryMethod" ng-model="item.deliveryMethodId" ng-options="delivery.id as delivery.description for delivery in vm.deliveryMethod" required>
+                                <option value="">Choose one... </option>
+                            </select>
+                            <span ng-show="vm.checkOutForm.deliveryMethod.$touched && vm.checkOutForm.deliveryMethod.$error.required" style="color:red;">Choose Delivery Method</span>
+                        </div>
+                    </div>-->
+                    <h3 class="checkout-sep">4. Payment Information</h3>
+                    <div class="col-sm-12">
+                        <label for="delivery_mothod" class="required">Select Payment Term</label>
+                        <div>
+                            <select name="paymentTerm" class="login-mail noBackground" style="width:100%" ng-model="item.paymentTermId" ng-options="paymentTerm as paymentTerm.termName for paymentTerm in vm.paymentTerm" ng-change="vm.termChange(item.paymentTermId)" required>
+                                <option value="">Choose one... </option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--<div class="box-border">
+
+                        <label class="required">Select Payment Term</label>
+                        <div class="custom_select">
+                            <select name="paymentTerm" ng-model="item.paymentMethodId" ng-options="payment as payment.methodName for payment in vm.paymentMethod | filter: { webActive: 'true' }" required>
+                                <option value="">Choose one... </option>
+                            </select>
+                            <span ng-show="vm.checkOutForm.paymentTerm.$touched && vm.checkOutForm.paymentTerm.$error.required" style="color:red;">Choose Payment Term</span>
+
+                        </div>
+
+                    </div>-->
+                    <h3 class="checkout-sep">5. Payment Method</h3>
+                    <div class="col-sm-12">
+                        <label for="payment_mothod" class="required">Select Payment Method</label>
+                        <div>
+                            <select name="paymentMethod" class="login-mail noBackground" style="width:100%" ng-model="item.paymentMethodId" ng-options="payment as payment.methodName for payment in vm.paymentMethod | filter: { webActive: 'true' }" required>
+                                <option value="">Choose one... </option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--<div class="box-border">
+                        <label class="required">Select Payment Method</label>
+                        <div class="custom_select">
+                            <select name="paymentMethod" ng-model="item.paymentMethodId" ng-options="payment as payment.methodName for payment in vm.paymentMethod | filter: { webActive: 'true' }" required>
+                                <option value="">Choose one... </option>
+                            </select>
+                            <span ng-show="vm.checkOutForm.paymentMethod.$touched && vm.checkOutForm.paymentMethod.$error.required" style="color:red;">Choose Payment Term</span>
+
+                        </div>
+                    </div>-->
+                    <h3 class="checkout-sep">6. Order Review</h3>
+                    <div class="bs-example2" data-example-id="simple-responsive-table">
+                        <div class="table-responsive">
+                            <table class="table-heading simpleCart_shelfItem">
+                                <tr>
+                                    <th class="table-grid">Item</th>
+                                    <th>Prices</th>
+                                    <th>Qty </th>
+                                    <th>Subtotal</th>
+                                    <th></th>
+                                </tr>
+                                <tr class="cart-header" ng-repeat='cartItem in vm.cartItems.shoppingCartDetails'>
+
+                                    <td class="ring-in" ng-click="viewChilds= !viewChilds">
+                                        <a href="single.html" class="at-in"><img src="{{vm.crmLocation + '/'}}{{cartItem.productImageUrls[0]}}" class="img-responsive" alt="" style="width:120px; height:120px;"></a>
+                                        <div class="sed">
+                                            <h5><a href="/items/{{cartItem.id}}" target="_self">{{cartItem.productName}}</a></h5>
+                                            <p>{{cartItem.shortDescription}} </p>
+
+                                        </div>
+                                    </td>
+                                    <td ng-click="viewChilds= !viewChilds">{{cartItem.productCost}}</td>
+                                    <td ng-click="viewChilds= !viewChilds">{{cartItem.quantity}}</td>
+                                    <td class="item_price" ng-click="viewChilds= !viewChilds">{{cartItem.totalCostWithTax}}</td>
+                                    <td class="item_price" ng-click="viewChilds= !viewChilds">
+                                        <a href="" class="hvr-skew-backward" ng-click="vm.removeItem(cartItem)">Delete Item</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <a href="" class="add-to item_add hvr-skew-backward" ng-click="vm.placeOrder(vm.billingAddress, item)">Place Order</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <br /><br />
+
+</body>
+</html>

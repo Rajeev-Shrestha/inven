@@ -1,0 +1,116 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+   .page-content-wrap {
+        background: #f2f2f1;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Security Right</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="row">
+    <div class="page-content-wrap">
+        <div class="col-md-4">
+            <!-- DEFAULT LIST GROUP -->
+            <div class="panel panel-default">
+                <div class="panel-heading"> 
+                    <h3 class="panel-title">Select Role</h3>
+                </div>
+               
+                <div class="panel-body" style="overflow-x:hidden;overflow-y:scroll; height:220px;">
+                    <div class="list-group border-bottom">
+                        <a href="" class="list-group-item" ng-repeat="role in vm.allRoles" ng-click="vm.loadSelectedGroupWithAllSecurityAssignedOrNot(role)" ng-class="{selected : role.id === vm.idSelectedRole}">{{role.groupName}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Select User</h3>
+                </div>
+                <div class="panel-body" style="overflow-x:hidden;overflow-y:scroll; height:260px;">
+                    <div class="list-group border-bottom">
+                        <input type="text" class="form-control date" placeholder="Search Users.." ng-model="s"><br />
+                        <a href="" class="list-group-item" ng-repeat="user in vm.users | filter:s as searchResults" ng-click="vm.loadSelectedUserWithAllSecurityAssignedOrNot(user)" ng-class="{selected : user.id === vm.idSelectedRole}">{{user.firstName}}</a>
+                    </div>
+                </div>
+            </div>
+            <!-- END DEFAULT LIST GROUP -->
+        </div>
+        <div class="col-md-8">
+            <!-- DEFAULT LIST GROUP -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-md-10">
+                        <div class="col-md-7">
+                            <h3 class="panel-title" ng-if="vm.selectedGroup.groupName" ng-hide="vm.hideGrid">Assign security for {{vm.selectedGroup.groupName}}</h3>
+                            <h3 class="panel-title" ng-if="vm.selectedGroup.firstName" ng-hide="vm.hideGrid">Assign security for {{vm.selectedGroup.firstName}}</h3>
+                            <h3 class="panel-title" ng-hide="!vm.hideGrid">Please select group to assign securities</h3>
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control date" placeholder="Search Security Name.." ng-model="q"><br />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control show-tick date" data-selected-text-format="count" ng-options="pagesize as pagesize for pagesize in vm.pageSizes track by pagesize" ng-model="vm.pageSize" ng-change="vm.searchParamChanged()"></select>
+                    </div>
+                </div>
+                <div class="panel-body" style="overflow-x:hidden;overflow-y:scroll; height:530px;">
+                    <div ng-show="vm.showSecurityList">
+                        <div ng-hide="vm.hideGrid">
+                            <table class="table table-bordered table-striped table-hover dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Select</th>
+                                        <th>Security Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="security in vm.allSecurityList | filter:q as results" ng-hide="vm.allSecurityList.length==0">
+                                        <td>{{$index + 1}}</td>
+                                        <td>
+                                            <div class="demo-checkbox">
+                                                <input type="checkbox" id="basic_checkbox{{$index+1}}" ng-model="security.allowed" ng-click="vm.saveSecurity(security)" />
+                                                <label for="basic_checkbox{{$index+1}}"></label>
+                                            </div>
+                                        </td>
+                                        <td>{{security.securityName}}</td>
+                                    </tr>
+                                    <tr ng-show="vm.allSecurityList.length==0">
+                                        <td colspan="3">There is no data.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <nav class="pull-right">
+                            <div paging
+                                 page="vm.pageNumber"
+                                 page-size="1"
+                                 total="vm.totalPage"
+                                 show-prev-next="true"
+                                 show-first-last="true"
+                                 text-first="&laquo;"
+                                 text-last="&raquo;"
+                                 text-next="&rsaquo;"
+                                 text-prev="&lsaquo;"
+                                 text-title-page="Page {page}"
+                                 text-title-first="First Page"
+                                 text-title-last="Last Page"
+                                 text-title-next="Next Page"
+                                 text-title-prev="Previous"
+                                 paging-action="vm.pageChanged(page)">
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- END DEFAULT LIST GROUP -->
+        </div>
+    </div>
+</div>

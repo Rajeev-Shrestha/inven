@@ -1,0 +1,31 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "_Layout";
+}
+@section Scripts {
+
+  
+    <script src="~/js/search/app-search.js" asp-append-version="true"></script>
+    <script src="~/js/search/search.service.js" asp-append-version="true"></script>
+    <script src="~/js/search/search.controller.js" asp-append-version="true"></script>
+<script src="~/js/layout/app-layout.js"></script>
+<script src="~/js/layout/layout.controller.js"></script>
+<script src="~/js/layout/layout.service.js"></script>
+
+<script src="~/lib/bootstrap-dialog/bootstrap-dialog.js"></script>
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("search"), ['app-search']);
+    </script>
+
+}
+
+@section css{
+<link href="~/css/bootstrap-dialog.css" rel="stylesheet" />
+}
+<div ng-non-bindable>
+    <div class="" id="search">
+        <ui-view></ui-view>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿Accounts
+Customer Levels (depends)
+Delivery Methods
+Delivery Zone (depends)
+Email Settings (ntbazar wala matra)
+Fiscal Years
+Measure Units
+Payment Method
+Payment Term
+Taxes
+
+Securities (Already)
+Security Groups (Already)

@@ -1,0 +1,20 @@
+[
+  //put security groups in same order for seeding correctly
+  {
+    "name": "Retail"
+
+  },
+  {
+    "name": "Wholesale"
+  },
+  {
+    "name": "Distributor"
+  },
+  {
+    "name": "None"
+  },
+  {
+    "name": "Partners"
+  }
+
+]

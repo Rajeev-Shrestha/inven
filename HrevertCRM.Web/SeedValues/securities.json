@@ -1,0 +1,955 @@
+[
+  {
+    "securityCode": 100001,
+    "securityDescription": "Assign Security Right"
+  },
+  {
+    "securityCode": 1001,
+    "securityDescription": "Add System User"
+  },
+  {
+    "securityCode": 1002,
+    "securityDescription": "View System Users"
+  },
+  {
+    "securityCode": 1003,
+    "securityDescription": "Delete System User"
+  },
+  {
+    "securityCode": 1004,
+    "securityDescription": "Update System User"
+  },
+  {
+    "securityCode": 2001,
+    "securityDescription": "Add Fiscal Year"
+  },
+  {
+    "securityCode": 2002,
+    "securityDescription": "View Fiscal Years"
+  },
+  {
+    "securityCode": 2003,
+    "securityDescription": "Delete Fiscal Year"
+  },
+  {
+    "securityCode": 2004,
+    "securityDescription": "Update Fiscal Year"
+  },
+  //{
+  //  "securityCode": 3001,
+  //  "securityDescription": "Add Company"
+  //},
+  //{
+  //  "securityCode": 3002,
+  //  "securityDescription": "View Companies"
+  //},
+  //{
+  //  "securityCode": 3003,
+  //  "securityDescription": "Delete Company"
+  //},
+  //{
+  //  "securityCode": 3004,
+  //  "securityDescription": "Update Company"
+  //},
+  {
+    "securityCode": 4001,
+    "securityDescription": "Add Product Category"
+  },
+  {
+    "securityCode": 4002,
+    "securityDescription": "View Product Categories"
+  },
+  {
+    "securityCode": 4003,
+    "securityDescription": "Delete Product Categories"
+  },
+  {
+    "securityCode": 4004,
+    "securityDescription": "Update Product Categories"
+  },
+  {
+    "securityCode": 5001,
+    "securityDescription": "Add Product"
+  },
+  {
+    "securityCode": 5002,
+    "securityDescription": "View Product "
+  },
+  {
+    "securityCode": 5003,
+    "securityDescription": "Delete Product "
+  },
+  {
+    "securityCode": 5004,
+    "securityDescription": "Update Product "
+  },
+  {
+    "securityCode": 6001,
+    "securityDescription": "Add Purchase Order"
+  },
+  {
+    "securityCode": 6002,
+    "securityDescription": "View Purchase Orders"
+  },
+  {
+    "securityCode": 6003,
+    "securityDescription": "Delete Purchase Order"
+  },
+  {
+    "securityCode": 6004,
+    "securityDescription": "Update Purchase Order"
+  },
+  {
+    "securityCode": 7001,
+    "securityDescription": "Add Sales Order"
+  },
+  {
+    "securityCode": 7002,
+    "securityDescription": "View Sales Orders"
+  },
+  {
+    "securityCode": 7003,
+    "securityDescription": "Delete Sales Order"
+  },
+  {
+    "securityCode": 7004,
+    "securityDescription": "Update Sales Order"
+  },
+  {
+    "securityCode": 8001,
+    "securityDescription": "Add Fiscal Period"
+  },
+  {
+    "securityCode": 8002,
+    "securityDescription": "View Fiscal Periods"
+  },
+  {
+    "securityCode": 8003,
+    "securityDescription": "Delete Fiscal Period"
+  },
+  {
+    "securityCode": 8004,
+    "securityDescription": "Update Fiscal Period"
+  },
+  {
+    "securityCode": 9001,
+    "securityDescription": "Add Address"
+  },
+  {
+    "securityCode": 9002,
+    "securityDescription": "View Addresses"
+  },
+  {
+    "securityCode": 9003,
+    "securityDescription": "Delete Address"
+  },
+  {
+    "securityCode": 9004,
+    "securityDescription": "Update Address"
+  },
+  {
+    "securityCode": 10001,
+    "securityDescription": "Add Customer"
+  },
+  {
+    "securityCode": 10002,
+    "securityDescription": "View Customers"
+  },
+  {
+    "securityCode": 10003,
+    "securityDescription": "Delete Customer"
+  },
+  {
+    "securityCode": 10004,
+    "securityDescription": "Update Customer"
+  },
+  {
+    "securityCode": 11001,
+    "securityDescription": "Add Customer Level"
+  },
+  {
+    "securityCode": 11002,
+    "securityDescription": "View Customer Levels"
+  },
+  {
+    "securityCode": 11003,
+    "securityDescription": "Delete Customer Level"
+  },
+  {
+    "securityCode": 11004,
+    "securityDescription": "Update Customer Level"
+  },
+  {
+    "securityCode": 12001,
+    "securityDescription": "Add Payment Term"
+  },
+  {
+    "securityCode": 12002,
+    "securityDescription": "View Payment Terms"
+  },
+  {
+    "securityCode": 12003,
+    "securityDescription": "Delete Payment Term"
+  },
+  {
+    "securityCode": 12004,
+    "securityDescription": "Update Payment Term"
+  },
+  {
+    "securityCode": 13001,
+    "securityDescription": "Add Delivery Method"
+  },
+  {
+    "securityCode": 13002,
+    "securityDescription": "View Delivery Methods"
+  },
+  {
+    "securityCode": 13003,
+    "securityDescription": "Delete Delivery Method"
+  },
+  {
+    "securityCode": 13004,
+    "securityDescription": "Update Delivery Method"
+  },
+  {
+    "securityCode": 14001,
+    "securityDescription": "Add Security"
+  },
+  {
+    "securityCode": 14002,
+    "securityDescription": "View Securities"
+  },
+  {
+    "securityCode": 14003,
+    "securityDescription": "Delete Security"
+  },
+  {
+    "securityCode": 14004,
+    "securityDescription": "Update Security"
+  },
+  {
+    "securityCode": 15001,
+    "securityDescription": "Add Security Right"
+  },
+  {
+    "securityCode": 15002,
+    "securityDescription": "View Security Rights"
+  },
+  {
+    "securityCode": 15003,
+    "securityDescription": "Delete Security Right"
+  },
+  {
+    "securityCode": 15004,
+    "securityDescription": "Update Security Right"
+  },
+  {
+    "securityCode": 16001,
+    "securityDescription": "Add Security Group"
+  },
+  {
+    "securityCode": 16002,
+    "securityDescription": "View Security Groups"
+  },
+  {
+    "securityCode": 16003,
+    "securityDescription": "Delete Security Group"
+  },
+  {
+    "securityCode": 16004,
+    "securityDescription": "Update Security Group"
+  },
+  {
+    "securityCode": 17001,
+    "securityDescription": "Add Security Group Member"
+  },
+  {
+    "securityCode": 17002,
+    "securityDescription": "View Security Group Members"
+  },
+  {
+    "securityCode": 17003,
+    "securityDescription": "Delete Security Group Member"
+  },
+  {
+    "securityCode": 17004,
+    "securityDescription": "Update Security Group Member"
+  },
+  {
+    "securityCode": 18001,
+    "securityDescription": "Add Transaction Log"
+  },
+  {
+    "securityCode": 18002,
+    "securityDescription": "View Transaction Logs"
+  },
+  {
+    "securityCode": 18003,
+    "securityDescription": "Delete Transaction Log"
+  },
+  {
+    "securityCode": 18004,
+    "securityDescription": "Update Transaction Log"
+  },
+
+  {
+    "securityCode": 19001,
+    "securityDescription": "Add Payment Method"
+  },
+  {
+    "securityCode": 19002,
+    "securityDescription": "View Payment Methods"
+  },
+  {
+    "securityCode": 19003,
+    "securityDescription": "Delete Payment Method"
+  },
+  {
+    "securityCode": 19004,
+    "securityDescription": "Update Payment Method"
+  },
+  {
+    "securityCode": 20001,
+    "securityDescription": "Add Account"
+  },
+  {
+    "securityCode": 20002,
+    "securityDescription": "View Accounts"
+  },
+  {
+    "securityCode": 20003,
+    "securityDescription": "Delete Account"
+  },
+  {
+    "securityCode": 20004,
+    "securityDescription": "Update Account"
+  },
+  {
+    "securityCode": 21001,
+    "securityDescription": "Add Tax"
+  },
+  {
+    "securityCode": 21002,
+    "securityDescription": "View Taxs"
+  },
+  {
+    "securityCode": 21003,
+    "securityDescription": "Delete Tax"
+  },
+  {
+    "securityCode": 21004,
+    "securityDescription": "Update Tax"
+  },
+  {
+    "securityCode": 22001,
+    "securityDescription": "Add Sales OrderLine"
+  },
+  {
+    "securityCode": 22002,
+    "securityDescription": "View Sales OrderLines"
+  },
+  {
+    "securityCode": 22003,
+    "securityDescription": "Delete Sales OrderLine"
+  },
+  {
+    "securityCode": 22004,
+    "securityDescription": "Update Sales OrderLine"
+  },
+  {
+    "securityCode": 23001,
+    "securityDescription": "Add Purchase OrderLine"
+  },
+  {
+    "securityCode": 23002,
+    "securityDescription": "View Purchase OrderLines"
+  },
+  {
+    "securityCode": 23003,
+    "securityDescription": "Delete PurchaseOrderLine"
+  },
+  {
+    "securityCode": 23004,
+    "securityDescription": "Update Purchase OrderLine"
+  },
+  {
+    "securityCode": 24001,
+    "securityDescription": "Add EmailSetting"
+  },
+  {
+    "securityCode": 24002,
+    "securityDescription": "View EmailSettings"
+  },
+  {
+    "securityCode": 24003,
+    "securityDescription": "Delete EmailSetting"
+  },
+  {
+    "securityCode": 24004,
+    "securityDescription": "Update EmailSetting"
+  },
+  {
+    "securityCode": 25001,
+    "securityDescription": "Add Journal Master"
+  },
+  {
+    "securityCode": 25002,
+    "securityDescription": "View Journal Masters"
+  },
+  {
+    "securityCode": 25003,
+    "securityDescription": "Delete Journal Master"
+  },
+  {
+    "securityCode": 25004,
+    "securityDescription": "Update Journal Master"
+  },
+  {
+    "securityCode": 26001,
+    "securityDescription": "Add Shopping Cart"
+  },
+  {
+    "securityCode": 26002,
+    "securityDescription": "View Shopping Carts"
+  },
+  {
+    "securityCode": 26003,
+    "securityDescription": "Delete Shopping Cart"
+  },
+  {
+    "securityCode": 26004,
+    "securityDescription": "Update Shopping Cart"
+  },
+  {
+    "securityCode": 27001,
+    "securityDescription": "Add Shopping Cart Detail"
+  },
+  {
+    "securityCode": 27002,
+    "securityDescription": "View Shopping Cart Details"
+  },
+  {
+    "securityCode": 27003,
+    "securityDescription": "Delete Shopping Cart Detail"
+  },
+  {
+    "securityCode": 27004,
+    "securityDescription": "Update Shopping Cart Detail"
+  },
+  {
+    "securityCode": 28001,
+    "securityDescription": "Add Product Metadata"
+  },
+  {
+    "securityCode": 28002,
+    "securityDescription": "View Product Metadatas"
+  },
+  {
+    "securityCode": 28003,
+    "securityDescription": "Delete Product Metadata"
+  },
+  {
+    "securityCode": 28004,
+    "securityDescription": "Update Product Metadata"
+  },
+  {
+    "securityCode": 29001,
+    "securityDescription": "Add Vendor"
+  },
+  {
+    "securityCode": 29002,
+    "securityDescription": "View Vendor"
+  },
+  {
+    "securityCode": 29003,
+    "securityDescription": "Delete Vendor"
+  },
+  {
+    "securityCode": 29004,
+    "securityDescription": "Update Vendor"
+  },
+  {
+    "securityCode": 30001,
+    "securityDescription": "Add Customer Contact Group"
+  },
+  {
+    "securityCode": 30002,
+    "securityDescription": "View Customer Contact Groups"
+  },
+  {
+    "securityCode": 30003,
+    "securityDescription": "Delete Customer Contact Group"
+  },
+  {
+    "securityCode": 30004,
+    "securityDescription": "Update Customer Contact Group"
+  },
+  {
+    "securityCode": 31001,
+    "securityDescription": "Add ECommerce Setting"
+  },
+  {
+    "securityCode": 31002,
+    "securityDescription": "View ECommerce Settings"
+  },
+  {
+    "securityCode": 31003,
+    "securityDescription": "Delete ECommerce Setting"
+  },
+  {
+    "securityCode": 31004,
+    "securityDescription": "Update ECommerce Setting"
+  },
+  {
+    "securityCode": 32001,
+    "securityDescription": "Add Carousel"
+  },
+  {
+    "securityCode": 32002,
+    "securityDescription": "View Carousels"
+  },
+  {
+    "securityCode": 32003,
+    "securityDescription": "Delete Carousel"
+  },
+  {
+    "securityCode": 32004,
+    "securityDescription": "Update Carousel"
+  },
+  {
+    "securityCode": 33001,
+    "securityDescription": "Add Delivery Rate"
+  },
+  {
+    "securityCode": 33002,
+    "securityDescription": "View Delivery Rates"
+  },
+  {
+    "securityCode": 33003,
+    "securityDescription": "Delete Delivery Rate"
+  },
+  {
+    "securityCode": 33004,
+    "securityDescription": "Update Delivery Rate"
+  },
+  {
+    "securityCode": 34001,
+    "securityDescription": "Add Delivery Zone"
+  },
+  {
+    "securityCode": 34002,
+    "securityDescription": "View Delivery Zones"
+  },
+  {
+    "securityCode": 34003,
+    "securityDescription": "Delete Delivery Zone"
+  },
+  {
+    "securityCode": 34004,
+    "securityDescription": "Update Delivery Zone"
+  },
+  {
+    "securityCode": 35001,
+    "securityDescription": "Add Item Measure"
+  },
+  {
+    "securityCode": 35002,
+    "securityDescription": "View Item Measures"
+  },
+  {
+    "securityCode": 35003,
+    "securityDescription": "Delete Item Measure"
+  },
+  {
+    "securityCode": 35004,
+    "securityDescription": "Update Item Measure"
+  },
+  {
+    "securityCode": 36001,
+    "securityDescription": "Add Measure Unit"
+  },
+  {
+    "securityCode": 36002,
+    "securityDescription": "View Measure Units"
+  },
+  {
+    "securityCode": 36003,
+    "securityDescription": "Delete Measure Unit"
+  },
+  {
+    "securityCode": 36004,
+    "securityDescription": "Update Measure Unit"
+  },
+  {
+    "securityCode": 37001,
+    "securityDescription": "Add Product Price Rule"
+  },
+  {
+    "securityCode": 37002,
+    "securityDescription": "View Product Price Rules"
+  },
+  {
+    "securityCode": 37003,
+    "securityDescription": "Delete Product Price Rule"
+  },
+  {
+    "securityCode": 37004,
+    "securityDescription": "Update Product Price Rule"
+  },
+  {
+    "securityCode": 38001,
+    "securityDescription": "Add Company Web Setting"
+  },
+  {
+    "securityCode": 38002,
+    "securityDescription": "View Company Web Settings"
+  },
+  {
+    "securityCode": 38003,
+    "securityDescription": "Delete Company Web Setting"
+  },
+  {
+    "securityCode": 38004,
+    "securityDescription": "Update Company Web Setting"
+  },
+  {
+    "securityCode": 39001,
+    "securityDescription": "Add Discount"
+  },
+  {
+    "securityCode": 39002,
+    "securityDescription": "View Discounts"
+  },
+  {
+    "securityCode": 39003,
+    "securityDescription": "Delete Discount"
+  },
+  {
+    "securityCode": 39004,
+    "securityDescription": "Update Discount"
+  },
+  {
+    "securityCode": 40001,
+    "securityDescription": "Add Featured Item"
+  },
+  {
+    "securityCode": 40002,
+    "securityDescription": "View Featured Items"
+  },
+  {
+    "securityCode": 40003,
+    "securityDescription": "Delete Featured Item"
+  },
+  {
+    "securityCode": 40004,
+    "securityDescription": "Update Featured Item"
+  },
+  {
+    "securityCode": 41001,
+    "securityDescription": "Add Featured Item Metatdata"
+  },
+  {
+    "securityCode": 41002,
+    "securityDescription": "View Featured Item Metatdatas"
+  },
+  {
+    "securityCode": 41003,
+    "securityDescription": "Delete Featured Item Metatdata"
+  },
+  {
+    "securityCode": 41004,
+    "securityDescription": "Update Featured Item Metatdata"
+  },
+  {
+    "securityCode": 42001,
+    "securityDescription": "Add Bug Logger"
+  },
+  {
+    "securityCode": 42002,
+    "securityDescription": "View Bug Loggers"
+  },
+  {
+    "securityCode": 42003,
+    "securityDescription": "Delete Bug Logger"
+  },
+  {
+    "securityCode": 42004,
+    "securityDescription": "Update Bug Logger"
+  },
+  {
+    "securityCode": 43001,
+    "securityDescription": "Add Company Logo"
+  },
+  {
+    "securityCode": 43002,
+    "securityDescription": "View Company Logos"
+  },
+  {
+    "securityCode": 43003,
+    "securityDescription": "Delete Company Logo"
+  },
+  {
+    "securityCode": 43004,
+    "securityDescription": "Update Company Logo"
+  },
+  {
+    "securityCode": 44001,
+    "securityDescription": "Add Country"
+  },
+  {
+    "securityCode": 44002,
+    "securityDescription": "View Countries"
+  },
+  {
+    "securityCode": 44003,
+    "securityDescription": "Delete Country"
+  },
+  {
+    "securityCode": 44004,
+    "securityDescription": "Update Country"
+  },
+  {
+    "securityCode": 45001,
+    "securityDescription": "Add Task"
+  },
+  {
+    "securityCode": 45002,
+    "securityDescription": "View Tasks"
+  },
+  {
+    "securityCode": 45003,
+    "securityDescription": "Delete Task"
+  },
+  {
+    "securityCode": 45004,
+    "securityDescription": "Update Task"
+  },
+  {
+    "securityCode": 45005,
+    "securityDescription": "Assign Task"
+  },
+  {
+    "securityCode": 46001,
+    "securityDescription": "Add Retailer"
+  },
+  {
+    "securityCode": 46002,
+    "securityDescription": "View Retailers"
+  },
+  {
+    "securityCode": 46003,
+    "securityDescription": "Delete Retailer"
+  },
+  {
+    "securityCode": 46004,
+    "securityDescription": "Update Retailer"
+  },
+  {
+    "SecurityCode": 47001,
+    "SecurityDescription": "Add Grade"
+  },
+  {
+    "SecurityCode": 47002,
+    "SecurityDescription": "View Grades"
+  },
+  {
+    "SecurityCode": 47003,
+    "SecurityDescription": "Delete Grade"
+  },
+  {
+    "SecurityCode": 47004,
+    "SecurityDescription": "Update Grade"
+  },
+  {
+    "SecurityCode": 48001,
+    "SecurityDescription": "Add Source"
+  },
+  {
+    "SecurityCode": 48002,
+    "SecurityDescription": "View Sources"
+  },
+  {
+    "SecurityCode": 48003,
+    "SecurityDescription": "Delete Source"
+  },
+  {
+    "SecurityCode": 48004,
+    "SecurityDescription": "Update Source"
+  },
+  {
+    "SecurityCode": 49001,
+    "SecurityDescription": "Add ReasonClosed"
+  },
+  {
+    "SecurityCode": 49002,
+    "SecurityDescription": "View ReasonClosed"
+  },
+  {
+    "SecurityCode": 49003,
+    "SecurityDescription": "Delete ReasonClosed"
+  },
+  {
+    "SecurityCode": 49004,
+    "SecurityDescription": "Update ReasonClosed"
+  },
+  {
+    "SecurityCode": 50001,
+    "SecurityDescription": "Add Stage"
+  },
+  {
+    "SecurityCode": 50002,
+    "SecurityDescription": "View Stages"
+  },
+  {
+    "SecurityCode": 50003,
+    "SecurityDescription": "Delete Stage"
+  },
+  {
+    "SecurityCode": 50004,
+    "SecurityDescription": "Update Stage"
+  },
+  {
+    "SecurityCode": 51001,
+    "SecurityDescription": "Add Sales Opportunity"
+  },
+  {
+    "SecurityCode": 51002,
+    "SecurityDescription": "View Sales Opportunities"
+  },
+  {
+    "SecurityCode": 51003,
+    "SecurityDescription": "Delete Sales Opportunity"
+  },
+  {
+    "SecurityCode": 51004,
+    "SecurityDescription": "Update Sales Opportunity"
+  },
+  {
+    "SecurityCode": 52001,
+    "SecurityDescription": "Add Brand"
+  },
+  {
+    "SecurityCode": 52002,
+    "SecurityDescription": "View Brands"
+  },
+  {
+    "SecurityCode": 52003,
+    "SecurityDescription": "Delete Brand"
+  },
+  {
+    "SecurityCode": 52004,
+    "SecurityDescription": "Update Brand"
+  },
+  {
+    "SecurityCode": 53001,
+    "SecurityDescription": "Add Footer Setting"
+  },
+  {
+    "SecurityCode": 53002,
+    "SecurityDescription": "View Footer Settings"
+  },
+  {
+    "SecurityCode": 53003,
+    "SecurityDescription": "Delete Footer Setting"
+  },
+  {
+    "SecurityCode": 53004,
+    "SecurityDescription": "Update Footer Setting"
+  },
+  {
+    "SecurityCode": 54001,
+    "SecurityDescription": "Add General Setting"
+  },
+  {
+    "SecurityCode": 54002,
+    "SecurityDescription": "View General Settings"
+  },
+  {
+    "SecurityCode": 54003,
+    "SecurityDescription": "Delete General Setting"
+  },
+  {
+    "SecurityCode": 54004,
+    "SecurityDescription": "Update General Setting"
+  },
+  {
+    "SecurityCode": 55001,
+    "SecurityDescription": "Add Header Setting"
+  },
+  {
+    "SecurityCode": 55002,
+    "SecurityDescription": "View Header Settings"
+  },
+  {
+    "SecurityCode": 55003,
+    "SecurityDescription": "Delete Header Setting"
+  },
+  {
+    "SecurityCode": 55004,
+    "SecurityDescription": "Update Header Setting"
+  },
+  {
+    "SecurityCode": 56001,
+    "SecurityDescription": "Add Individual Slide Setting"
+  },
+  {
+    "SecurityCode": 56002,
+    "SecurityDescription": "View Individual Slide Settings"
+  },
+  {
+    "SecurityCode": 56003,
+    "SecurityDescription": "Delete Individual Slide Setting"
+  },
+  {
+    "SecurityCode": 56004,
+    "SecurityDescription": "Update Individual Slide Setting"
+  },
+  {
+    "SecurityCode": 57001,
+    "SecurityDescription": "Add Layout Setting"
+  },
+  {
+    "SecurityCode": 57002,
+    "SecurityDescription": "View Layout Settings"
+  },
+  {
+    "SecurityCode": 57003,
+    "SecurityDescription": "Delete Layout Setting"
+  },
+  {
+    "SecurityCode": 57004,
+    "SecurityDescription": "Update Layout Setting"
+  },
+  {
+    "SecurityCode": 58001,
+    "SecurityDescription": "Add Slide Setting"
+  },
+  {
+    "SecurityCode": 58002,
+    "SecurityDescription": "View Slide Settings"
+  },
+  {
+    "SecurityCode": 58003,
+    "SecurityDescription": "Delete Slide Setting"
+  },
+  {
+    "SecurityCode": 58004,
+    "SecurityDescription": "Update Slide Setting"
+  },
+  {
+    "SecurityCode": 59001,
+    "SecurityDescription": "Add Store Locator"
+  },
+  {
+    "SecurityCode": 59002,
+    "SecurityDescription": "View Store Locators"
+  },
+  {
+    "SecurityCode": 59003,
+    "SecurityDescription": "Delete Store Locator"
+  },
+  {
+    "SecurityCode": 59004,
+    "SecurityDescription": "Update Store Locator"
+  }
+]

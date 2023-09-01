@@ -1,0 +1,18 @@
+﻿{
+  "projects": [],
+  "sdk": {
+    "version": "2.1.524"
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dnxcore50",
+        "portable-net451+win8"
+      ]
+    }
+  },
+  "dependencies": {
+    "System.Net.Http": "4.1.0",
+    "Microsoft.AspNet.WebApi.Client": "5.2.3"
+  }
+}

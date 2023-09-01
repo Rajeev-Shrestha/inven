@@ -1,0 +1,20 @@
+﻿[
+  {
+    "deliveryCode": "CDEL",
+    "description": "Company Delivery",
+    "webActive": true
+
+  },
+  {
+    "deliveryCode": "DHL",
+    "description": "DHL Delivery",
+    "webActive": true
+
+  },
+  {
+    "deliveryCode": "CPIC",
+    "description": "Customer Pickup",
+    "webActive": true
+
+  }
+]

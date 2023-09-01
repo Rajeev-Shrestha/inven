@@ -1,0 +1,36 @@
+﻿
+
+@{
+    ViewBag.Title = "Discount Setting";
+    Layout = "_Layout";
+}
+@section Scripts{
+
+    <script src="~/js/discountsetting/app-discountSetting.js" asp-append-version="true"></script>
+    <script src="~/js/discountsetting/discountSetting.controller.js" asp-append-version="true"></script>
+    <script src="~/js/discountsetting/discountSetting.service.js" asp-append-version="true"></script>
+<script src="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.js"></script>
+<script src="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.templates.js"></script>
+<script src="~/manual/dateTimeInput.js"></script>
+
+    <script src="~/manual/angular-messages.js"></script>
+    <script src="~/manual/angularSortable.js"></script>
+    <script src="~/manual/angular-animate.min.js"></script>
+    <script src="~/manual/angular-aria.min.js"></script>
+    <script src="~/lib/angular-moment/moment.js"></script>
+<script src="~/manual/datepicker/js/bootstrap-material-datetimepicker.js"></script>
+<link href="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.css" rel="stylesheet" />
+
+<link href="~/manual/datepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("discountSetting"), ['app-discountSetting']);
+</script>
+}
+@section css{
+
+}
+<div ng-non-bindable>
+    <div class="" id="discountSetting">
+        <ui-view></ui-view>
+    </div>
+</div>

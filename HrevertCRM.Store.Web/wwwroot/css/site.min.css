@@ -1,0 +1,91 @@
+.owl-carousel {
+        display: block;
+        opacity: 1;
+        position: relative;
+        width: 100%;
+        -ms .touch-action: pan-y;
+    }
+
+
+        .owl-carousel .item {
+            background-color: transparent;
+        }
+
+    .owl-theme .owl-controls .owl-buttons div {
+        /*background-color: transparent;*/
+    }
+
+    section.swipe {
+        background: #eee;
+        width: 100%;
+        margin: 0 auto;
+        height: auto;
+        padding: 20px;
+    }
+
+    .swiper-container {
+        width: 500px;
+        height: 300px;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+    .mydiv {
+        position: relative;
+        height: 120px;
+        width: 100%;
+    }
+
+    .resultBox {
+            width: 300px;
+            background-color: gray;
+            color: white;
+            padding: 10px;
+        }
+        .resultBox:hover {
+            background-color: white;
+            color: black;
+        }
+        .transparent {
+            background-color: transparent;
+            border: 0 ;
+            border-color: transparent;
+           
+        }
+        
+        select::-ms-expand {
+    
+            border: 0 !important;  /*Removes border*/
+            -webkit-appearance: none;  /*Removes default chrome and safari style*/
+            -moz-appearance: none; /* Removes Default Firefox style*/
+            background: url('http://jonathanphz.tk/dropdown_arrow.png') no-repeat;  /*Adds background-image*/
+            background-position: 15px 15px;  /*Position of the background-image*/
+            width: 15px; /*Width of select dropdown to give space for arrow image*/
+            height: 15px;/*fix for mac input height*/
+            text-indent: 0.01px; /* Removes default arrow from firefox*/
+            text-overflow: "";  /*Removes default arrow from firefox*/
+            cursor: pointer;
+            /*My custom style for fonts*/
+     
+            color:#fff;
+        }
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}

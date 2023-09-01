@@ -1,0 +1,27 @@
+﻿
+
+@{
+    ViewBag.Title = "Measure Unit";
+    Layout = "_Layout";
+}
+@section Scripts{
+
+    <script src="~/js/measureunit/app-measureUnit.js" asp-append-version="true"></script>
+    <script src="~/js/measureunit/measureUnit.controller.js" asp-append-version="true"></script>
+    <script src="~/js/measureunit/measureUnit.service.js" asp-append-version="true"></script>
+    <script src="~/manual/angular-messages.js"></script>
+    <script src="~/manual/angularSortable.js"></script>
+    <script src="~/manual/angular-animate.min.js"></script>
+    <script src="~/manual/angular-aria.min.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("measureUnit"), ['app-measureUnit']);
+</script>
+}
+@section css{
+
+}
+<div ng-non-bindable>
+    <div class="" id="measureUnit">
+        <ui-view></ui-view>
+    </div>
+</div>

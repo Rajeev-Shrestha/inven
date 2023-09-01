@@ -1,0 +1,32 @@
+﻿
+
+@{
+    ViewBag.Title = "Companyweb Setting";
+    Layout = "_Layout";
+}
+@section Scripts{
+
+    <script src="~/js/companywebsetting/app-companywebSetting.js" asp-append-version="true"></script>
+    <script src="~/js/companywebsetting/companywebSetting.controller.js" asp-append-version="true"></script>
+    <script src="~/js/companywebsetting/companywebSetting.service.js" asp-append-version="true"></script>
+
+    <script src="~/manual/angular-messages.js"></script>
+    <script src="~/manual/angularSortable.js"></script>
+    <script src="~/manual/angular-animate.min.js"></script>
+    <script src="~/manual/angular-aria.min.js"></script>
+    <script src="~/lib/angular-moment/moment.js"></script>
+    <script src="~/manual/ng-img-crop.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("companywebSetting"), ['app-companywebSetting']);
+</script>
+
+}
+@section css{
+<link href="~/css/ng-img-crop.css" rel="stylesheet" />
+}
+
+<div ng-non-bindable>
+    <div class="" id="companywebSetting">
+        <ui-view></ui-view>
+    </div>
+</div>

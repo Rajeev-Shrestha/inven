@@ -1,0 +1,4 @@
+Controller Name: Account Controler
+Testing Completed Methods Name:updateaccount,Delete,getallaccounts,getdeletedaccounts,createaccount,getAccountById
+activateAccount,searchallaccounts,searchactiveaccounts,getaccountleveltypes,getaccountdetailtypes,getaccountcashflowtypes,getaccounttypes
+getAllActiveAccounts,getchildrenaccounts,accounttree,getAllAccountTree

@@ -1,0 +1,72 @@
+﻿[
+  {
+    "journalType": 1,
+    "closed": true,
+    "description": "N/A",
+    "credit": 24699,
+    "debit": 5000,
+    "posted": false,
+    "note": "Noted",
+    "printed": true,
+    "cancelled": false,
+    "isSystem": true,
+    "webActive": true,
+    "active": true
+  },
+  {
+    "journalType": 2,
+    "closed": true,
+    "description": "N/A",
+    "credit": 51000,
+    "debit": 9000,
+    "posted": false,
+    "note": "Noted",
+    "printed": true,
+    "cancelled": false,
+    "isSystem": true,
+    "webActive": true,
+    "active": true
+  },
+  {
+    "journalType": 3,
+    "closed": true,
+    "description": "N/A",
+    "credit": 90000,
+    "debit": 16000,
+    "posted": false,
+    "note": "Noted",
+    "printed": true,
+    "cancelled": true,
+    "isSystem": false,
+    "webActive": true,
+    "active": true
+  },
+  {
+    "journalType": 4,
+    "closed": false,
+    "description": "N/A",
+    "credit": 15000,
+    "debit": 500,
+    "posted": false,
+    "note": "NO. This was not noted.",
+    "printed": true,
+    "cancelled": true,
+    "isSystem": false,
+    "webActive": true,
+    "active": true
+  },
+  {
+    "journalType": 5,
+    "closed": false,
+    "description": "N/A",
+    "credit": 75000,
+    "debit": 87000,
+    "posted": false,
+    "note": "Yes. It has been noted.",
+    "printed": true,
+    "cancelled": false,
+    "isSystem": false,
+    "webActive": true,
+    "active": true
+  }
+]

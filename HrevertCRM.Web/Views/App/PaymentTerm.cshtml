@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+
+@{
+    ViewBag.Title = "Payment Method";
+    Layout = "_Layout";
+}
+@section Scripts{
+    <script src="~/js/paymentterm/app-paymentTerm.js" asp-append-version="true"></script>
+    <script src="~/js/paymentterm/paymentTerm.Controller.js" asp-append-version="true"></script>
+    <script src="~/js/paymentterm/paymentTerm.service.js" asp-append-version="true"></script>
+    <script src="~/lib/angular-moment/moment.js"></script>
+    <script src="~/manual/angular-messages.js"></script>
+    <script src="~/manual/angularsortable.js"></script>
+    <script src="~/manual/angular-animate.min.js"></script>
+    <script src="~/manual/angular-aria.min.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("paymentTerm"), ['app-paymentTerm']);
+</script>
+}
+@section css{
+}
+<div ng-non-bindable>
+    <div class="" id="paymentTerm">
+        <ui-view></ui-view>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+﻿@using System.Collections.Generic
+@using System.Threading.Tasks
+@using HrevertCRM.Store.Web.ViewModels
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model HrevertCRM.Store.Web.ViewModels.LoginViewModel
+
+@{
+    Layout = null;
+}
+
+@{
+    ViewData["Title"] = "Log in";
+}
+<link rel="stylesheet" type="text/css" href="~/manual/assets/lib/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="~/manual/assets/lib/font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="~/manual/assets/lib/select2/css/select2.min.css" />
+<link rel="stylesheet" type="text/css" href="~/manual/assets/lib/owl.carousel/owl.carousel.css" />
+<link rel="stylesheet" type="text/css" href="~/manual/assets/lib/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="~/manual/assets/css/animate.css" />
+<link rel="stylesheet" type="text/css" href="~/manual/assets/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="~/manual/assets/css/style.css" />
+<link rel="stylesheet" type="text/css" href="~/manual/assets/css/responsive.css" />
+<link rel="stylesheet" type="text/css" href="~/manual/assets/css/option6.css" />
+@*<div class="row">
+    <div class="col-md-8">
+        <section>
+            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                <h4>Use a local account to log in.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            <label asp-for="RememberMe">
+                                <input asp-for="RememberMe" />
+                                @Html.DisplayNameFor(m => m.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-default">Log in</button>
+                    </div>
+                </div>
+                <p>
+                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+                </p>
+                <p>
+                    <a asp-action="ForgotPassword">Forgot your password?</a>
+                </p>
+            </form>
+        </section>
+    </div>
+    
+</div>*@
+
+<div>
+        <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="columns-container">
+                <div class="container" id="columns">
+                   
+                    <!-- page heading-->
+                    <h2 class="page-heading">
+                        <span class="page-heading-title2">Authentication</span>
+                    </h2>
+                    <!-- ../page heading-->
+                    <div class="page-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="box-authentication">
+                                    <h3>Yet Not registered? <a href="/registerUser" target="_self">Create Account</a></h3>
+                                    <h3>Already registered?</h3>
+                                    <label for="emmail_login">Email address</label>
+                                    <input asp-for="Email" id="emmail_login" type="text" class="form-control" required>
+                                    <label for="password_login">Password</label>
+                                    <input asp-for="Password" id="password_login" type="password" class="form-control" required>
+                                    <p class="forgot-pass"><a href="#">Forgot your password?</a></p>
+                                    <button type="submit" class="button"><i class="fa fa-lock"></i> Sign in</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+</div>
+
+
+

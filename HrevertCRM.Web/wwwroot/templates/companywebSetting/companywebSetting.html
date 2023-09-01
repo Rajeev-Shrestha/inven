@@ -1,0 +1,273 @@
+﻿    <style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+
+    .cropArea {
+        background: #E4E4E4;
+        overflow: hidden;
+        width: 495px;
+        height: 300px;
+    }
+
+    .preview-image {
+        margin: 25px auto;
+        background: #E4E4E4;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Company Web Settings</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <form name="vm.companyWebSettingForm">
+        <div class="panel panel-default" ng-show="!showModal">
+            <div class="panel-body" ng-show="vm.activecompanyWebSetting.length==0">
+                <button type="button" class="btn btn-primary waves-effect" ng-click="open()"><span class="fa fa-plus"></span> New Company Setting</button>
+            </div>
+            <div class="panel-heading" ng-show="vm.activecompanyWebSetting.length!=0">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label class="col-md-5 col-xs-12 control-label">Shipping Calculation</label>
+                        <div class="col-md-7">
+                            <select class="form-control show-tick date" data-selected-text-format="count" name="shippingCalculation" ng-options="shipping.id as shipping.value for shipping in vm.shippingCalculationType" ng-model="vm.activecompanyWebSetting.shippingCalculationType" required>
+                                <option class="" value="" style="display: none">Select Shipping Calculation Type</option>
+                            </select>
+                            <span ng-show="vm.companyWebSettingForm.shippingCalculation.$touched && vm.companyWebSettingForm.shippingCalculation.$error.required" style="color:red;">Required</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="col-md-5 col-xs-12 control-label">Discount Calculation</label>
+                        <div class="col-md-7">
+                            <select class="form-control show-tick date" name="discountCalculation" data-selected-text-format="count" ng-options="discount.id as discount.value for discount in vm.discountCalculationType" ng-model="vm.activecompanyWebSetting.discountCalculationType" required>
+                                <option class="" value="" style="display: none">Select Discount Calculation Type</option>
+                            </select>
+                            <span ng-show="vm.companyWebSettingForm.discountCalculation.$touched && vm.companyWebSettingForm.discountCalculation.$error.required" style="color:red;">Required</span>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="col-md-5 col-xs-12 control-label">Vendor Serial No.</label>
+                        <div class="col-md-7">
+                            <input type="number" name="vendorSerialNo" class="form-control show-tick date" style="text-align:center" placeholder="Vendor Serial No" ng-model="vm.activecompanyWebSetting.vendorSerialNo" required>
+                            <span ng-show="vm.companyWebSettingForm.vendorSerialNo.$touched && vm.companyWebSettingForm.vendorSerialNo.$error.required" style="color:red;">Required</span>
+
+                        </div> 
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label class="col-md-5 col-xs-12 control-label">Customer Serial No.</label>
+                        <div class="col-md-7">
+                            <input type="number" name="customerSerialNo" class="form-control show-tick date" style="text-align:center" placeholder="Customer Serial No" ng-model="vm.activecompanyWebSetting.customerSerialNo" required>
+                            <span ng-show="vm.companyWebSettingForm.customerSerialNo.$touched && vm.companyWebSettingForm.customerSerialNo.$error.required" style="color:red;">Required</span>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="col-md-5 col-xs-12 control-label">Sales Rep Id</label>
+                        <div class="col-md-7">
+                            <select class="form-control show-tick date" name="saleRep" data-selected-text-format="count" ng-options="salesRefId.id as salesRefId.userName for salesRefId in vm.allUser" ng-model="vm.activecompanyWebSetting.salesRepId" required>
+                                <option class="" value="" style="display: none">Select User </option>
+                            </select>
+                            <span ng-show="vm.companyWebSettingForm.saleRep.$touched && vm.companyWebSettingForm.saleRep.$error.required" style="color:red;">Required</span>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="col-md-5 col-xs-12 control-label">Delivery Method</label>
+                        <div class="col-md-7">
+                            <select class="form-control show-tick date" name="deliveryMethod" data-live-search="true" ng-options="delivery.id as delivery.deliveryCode for delivery in vm.deliveryMethods" ng-model="vm.activecompanyWebSetting.deliveryMethodId" ng-required="true">
+                                <option class="" value="" style="display: none">Select Delivery Method</option>
+                            </select>
+                            <span ng-show="vm.companyWebSettingForm.deliveryMethod.$touched && vm.companyWebSettingForm.deliveryMethod.$error.required" style="color:red;">Required</span>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label class="col-md-5 col-xs-12 control-label">Payment Method</label>
+                        <div class="col-md-7">
+                            <select class="form-control show-tick date" name="paymentMethod" data-selected-text-format="count" ng-options="payment.id as payment.methodName for payment in vm.paymentMethods" ng-model="vm.activecompanyWebSetting.paymentMethodId" required>
+                                <option class="" value="" style="display: none">Select Payment Method</option>
+                            </select>
+                            <span ng-show="vm.companyWebSettingForm.paymentMethod.$touched && vm.companyWebSettingForm.paymentMethod.$error.required" style="color:red;">Required</span>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="col-md-5 col-xs-12 control-label">Purchase Order Code</label>
+                        <div class="col-md-7">
+                            <input type="text" name="purchaseOrderCode" class="form-control" placeholder="Purchase Order Code." ng-model="vm.activecompanyWebSetting.purchaseOrderCode">
+                            <span ng-show="vm.companyWebSettingForm.purchaseOrderCode.$touched && vm.companyWebSettingForm.purchaseOrderCode.$error.required" style="color:red;">Required</span>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="col-md-5 col-xs-12 control-label">Sales Order Code</label>
+                        <div class="col-md-7">
+                            <input type="text" name="salesOrderCode" class="form-control" placeholder="Sales Order Code" ng-model="vm.activecompanyWebSetting.salesOrderCode">
+                            <span ng-show="vm.companyWebSettingForm.salesOrderCode.$touched && vm.companyWebSettingForm.salesOrderCode.$error.required" style="color:red;">Required</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label class="col-md-5 col-xs-12 control-label">Allow Guest</label>
+                        <div class="col-md-7">
+                            <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.activecompanyWebSetting.allowGuest" /></label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="col-md-5 col-xs-12 control-label">Web Active</label>
+                        <div class="col-md-7">
+                            <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.activecompanyWebSetting.webActive" /></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary waves-effect pull-right" ng-click="vm.saveOrUpdateCompanyWebSetting(vm.activecompanyWebSetting)" ng-disabled="vm.companyWebSettingForm.$invalid"><span class="fa fa-plus"></span> Save</button>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="col-md-12">
+                    <div class="form-group col-md-12" ng-hide="vm.logo.id>0">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary waves-effect" ng-click="open()">Add Company Logo</button>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" ng-show="vm.logo.id>0">
+                        <img src="../../{{vm.logo.mediaUrl}}" class="img-responsive" /><br />
+                        <button type="button" class="btn btn-primary waves-effect" ng-click="vm.removeLogo(vm.logo)">
+                            <span class="fa fa-recycle"></span> Remove Image
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+   
+    <!--<div class="row" ng-show="showModal">
+        <div class="col-md-12">
+
+            <form class="form-horizontal" name="vm.deliveryMethodForm">
+
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Add Carousel Image</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="row clearfix">
+
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            Select an image file: <input type="file" id="fileInput" class="fileInput" onchange="angular.element(this).scope().fileNameChanged(files)" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group col-md-12">
+                                                <label class="col-md-5 col-xs-12 control-label">Product</label>
+                                                <div class="col-md-7">
+                                                    <select class="form-control show-tick date" data-selected-text-format="count" ng-options="product.id as product.name for product in vm.products" ng-model="vm.itemId" required>
+                                                        <option class="" value="" style="display: none">Select Product</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-lg-6">
+                                            <h3>Crop Area for {{vm.selectedOption.name}}</h3>
+                                            <div class="cropArea">
+                                                <img-crop image="myImage"
+                                                          aspect-ratio="3"
+                                                          area-type="rectangle"
+                                                          result-height="{{vm.carouselResultImageSize.h}}"
+                                                          result-x="{{vm.carouselResultImageSize.w}}"
+                                                          result-y="{{vm.carouselResultImageSize.h}}"
+                                                          original-width="{{vm.carouselResultImageSize.w}}"
+                                                          original-height="{{vm.carouselResultImageSize.h}}"
+                                                          original-crop-x="{{vm.carouselResultImageSize.w}}"
+                                                          original-crop-y="{{vm.carouselResultImageSize.h}}"
+                                                          original-crop-width="{{vm.carouselResultImageSize.w}}"
+                                                          original-crop-height="{{vm.carouselResultImageSize.h}}"
+                                                          result-image-size="[{w:vm.carouselResultImageSize.w,h:vm.carouselResultImageSize.h}]"
+                                                          result-image='myCroppedImage'
+                                                          result-array-image='myArray'>
+
+                                                </img-crop>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-offset-2 col-lg-4">
+                                            <h3>Preview Image:</h3>
+                                            <div>
+                                                <img id="img" ng-src="{{myArray[0].dataURI}}" class="img-responsive" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-click="vm.saveCarouselImage(myArray,vm.itemId)" ng-disabled="vm.ecommerSettingForm.$invalid">Save Changes <span class="fa fa-floppy-o fa-right"></span></button>
+                            <button class="btn btn-primary" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>-->
+
+    <div class="row" ng-show="showModal">
+        <div class="col-md-12">
+            <form class="form-horizontal" name="vm.companyLogoForm" novalidate>
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Company Logo</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="col-md-12">
+                                <div>Select an image file: <input type="file" id="fileInput" class="fileInput" /></div>  <!--onchange="angular.element(this).scope().fileNameChanged(files)"-->
+                                <div class="col-lg-6">
+                                    <div class="cropArea">
+                                        <img-crop image="logoImage" area-type="rectangle" aspect-ratio="1" result-image="logoCroppedImage" result-image-size='[{w: 80,h: 80}]' result-array-image='logoArray'></img-crop>
+                                    </div>
+                                </div>
+                                <div class="col-lg-offset-2 col-lg-4">
+                                    <h3>Preview Image:</h3>
+                                    <div>
+                                        <img id="img" ng-src="{{logoArray[0].dataURI}}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary" ng-click="vm.updateCompanyLogo(logoCroppedImage)" ng-disabled="vm.companyLogoForm.$invalid">Save Image</button>
+                            <button type="button" class="btn btn-primary" ng-click="vm.closeCompanyModal()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

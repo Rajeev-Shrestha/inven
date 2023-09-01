@@ -1,0 +1,214 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+    label i:hover {
+        color: #1caf9a;
+    }
+    .btn-category {
+        width: 64px;
+        height: 27px;
+        padding: 3px 8px;
+        font-size:11px;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Product</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="panel panel-default">
+        <div class="col-md-4">
+            <div class="scroll-container" style="overflow:scroll;">
+                <div ui-tree data-drag-enabled="false" ng-hide="vm.category.length==0">
+                    <ol ui-tree-nodes="" ng-model="vm.category" id="tree-node" style="cursor:default;">
+                        <li ng-repeat="item in vm.category" ui-tree-node>
+                            <div ui-tree-handle ng-click="vm.categoryById(item)">
+                                <p style="margin-bottom:12px;">
+                                    <span ng-click="item.active === true && vm.nodeClicked(item)" style="cursor: default;">{{item.name}}</span>
+                                    <span class="pull-right" ng-show="item.active == true">
+                                        <label>
+                                            <i class="glyphicon glyphicon-pencil" aria-hidden="true" style="cursor:default;" title="edit" ng-click="vm.nodeClickedForEdit(item)"></i>
+                                        </label>
+                                        <label>|</label>
+                                        <label>
+                                            <i class="glyphicon glyphicon-remove" aria-hidden="true" style="cursor:default;" title="delete" ng-click="open(item)"></i>
+                                        </label>
+                                    </span>
+                                    <span class="pull-right" ng-show="item.active == false">
+                                        <label class="pull-right">
+                                            <button class="btn btn-primary waves-effect btn-category" aria-hidden="true" style="cursor:default;" ng-click="vm.activateCategory(item)">Activate</button>
+                                        </label>
+                                    </span>
+                                </p>
+                            </div>
+
+                            <ol ui-tree-nodes="" ng-model="item.children">
+                                <li ng-repeat="subItem in item.children" ui-tree-node>
+                                    <div ui-tree-handle="" ng-click="vm.categoryById(subItem)">
+                                        <p style="margin-bottom:12px;">
+                                            <span ng-click="subItem.active === true && vm.nodeClicked(subItem)" style="cursor: default;">{{subItem.name}}</span>
+                                            <span class="pull-right" ng-show="subItem.active == true">
+                                                <label>
+                                                    <i class="glyphicon glyphicon-pencil" aria-hidden="true" style="cursor:default;" title="edit" ng-click="vm.nodeClickedForEdit(subItem)"></i>
+                                                </label>
+                                                <label>|</label>
+                                                <label>
+                                                    <i class="glyphicon glyphicon-remove" aria-hidden="true" style="cursor:default;" title="delete" ng-click="open(subItem);"></i>
+                                                </label>
+                                            </span>
+                                            <span class="pull-right" ng-show="subItem.active == false">
+                                                <label class="pull-right">
+                                                    <button class="btn btn-primary pull-right btn-category" aria-hidden="true" style="cursor:default;" ng-click="vm.activateCategory(subItem)">Activate</button>
+                                                </label>
+                                            </span>
+                                        </p>
+
+                                    </div>
+                                    <ol ui-tree-nodes="" ng-model="subItem.children">
+                                        <li ng-repeat="nextsubItem in subItem.children" ui-tree-node>
+                                            <div ui-tree-handle="" ng-click="vm.categoryById(nextsubItem)">
+                                                <p style="margin-bottom:12px;">
+                                                    <span ng-click="nextsubItem.active === true && vm.nodeClicked(nextsubItem)" style="cursor: default;">{{nextsubItem.name}}</span>
+                                                    <span class="pull-right" ng-show="nextsubItem.active == true">
+                                                        <label>
+                                                            <i class="glyphicon glyphicon-pencil" aria-hidden="true" style="cursor:default;" title="edit" ng-click="vm.nodeClickedForEdit(nextsubItem)"></i>
+                                                        </label>
+                                                        <label>|</label>
+                                                        <label>
+                                                            <i class="glyphicon glyphicon-remove" aria-hidden="true" style="cursor:default;" title="delete" ng-click="open(nextsubItem)"></i>
+                                                        </label>
+                                                    </span>
+                                                    <span class="pull-right" ng-show="nextsubItem.active == false">
+                                                        <label class="pull-right">
+                                                            <button class="btn btn-primary btn-category" aria-hidden="true" style="cursor:default;" ng-click="vm.activateCategory(nextsubItem)">Activate</button>
+                                                        </label>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <ol ui-tree-nodes="" ng-model="subItem3.children">
+                                                <li ng-repeat="subItem3 in subItem3.children" ui-tree-node>
+                                                    <div ui-tree-handle="" ng-click="vm.categoryById(subItem3)">
+                                                        <span ng-click="subItem3.active === true && vm.nodeClicked(subItem3)">{{subItem3.name}}</span>
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </li>
+                                    </ol>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8" ng-show="!vm.showModal">
+            <div class="panel-heading">
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary waves-effect" ng-click="vm.newSubCategory()">New Item</button>
+                </div>
+                <div class="col-md-10">
+                    <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.checkInactive($event, vm.check)" /> Include Inactive</label>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width:5%">#</th>
+                            <th style="width:30%">Category Name</th>
+                            <th style="width:30%">Description</th>
+                            <th style="width:35%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-hide="showCategoryModal" ng-repeat="activeCategory in vm.activeCategory.childrens">
+                            <td>{{$index + 1}}</td>
+                            <td>{{activeCategory.name}}</td>
+                            <td>{{activeCategory.description}}</td>
+                            <td ng-show="activeCategory.active">
+                                <div class="push-down-10">
+                                    <button class="btn btn-default" ng-click="vm.actionChanged(activeCategory, 1)"><span class="fa fa-pencil"></span> Edit</button>
+                                    <button class="btn btn-default" ng-click="vm.actionChanged(activeCategory, 2)"><span class="fa fa-recycle"></span> Delete</button>
+                                </div>
+                            </td>
+                            <td ng-show="!activeCategory.active">
+                                <button type="button" class="btn btn-info waves-effect" ng-click="vm.activeProduct(activeCategory)"> Activate</button>
+                            </td>
+                        </tr>
+                        <tr ng-show="vm.products.length==0">
+                            <td colspan="7">There is no data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-8" id="categoryModal" ng-show="vm.showModal">
+            <form class="form-horizontal" name="vm.categoryForm">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Category Name*</label>
+                    <div class="col-md-9 col-xs-12">
+                        <input type="text" class="form-control" name="categoryName" ng-model="vm.activeCategoryItem.name" ng-change="vm.checkIfExistsName(vm.activeCategoryItem.name)" ng-model-options="{debounce: 1500}" required>
+                        <span ng-show="vm.categoryForm.categoryName.$touched && vm.categoryForm.categoryName.$error.required" style="color:red;">Enter Category Name</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Parent Category</label>
+                    <div class="col-md-9 col-xs-12">
+                        <select class="form-control" name="parentCategory" ng-options="parentCategory.id as parentCategory.name for parentCategory in vm.cats" ng-model="vm.activeCategoryItem.parentId">
+                            <option class="" value="" style="display: none">Select Parent Category</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Description</label>
+                    <div class="col-md-9 col-xs-12">
+                        <input type="text" class="form-control" ng-model="vm.activeCategoryItem.description">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-9 col-xs-12">
+                        <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.activeCategoryItem.webActive" /> Web active</label>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="pull-right">
+                        <button class="btn btn-primary" ng-click="vm.saveCategory(vm.activeCategoryItem)" ng-disabled="vm.categoryForm.$invalid">{{vm.btnSaveCategoryText}}<span class="fa fa-floppy-o fa-right"></span></button>
+                        <button class="btn btn-primary" ng-click="vm.hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+      <!-- category Modal-->
+        <div class="row">
+            <div modal="showCategoryModal" class="category-delete-modal" close="cancel()">
+                <div class="modal-header">
+                    <h4>Are YouSure You Want To Deactivate?</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="checkbox">
+                        <label><input type="checkbox" ng-model="vm.deleteCheck" name="remember"> Include Sub-Categories</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" ng-click="vm.ok(vm.deleteCheck)">Okay</button>
+                        <button class="btn" ng-click="cancel()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+        <!-- END PAGE CONTENT WRAPPER -->
+
+<!--<script type="text/ng-template" id="template.html">
+    <div>
+        <h2>{{item}}</h2>
+    </div>
+</script>-->

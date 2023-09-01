@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@section Scripts{
+    <script src="~/js/home/app-home.js" asp-append-version="true"></script>
+    <script src="~/js/home/home.controller.js" asp-append-version="true"></script>
+    <script src="~/js/home/home.service.js" asp-append-version="true"></script>
+    <script src="~/manual/plugins/waitme/waitMe.js" asp-append-version="true"></script>
+    <link href="~/manual/plugins/waitme/waitMe.css" rel="stylesheet" />\
+    @*<script src="~/manual/chart/Chart.min.js"></script>*@
+    <script src="~/manual/chart/Chart.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.1/chart.min.js"></script>*@
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-charts/0.2.7/angular-charts.min.js"></script>*@
+    <script src="~/manual/chart/angular-chart.js"></script>
+    @*<script src="~/manual/chart/angular-chart.min.js"></script>*@
+    <script src="~/manual/sweet-alert/swal-extend/swalExtend.js"></script>
+    <link href="~/manual/sweet-alert/swal-extend/swalExtend.css" rel="stylesheet" />
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("home"), ['app-home']);
+    </script>
+}
+@*<div class="row" ng-app="app-home">
+        <ui-view></ui-view>
+    </div>*@
+<div>
+    <div class="" id="home">
+        <ui-view></ui-view>
+    </div>
+</div>

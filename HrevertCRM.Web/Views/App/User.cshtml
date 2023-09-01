@@ -1,0 +1,26 @@
+﻿
+
+@{
+    ViewBag.Title = "User";
+    Layout = "_Layout";
+}
+@section Scripts{
+    <script src="~/js/user/app-user.js" asp-append-version="true"></script>
+    <script src="~/js/user/user.controller.js" asp-append-version="true"></script>
+    <script src="~/js/user/user.service.js" asp-append-version="true"></script>
+    <script src="~/manual/recipe7/js/angular-ui-bootstrap-modal.js"></script>
+
+<link href="~/css/simple.css" rel="stylesheet" />
+<script src="~/manual/angularSortable.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("user"), ['app-user']);
+</script>
+}
+@section css{
+    <link href="~/manual/icon.css" rel="stylesheet" />
+}
+<div ng-non-bindable>
+    <div class="" id="user">
+        <ui-view></ui-view>
+    </div>
+</div>

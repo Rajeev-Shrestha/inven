@@ -1,0 +1,15 @@
+you can do all the above mentioned functionalities by creating proper tables in database. i.e.,
+
+create one table to store count of wrong attempts, increment count when wrong attempt occurs based on 
+the primary key i.e user name, within 5 attempts if he logs successfully then try to make that count to null
+
+While locking the user after 5 unsuccessful attempts store the time and write one script to check that
+time continuously, when it meets 30mins call unlock method
+
+For password also take day count, i.e., from changed date, each time when user logs in after checking user 
+validity check for password day count if it cross 3days prompt them to change
+
+If you are taking user name as primary key, create one more table to store max 10 passwords for each user, 
+while inserting password to this table(when user changes his password),check the table for number rows for 
+that user if it is 10 then based on the last lesser date you can delete that row and insert new password 
+and you can compare new password with old passwords also while inserting.

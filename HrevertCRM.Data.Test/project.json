@@ -1,0 +1,23 @@
+﻿{
+    "version": "1.0.0-*",
+    "description": "",
+  "dependencies": {
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.0.0"
+    },
+    "xunit": "2.2.0-beta3-build3402",
+    "xunit.runner.dnx": "2.1.0-rc1-build204",
+    "xunit.abstractions": "2.0.1",
+    "moq": "4.6.38-alpha",
+    "HrevertCRM.Data": "1.0.0-*"
+  },
+    "commands": {
+        "test": "xunit.runner.dnx"
+    },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": "dnxcore50"
+    }
+  }
+}

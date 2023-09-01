@@ -1,0 +1,27 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+@section Scripts {
+    
+    <script src="~/js/profile/app-profile.js"></script>
+    <script src="~/js/profile/profile.controller.js"></script>
+    <script src="~/js/profile/profile.service.js"></script>
+
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("profile"), ['app-profile']);
+    </script>
+}
+
+
+@section css{
+}
+
+
+<div ng-non-bindable>
+    <div class="" id="profile">
+        <ui-view></ui-view>
+    </div>
+</div>

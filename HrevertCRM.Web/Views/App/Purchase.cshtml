@@ -1,0 +1,26 @@
+﻿
+
+@{
+    ViewBag.Title = "Purchase";
+    Layout = "_Layout";
+}
+@section Scripts{
+    <script src="~/js/purchase/app-purchase.js" asp-append-version="true"></script>
+    <script src="~/js/purchase/purchase.controller.js" asp-append-version="true"></script>
+    <script src="~/js/purchase/purchase.service.js" asp-append-version="true"></script>
+    <script src="~/manual/angularSortable.js"></script>
+    <script src="~/manual/paging.min.js"></script>
+    <script src="~/lib/angular-moment/moment.js"></script>
+    <script src="~/lib/angular-sanitize/angular-sanitize.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("purchase"), ['app-purchase']);
+</script>
+}
+@section css{
+    <link href="~/manual/icon.css" rel="stylesheet" />
+}
+<div ng-non-bindable>
+    <div class="" id="purchase">
+        <ui-view></ui-view>
+    </div>
+</div>

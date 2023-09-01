@@ -1,0 +1,21 @@
+﻿[
+
+  {
+    "value": "Sales Quote"
+  },
+  {
+    "value": "Sales Order"
+  },
+  {
+    "value": "Sales Invoice"
+  },
+  {
+    "value": "Credit Quote"
+  },
+  {
+    "value": "Credit Order"
+  },
+  {
+    "value": "Credit Memo"
+  }
+]

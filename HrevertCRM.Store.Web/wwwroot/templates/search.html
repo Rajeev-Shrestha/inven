@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    
+</head>
+<body class="category-page" ng-cloak>
+    <div>
+        <div class="{{vm.class}}"></div>
+    </div>
+<div class="columns-container">
+    <div class="">
+        <div class="center_column col-xs-12 col-sm-12" id="center_column">
+            <div id="view-product-list" class="view-product-list">
+                <h2 class="page-heading">
+                    <span class="page-heading-title">Showing {{vm.searchResult.length}} items from search result {{vm.searchText}}</span>
+                </h2>
+                <ul class="display-product-option">
+                    <li class="view-as-grid selected">
+                        <span>grid</span>
+                    </li>
+                    <li class="view-as-list">
+                        <span>list</span>
+                    </li>
+                </ul>
+                <!-- PRODUCT LIST -->
+                <div class="col-md-12" ng-show="vm.searchResult.length=='0'">
+                    <h2>There is no search item found</h2>
+                </div>
+                <ul class="row product-list grid">
+                    <li class="col-sx-12 col-sm-3" ng-repeat="searchItem in vm.searchResult">
+                        <div class="product-container">
+                            <div class="left-block">
+                                <a href="/items/{{searchItem.id}}" target="_self">
+                                    <img class="img-responsive" alt="product" src="{{vm.crmLocation + '/'}}{{searchItem.mediumImageUrls[0]}}"/>
+                                </a>
+                                <div class="quick-view">
+                                    <a title="Add to my wishlist" class="heart" href=""></a>
+                                    <a title="Add to compare" class="compare" href="" ng-click="vm.compareProduct(searchItem)"></a>
+                                    <a title="Quick view" class="search" href="/items/{{searchItem.id}}" target="_self"></a>
+                                </div>
+                                <div class="add-to-cart">
+                                    <a title="Add to Cart" href="" ng-disabled="!searchItem.allowBackOrder && searchItem.quantityOnHand < 1">
+                                        <span ng-show="!searchItem.allowBackOrder && searchItem.quantityOnHand < 1">Out Of Stock</span>
+                                        <span ng-show="searchItem.allowBackOrder && searchItem.quantityOnHand < 1 || !searchItem.allowBackOrder && searchItem.quantityOnHand > 0" ng-click="vm.addToCart(searchItem)">Add to Cart</span>
+                                    </a>
+                                    <!--<a title="Add to Cart" href="" ng-click="vm.addToCart(searchItem)">Add to Cart</a>-->
+                                </div>
+                            </div>
+                            <div class="right-block">
+                                <h5 class="product-name"><a href="/items/{{searchItem.id}}" target="_self">{{searchItem.name}}</a></h5>
+                                <div class="content_price">
+                                    <span class="price product-price">{{searchItem.unitPrice}}</span>
+                                    <span class="price old-price">{{searchItem.unitPrice}}</span>
+                                </div>
+                                <div class="info-orther">
+                                    <p>Item Code: {{searchItem.code}}</p>
+
+                                    <p class="availability">Availability: <span ng-show="searchItem.quantityOnHand > 0">In stock</span> <span ng-show="searchItem.quantityOnHand <= 0">Out Of Stock</span>
+                                    </p>
+                                    <div class="product-desc">
+                                        {{searchItem.shortDescription}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- ./PRODUCT LIST -->
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

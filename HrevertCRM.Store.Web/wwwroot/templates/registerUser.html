@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>registerUser</title>
+    <style>
+        .noBckground{
+            border:none;
+            width:100%;
+            color:#999;
+        }
+        .login-mail input[type="email"], .login-mail input[type="number"]{
+            width: 95%;
+        }
+        .highlight { 
+    
+            border: 1px red solid;
+        }
+        input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 30px white inset;
+        }
+    </style>
+</head>
+<body ng-cloak>
+    <div class="container">
+        <div class="banner-top" style="background:url(../images/theme/back.jpg)">
+            <h1>Completely Free Account</h1>
+            <em></em>
+            <a href="login.html" class="hvr-skew-backward">Login</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="login">
+            <form name="vm.userForm" method="post">
+                <div class="col-md-12 login-do">
+                    
+                    <div class="col-md-6 login-mail" ng-class="{highlight:vm.userForm.titleId.$touched && vm.userForm.titleId.$error.required}">
+                        <select name="titleId" class="noBckground" ng-model="vm.user.billingAddress.title" ng-options="title.id as title.value for title in vm.titles" required>
+                            <option class="" value="">Select Title *</option>
+                        </select>
+                        <!--<span ng-show="vm.userForm.titleId.$touched && vm.userForm.titleId.$error.required" style="color:red;">Required</span>-->
+                    </div>
+                    <div class="col-md-6 login-mail" ng-class="{highlight:vm.userForm.suffixId.$touched && vm.userForm.suffixId.$error.required}">
+                        <select name="suffixId" class="noBckground" ng-model="vm.user.billingAddress.suffix" ng-options="suffix.id as suffix.value for suffix in vm.suffixes" required>
+                            <option class="" value="">Select Suffix *</option>
+                        </select>
+                        <!--<span ng-show="vm.userForm.suffixId.$touched && vm.userForm.suffixId.$error.required" style="color:red;">Required</span>-->
+                    </div>
+                    <div class="col-md-6 login-mail" ng-class="{highlight:vm.userForm.firstName.$touched && vm.userForm.firstName.$error.required}">
+                        <input type="text" name="firstName" placeholder="First Name *" ng-model="vm.user.billingAddress.firstName" required />
+                        <i class="glyphicon glyphicon-user"></i>
+                    </div>
+                    <div class="login-mail col-md-6">
+                        <input type="text" name="middleName" placeholder="Middle Name" ng-model="vm.user.billingAddress.middleName">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </div>
+
+                    <div class="login-mail col-md-6" ng-class="{highlight:vm.userForm.lastName.$touched && vm.userForm.lastName.$error.required}">
+                        <input type="text" name="lastName" placeholder="Last Name *" ng-model="vm.user.billingAddress.lastName" required>
+                        <i class="glyphicon glyphicon-user"></i>
+                        <!--<span ng-show="vm.userForm.lastName.$touched && vm.userForm.lastName.$invalid" style="color:red;">Required</span>-->
+                    </div>
+                    <div class="login-mail col-md-6" ng-class="{highlight:vm.userForm.email.$touched && vm.userForm.email.$error.required || vm.userForm.email.$error.email}">
+                        <input type="email" name="email" id="email" class="noBckground" placeholder="Email *" ng-model="vm.user.billingAddress.email" ng-blur="vm.checkEmailExists(vm.user.billingAddress.email)" ng-pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/" required>
+                        <i class="glyphicon glyphicon-envelope"></i>
+                        <!--<span ng-show="vm.userForm.email.$touched && vm.userForm.email.$error.required" style="color:red;">Required</span>
+                        <span ng-show="vm.userForm.email.$touched && vm.userForm.email.$error.email" style="color:red;">Invalid Email</span>-->
+                    </div>
+                    <div class="login-mail col-md-6" ng-class="{highlight:vm.userForm.password.$touched && vm.userForm.password.$invalid}">
+                        <input type="password" name="password" placeholder="Password *" ng-model="vm.user.password" required>
+                        <i class="glyphicon glyphicon-lock"></i>
+                        <!--<span ng-show="vm.userForm.password.$touched && vm.userForm.password.$invalid" style="color:red;">Required</span>-->
+                    </div>
+                    <div class="login-mail col-md-6" ng-class="{highlight:vm.userForm.confirmPassword.$touched && vm.userForm.confirmPassword.$error.required || vm.userForm.confirmPassword.$error.pattern}">
+                        <input type="password" name="confirmPassword" placeholder="Confirm Password *" ng-pattern="vm.user.password" ng-model="vm.user.confirmPassword" required>
+                        <i class="glyphicon glyphicon-lock"></i>
+                        <!--<span ng-show="vm.userForm.confirmPassword.$touched && vm.userForm.confirmPassword.$error.required" style="color:red;">Required</span>
+                        <span ng-show="vm.userForm.confirmPassword.$touched && vm.userForm.confirmPassword.$error.pattern" style="color:red;">Password Mismatch</span>-->
+                    </div>
+                    <div class="login-mail col-md-6" ng-class="{highlight:vm.userForm.countryId.$touched && vm.userForm.countryId.$error.required}">
+                        <select name="countryId" class="noBckground" ng-model="vm.user.billingAddress.countryId" ng-options="country.id as country.name for country in vm.countries" required>
+                            <option class="" value="">Select Country *</option>
+                        </select>
+                        <!--<span ng-show="vm.userForm.countryId.$touched && vm.userForm.countryId.$error.required" style="color:red;">Required</span>-->
+                    </div>
+                    <div class="login-mail col-md-6" ng-class="{highlight:vm.userForm.zoneId.$touched && vm.userForm.zoneId.$error.required}">
+                        <select name="zoneId" class="noBckground" ng-model="vm.user.billingAddress.deliveryZoneId" ng-options="zone.id as zone.zoneName for zone in vm.zone" required>
+                            <option class="" value="">Select Zone *</option>
+                        </select>
+                        <!--<span ng-show="vm.userForm.zoneId.$touched && vm.userForm.zoneId.$error.required" style="color:red;">Required</span>-->
+                    </div>
+                    <div class="login-mail col-md-6" ng-class="{highlight:vm.userForm.zipCode.$touched && vm.userForm.zipCode.$invalid}">
+                        <input type="text" name="zipCode" placeholder="Zip Code *" ng-model="vm.user.billingAddress.zipCode" required>
+                        <i class="glyphicon glyphicon-lock"></i>
+                        <!--<span ng-show="vm.userForm.zipCode.$touched && vm.userForm.zipCode.$invalid" style="color:red;">Required</span>-->
+                    </div>
+                    <div class="login-mail col-md-6" ng-class="{highlight:vm.userForm.addressLine1.$touched && vm.userForm.addressLine1.$invalid}">
+                        <input type="text" name="addressLine1" placeholder="Address *" ng-model="vm.user.billingAddress.addressLine1" required>
+                        <i class="glyphicon glyphicon-lock"></i>
+                        <!--<span ng-show="vm.userForm.addressLine1.$touched && vm.userForm.addressLine1.$invalid" style="color:red;">Required</span>-->
+                    </div>
+                    <div class="login-mail col-md-6" ng-class="{highlight:vm.userForm.city.$touched && vm.userForm.city.$invalid}">
+                        <input type="text" name="city" placeholder="City *" ng-model="vm.user.billingAddress.city" required />
+                        <i class="glyphicon glyphicon-lock"></i>
+                        <!--<span ng-show="vm.userForm.city.$touched && vm.userForm.city.$invalid" style="color:red;">Required</span>-->
+                    </div>
+                    <div class="login-mail col-md-6" ng-class="{highlight:vm.userForm.state.$touched && vm.userForm.state.$invalid}">
+                        <input type="text" name="state" placeholder="State *" ng-model="vm.user.billingAddress.state" required />
+                        <i class="glyphicon glyphicon-lock"></i>
+                        <!--<span ng-show="vm.userForm.state.$touched && vm.userForm.state.$invalid" style="color:red;">Required</span>-->
+
+                    </div>
+                    <div class="login-mail col-md-6" ng-class="{highlight:vm.userForm.mobile.$touched && vm.userForm.mobile.$invalid}">
+                        <input type="text" name="mobile" placeholder="Mobile Number *" ng-model="vm.user.billingAddress.mobilePhone" required />
+                        <i class="glyphicon glyphicon-lock"></i>
+                        <!--<span ng-show="vm.userForm.mobile.$touched && vm.userForm.mobile.$invalid" style="color:red;">Required</span>-->
+                    </div>
+                    <div class="login-mail col-md-6">
+                        <input type="number" class="noBckground" placeholder="Vat no." ng-model="vm.user.vatNo" />
+
+                        <i class="glyphicon glyphicon-lock"></i>
+                    </div>
+                    <div class="login-mail col-md-6">
+                        <input type="number" class="noBckground" placeholder="Pan no." ng-model="vm.user.panNo" />
+                        <i class="glyphicon glyphicon-lock"></i>
+                    </div>
+                </div>
+
+                <div class="col-md-12 login-do">
+                    <label class="hvr-skew-backward pull-right">
+                        <input type="submit" value="Submit">
+                    </label>
+                </div>
+
+                <div class="clearfix"> </div>
+
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>

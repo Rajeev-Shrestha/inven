@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@section Scripts {
+
+    <script src="~/js/registerUser/app-registerUser.js" asp-append-version="true"></script>
+    <script src="~/js/registerUser/registerUser.service.js" asp-append-version="true"></script>
+    <script src="~/js/registerUser/registerUser.controller.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("registerUser"), ['app-registerUser']);
+    </script>
+
+}
+
+@section css{
+}
+<div ng-non-bindable>
+    <div class="" id="registerUser">
+        <ui-view></ui-view>
+    </div>
+</div>

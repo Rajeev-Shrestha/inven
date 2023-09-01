@@ -1,0 +1,20 @@
+﻿
+
+
+After creating a new Entity,
+
+	1> Create the required view models for it in the ViewModels folder of Data.
+	2> Create a Mapper class in Mapping folder of Web and Map the Entity with it's view model.
+	3> Add the Collections(EntityCreated, EntityModified) of that Entity in the User Entity file for the mapping.
+	4> Do the mapping of that entity with others in the Mapping folder of Data.
+	5> Add the DbSet in DataContext and the Mapping of that Entity in OnModelCreating method of DataContext.
+	6> Create the QueryProcessor Class of that entity in QueryProcessor folder of Data.
+	7> Create the QueryProcessor Interface of that entity in QueryProcessor folder of HrevertCRM.Data.
+	8> Add the Interface and Class into the services of Startup.cs file situated in Web.
+	9> Create its Controller in Api folder of Web. 
+	10> Add security Id in securityId.cs
+
+
+	New installation
+	-> migrated db 
+	->uncomment 

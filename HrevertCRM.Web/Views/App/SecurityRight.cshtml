@@ -1,0 +1,22 @@
+﻿
+
+@{
+    ViewBag.Title = "securityright";
+    Layout = "_Layout";
+}
+@section Scripts{
+    <script src="~/js/securityright/app-securityright.js" asp-append-version="true"></script>
+    <script src="~/js/securityright/securityRight.controller.js" asp-append-version="true"></script>
+    <script src="~/js/securityright/securityRight.service.js" asp-append-version="true"></script>
+    <script src="~/manual/paging.min.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("securityright"), ['app-securityright']);
+</script>
+}
+@section css{
+}
+<div ng-non-bindable>
+    <div class="" id="securityright">
+        <ui-view></ui-view>
+    </div>
+</div>

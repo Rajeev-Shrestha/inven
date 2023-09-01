@@ -1,0 +1,38 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Items";
+    Layout = "_Layout";
+}
+@section Scripts {
+    
+    <script src="~/js/items/app-items.js"></script>
+    <script src="~/js/items/allitem.controller.js"></script>
+    <script src="~/js/items/allitem.service.js"></script>
+    <script src="~/js/items/itemDetail.controller.js"></script>
+    <script src="~/js/items/itemDetail.service.js"></script>
+@*<script src="~/js/layout/app-layout.js"></script>
+<script src="~/js/layout/layout.controller.js"></script>
+    <script src="~/js/layout/layout.service.js"></script>*@
+
+<script src="~/manual/angular.treeview.min.js"></script>@*not used css*@
+    
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("allitem"), ['app-items']);
+</script>
+}
+
+
+@section css{
+   
+@*<link href="~/manual/angular-multi-select-tree-0.1.0.css" rel="stylesheet" />*@
+
+    
+<link href="~/manual/css/angular.treeview.css" rel="stylesheet" />@*not used css*@
+
+}
+<div ng-non-bindable>
+    <div class="" id="allitem">
+        <ui-view></ui-view>
+    </div>
+</div>

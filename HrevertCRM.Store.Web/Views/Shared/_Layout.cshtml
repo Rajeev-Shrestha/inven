@@ -1,0 +1,477 @@
+﻿@using System.Threading.Tasks
+@using Microsoft.ApplicationInsights.Extensibility
+@using System.Linq;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    
+
+    @RenderSection("css", required: false)
+    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+    <link rel="stylesheet" type="text/css" href="~/manual/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/manual/assets/lib/font-awesome/css/font-awesome.min.css" />
+    <link href="~/css/theme/base-style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/theme/jstarbox.css" rel="stylesheet" />
+    <link href="~/css/theme/form.css" rel="stylesheet" />
+    <link href="~/css/theme/flexslider.css" rel="stylesheet" />
+    <!--theme-style-->
+
+    <link href="~/css/theme/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="~/css/theme/chocolat.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="~/manual/multilevelCarousel/owl.carousel.min.css" />
+    <link href="~/lib/wip-image-zoom/dist/wip-image-zoom.min.css" rel="stylesheet" />
+</head>
+<body class="option6" ng-cloak ng-app="app-layout" ng-controller="layoutController as vm">
+    <link href="~/css/theme/themes/" + {{vm.themeColor}} rel="stylesheet" type="text/css" media="all" />	
+    <div class="header navbar-fixed-top navbar-bootsnipp animate">
+        @*<div class="container">
+            <div class="head">
+                <div class="logo" style="margin-top:17px;">
+                    <a href=""><img src="{{vm.companyLogo}}" alt="" class="img-responsive" style="max-width:26%"></a>
+                </div>
+            </div>
+        </div>*@
+        <div class="header-top">
+            <div class="container">
+                <div class="col-sm-8 col-md-offset-2  header-login">
+                    <ul>
+                        <!--if checked Enable Offer of The Day -->
+                        @*<li><a href="login.html">Offer of the Day: "GET THINGS FROM DASHBOARD"</a></li>*@
+                        <!--if checked Enable Store Locator -->
+                        <li id="i2"><a href="" ng-show="vm.headerSettings.enableStoreLocator"><span class="glyphicon glyphicon-map-marker"></span> Store Locator</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-2 ">
+                    <ul>
+                        <li class="dropdown mega-dropdown active my-account">
+                            <a class="color1" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span> 
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <span>Hello @User.Identity.Name</span>
+                                }
+                                else
+                                {
+                                    <span>My Account</span>
+                                }
+                            </a>
+                            <div class="dropdown-menu ma-dropdown">
+                                <div class="menu-top ma-menu">
+                                    <div class="col1">
+                                        <div class="h_nav">
+                                            <ul>
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    <li><a href="/myaccount"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                                                    <li><a href="#"><span class="glyphicon glyphicon-eye-open"></span> Recently Viewed</a></li>
+                                                    <li><a href="#"><span class="glyphicon glyphicon-heart-empty"></span> My Wishlist</a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li><a href="/login" target="_self"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                                                    <li><a href="/registerUser" target="_self"><span class="glyphicon glyphicon-log-in"></span> Register</a></li>
+                                                    
+                                                    
+                                                }
+                                                <li><a href="/compare"><span class="glyphicon glyphicon-log-out"></span> Compare</a></li>
+                                                <li><a href="" ng-click="vm.reportProblemDialog()" data-toggle="modal" data-target="#reportProblemModel"><span class="glyphicon glyphicon-log-out"></span> Report Problem</a></li>
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    <li ng-click="vm.logoutUser()"><a href=""><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+                                                }
+                                                else
+                                                {
+
+                                                }
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="head-top">
+                <div class="col-md-2">
+                    <img src="{{vm.companyLogo}}" alt="" class="img-responsive">
+                </div>
+                <div class="col-sm-6 col-md-offset-2 h_menu4">
+                    <nav class="navbar nav_bottom" role="navigation">
+                        <div class="navbar-header nav_2">
+                            <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                            <ul class="nav navbar-nav nav_1">
+
+                                @*<li ng-repeat="category in vm.categories | filter:!category.isInList">
+                                        <a class="color" href="index.html">{{category.name}}</a>
+                                    </li>*@
+
+                                <li class="dropdown mega-dropdown active" ng-repeat="category in vm.categories | filter:!category.isInList">
+                                    <a class="color1" href="#" class="dropdown-toggle" data-toggle="dropdown">{{category.name}}<span class="caret"></span></a>
+                                    <div class="dropdown-menu ">
+                                        <div class="menu-top">
+                                            <div class="col1" ng-click="vm.selectCategory(subCategory)" ng-repeat="subCategory in category.children">
+                                                <div class="h_nav">
+                                                    <h4 ng-click="vm.selectCategory(subCategory)">{{subCategory.name}}</h4>
+                                                    <ul>
+                                                        <li ng-repeat="nextSubCategory in subCategory.children" ng-click="vm.selectCategory(nextSubCategory)">
+                                                            <a href="product.html">{{nextSubCategory.name}}</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col1 col5">
+                                                <img src="~/images/theme/me.png" class="img-responsive" alt="">
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+                </div>
+                <div class="col-sm-2 search-right">
+                    <ul class="heart">
+                        <!-- If Wishlist is enabled -->
+                        <li>
+                            <a href="wishlist.html"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a>
+                        </li>
+                        <li>
+                            <a class="play-icon popup-with-zoom-anim" href="#small-dialog"><i class="glyphicon glyphicon-search"> </i></a>
+                        </li>
+                    </ul>
+                    <div class="cart box_1">
+                        <a href="/cartdetails" target="_self">
+                            <h3>
+                                <div class="total" ng-show="vm.viewModelHelper.cartItems.shoppingCartDetails.length > 0">
+                                    <span>{{vm.viewModelHelper.cartItems.shoppingCartDetails.length}} Items</span>
+                                </div>
+                                <img src="~/images/theme/cart.png" alt="" />
+                            </h3>
+                        </a>
+                        <p ng-show="!vm.viewModelHelper.cartItems.shoppingCartDetails.length > 0">
+                            <a href="#" class="simpleCart_empty">Empty Cart</a>
+                        </p>
+                    </div>
+                    <div class="clearfix"> </div>
+
+                    <!---//pop-up-box---->
+                    <div id="small-dialog" class="mfp-hide">
+                        <div class="search-top">
+                            <div class="login-search">
+                                <input type="submit" value="">
+                                <input type="text" value="Search.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search..';}">
+                            </div>
+                            <p>Shop Name from Dashboard</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:50px;">
+        @RenderBody()
+    </div>
+    
+    <!--brand-->
+<div class="brand" ng-show="vm.footerSettings.enableBrands">
+    <data-owl-carousel class="owl-carousel" data-options="{navigation: true, pagination: true, rewindNav : false, autoplay: true, items: 5}">
+        <li owl-carousel-item="" ng-repeat="image in vm.footerSettings.themeBrandImageUrls" class="item col-sm-12">
+
+            <div class="carousel-inner" role="listbox" style="background-color:rgba(51, 122, 183,0.2)">
+
+                <div class="item active slide1">
+                    <img src="{{vm.crmLocation}}/{{image}}" class="img-responsive" alt="">
+                </div>
+
+            </div>
+        </li>
+    </data-owl-carousel>
+    @*<div class="col-md-3 brand-grid" ng-repeat="image in vm.footerSettings.themeBrandImageUrls">
+        <img src="{{vm.crmLocation}}/{{image}}" class="img-responsive" alt="">
+    </div>*@
+    @*<div class="col-md-3 brand-grid">
+            <img src="../images/theme/ic1.png" class="img-responsive" alt="">
+        </div>
+        <div class="col-md-3 brand-grid">
+            <img src="../images/theme/ic2.png" class="img-responsive" alt="">
+        </div>
+        <div class="col-md-3 brand-grid">
+            <img src="../images/theme/ic3.png" class="img-responsive" alt="">
+        </div>*@
+    <div class="clearfix"></div>
+</div>
+    <!--//brand-->
+
+    <script type="text/javascript">
+        window.App = {
+            version: '@Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes("1.0"))',
+            rootPath: '@Url.Content("~")'
+        }
+    </script>
+    <div class="footer">
+        <div class="footer-middle">
+            <div class="container">
+                <div class="col-md-3 footer-middle-in">
+                    <a href=""><img src="{{vm.footerSettings.footerLogoUrl}}" alt=""></a>
+                    <p>{{vm.footerSettings.aboutStore}}</p>
+                </div>
+
+                <div class="col-md-3 footer-middle-in">
+                    <h6>Information</h6>
+                    <ul class="in">
+                        <li ng-show="vm.footerSettings.enableAbout"><a href="" target="_self">About</a></li>
+                        <li ng-show="vm.footerSettings.enableContact"><a href="" target="_self">Contact</a></li>
+                        <li ng-show="vm.footerSettings.enableStoreLocator"><a href="" target="_self">Store Locator</a></li>
+                        <li ng-show="vm.footerSettings.enablePolicies"><a href="" target="_self">Policies</a></li>
+                        <li ng-show="vm.footerSettings.enableFaq"><a href="" target="_self">Faq</a></li>
+                    </ul>
+                    <ul class="in in1">
+                        <li ng-show="vm.footerSettings.showOrderHistoryLink"><a href="/orderhistory" target="_self">Order History</a></li>
+                        <li ng-show="vm.footerSettings.showWishlistLink"><a href="/wishList" target="_self">Wish List</a></li>
+                        <li ng-show="vm.footerSettings.showUserLoginLink"><a href="/login" target="_self">Login</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-3 footer-middle-in">
+                    <h6>Tags</h6>
+                    <ul class="tag-in">
+                        <li ng-repeat="tag in vm.tagProducts"><a href="/items/{{tag.id}}" target="_self">{{tag.name}}</a></li>
+                        @*<li><a href="#">Sed</a></li>
+                        <li><a href="#">Ipsum</a></li>
+                        <li><a href="#">Contrary</a></li>
+                        <li><a href="#">Chunk</a></li>
+                        <li><a href="#">Amet</a></li>
+                        <li><a href="#">Omnis</a></li>*@
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-middle-in" ng-show="vm.footerSettings.enableNewsLetter">
+                    <h6>Newsletter</h6>
+                    <span>Sign up for News Letter</span>
+                    <form>
+                        <input type="text" value="Enter your E-mail" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='Enter your E-mail';}">
+                        <input type="submit" value="Subscribe">
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                @*<ul class="footer-bottom-top">
+                    <li><a href="#"><img src="~/images/theme/f1.png" class="img-responsive" alt=""></a></li>
+                    <li><a href="#"><img src="~/images/theme/f2.png" class="img-responsive" alt=""></a></li>
+                    <li><a href="#"><img src="~/images/theme/f3.png" class="img-responsive" alt=""></a></li>
+                </ul>*@
+                <p class="footer-class">
+                    <!-- If Social Links are enabled and have values -->
+                    <div class="col-sm-3 header-social" ng-show="vm.headerSettings.enableSocialLinks">
+                        <ul>
+                            <li ng-show="vm.headerSettings.facebookUrl"><a href="{{vm.headerSettings.facebookUrl}}" target="_blank"><span class="fa fa-facebook-official"></span></a></li>
+                            <li ng-show="vm.headerSettings.twitterUrl"><a href="{{vm.headerSettings.twitterUrl}}" target="_blank"><span class="fa fa-twitter"></span></a></li>
+                            <li ng-show="vm.headerSettings.instagramUrl"><a href="{{vm.headerSettings.instagramUrl}}" target="_blank"><span class="fa fa-instagram"></span></a></li>
+                            <li ng-show="vm.headerSettings.linkedInUrl"><a href="{{vm.headerSettings.linkedInUrl}}" target="_blank"><span class="fa fa-linkedin"></span></a></li>
+                            <li ng-show="vm.headerSettings.tumblrUrl"><a href="{{vm.headerSettings.tumblrUrl}}" target="_blank"><span class="fa fa-tumblr"></span></a></li>
+                            <li ng-show="vm.headerSettings.rssUrl"><a href="{{vm.headerSettings.rssUrl}}" target="_blank"><span class="fa fa-rss"></span></a></li>
+                        </ul>
+                    </div>
+                    <span ng-show="vm.footerSettings.enableCopyright">&copy; {{vm.footerSettings.copyrightText}} | Design by  <a href="http://hrevert.com/" target="_blank">Hrevert Technology</a></span>
+                </p>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <div id="reportProblemModel" class="modal fade" my-modal role="dialog" modal="showModal">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Report Bug</h4>
+                    <div class="row clearfix" id="errorMessage"></div>
+                </div>
+                <form name="vm.bugForm" novalidate>
+                    <div class="modal-body">
+                        <section>
+                            <div class="container-fluid">
+                                <!-- Input Group -->
+                                <div class="row clearfix">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="card">
+                                            <div class="body">
+                                                <h2 ng-show="vm.isProblemEdit">{{vm.problemMessage}}</h2>
+                                                <div class="row clearfix">
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="input form-control" placeholder="Report your bug here" name="" ng-model="vm.problem" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- #END# Input Group -->
+
+                            </div>
+                        </section>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" ng-disabled="vm.bugForm.$invalid" ng-click="vm.reportProblem(vm.problem)">Send</button>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <environment names="Development">
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="~/lib/angular/angular.js"></script>
+        <script src="~/lib/angular-ui-router/release/angular-ui-router.js"></script>
+
+        <script type="text/javascript" src="~/manual/assets/lib/jquery/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="~/manual/assets/lib/bootstrap/js/bootstrap.min.js"></script>
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        @*<script src="~/js/js/jquery.min.js"></script>*@
+        <script src="~/js/js/jquery.magnific-popup.js" type="text/javascript"></script>
+        <script src="~/js/js/simpleCart.min.js"> </script>
+        <script src="~/js/js/jquery.chocolat.js"></script>
+        <script src="~/manual/multilevelCarousel/owl.carousel.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            $(function () {
+                $('a.picture').Chocolat();
+            });
+        </script>
+        <script>
+            // Can also be used with $(document).ready()
+            $(window).load(function() {
+              $('.flexslider').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+              });
+            });
+        </script>
+        <script src="~/js/js/jquery.flexslider.js"></script>
+        
+        @*<script type="text/javascript" src="~/manual/assets/lib/select2/js/select2.min.js"></script>
+        <script type="text/javascript" src="~/manual/assets/lib/jquery.bxslider/jquery.bxslider.min.js"></script>
+        <script type="text/javascript" src="~/manual/assets/lib/countdown/jquery.plugin.js"></script>
+        <script type="text/javascript" src="~/manual/assets/lib/countdown/jquery.countdown.js"></script>
+        <script type="text/javascript" src="~/manual/assets/js/jquery.actual.min.js"></script>
+        <script type="text/javascript" src="~/manual/assets/js/theme-script.js"></script>*@
+
+        <script src="~/manual/angular-animate.min.js"></script>
+        <script src="~/manual/angular-aria.min.js"></script>
+        <script src="~/manual/angular-material.min.js"></script>
+        <script src="~/lib/ngstorage/ngStorage.js"></script>
+        <script src="~/lib/angular-touch/angular-touch.min.js"></script>
+        <script src="~/lib/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="~/lib/angular-bootstrap/ui-bootstrap.js"></script>
+        <script src="~/js/layout/app-layout.js"></script>
+        <script src="~/js/layout/layout.controller.js"></script>
+        <script src="~/js/layout/layout.service.js"></script>
+        <script src="~/js/items/app-items.js"></script>
+        <script src="~/js/items/itemDetail.service.js"></script>
+        <script src="~/js/items/itemDetail.controller.js"></script>
+        <script src="~/manual/angular-cookies.js"></script>
+        <script src="~/lib/sweet-alert/sweetalert.min.js"></script>
+        <script src="~/lib/wip-image-zoom/dist/wip-image-zoom.min.js"></script>
+        @*<script src="~/js/main.js"></script>
+        <script src="~/manual/modernizr.js"></script>
+        <script src="~/manual/jquery.menu-aim.js"></script>
+        <script src="~/manual/md-data-table.js"></script>
+        <link href="~/manual/md-data-table.css" rel="stylesheet" />*@
+
+
+    </environment>
+    <environment names="Staging,Production">
+
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="~/lib/angular/angular.js"></script>
+        <script src="~/lib/angular-ui-router/release/angular-ui-router.js"></script>
+
+        <script type="text/javascript" src="~/manual/assets/lib/jquery/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="~/manual/assets/lib/bootstrap/js/bootstrap.min.js"></script>
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        @*<script src="~/js/js/jquery.min.js"></script>*@
+        <script src="~/js/js/jquery.magnific-popup.js" type="text/javascript"></script>
+        <script src="~/js/js/simpleCart.min.js"> </script>
+        <script src="~/js/js/jquery.chocolat.js"></script>
+        <script src="~/manual/multilevelCarousel/owl.carousel.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            $(function () {
+                $('a.picture').Chocolat();
+            });
+        </script>
+        <script>
+            // Can also be used with $(document).ready()
+            $(window).load(function() {
+              $('.flexslider').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+              });
+            });
+        </script>
+        <script src="~/js/js/jquery.flexslider.js"></script>
+
+        @*<script type="text/javascript" src="~/manual/assets/lib/select2/js/select2.min.js"></script>
+            <script type="text/javascript" src="~/manual/assets/lib/jquery.bxslider/jquery.bxslider.min.js"></script>
+            <script type="text/javascript" src="~/manual/assets/lib/countdown/jquery.plugin.js"></script>
+            <script type="text/javascript" src="~/manual/assets/lib/countdown/jquery.countdown.js"></script>
+            <script type="text/javascript" src="~/manual/assets/js/jquery.actual.min.js"></script>
+            <script type="text/javascript" src="~/manual/assets/js/theme-script.js"></script>*@
+
+        <script src="~/manual/angular-animate.min.js"></script>
+        <script src="~/manual/angular-aria.min.js"></script>
+        <script src="~/manual/angular-material.min.js"></script>
+        <script src="~/lib/ngstorage/ngStorage.js"></script>
+        <script src="~/lib/angular-touch/angular-touch.min.js"></script>
+        <script src="~/lib/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="~/lib/angular-bootstrap/ui-bootstrap.js"></script>
+        <script src="~/js/layout/app-layout.js"></script>
+        <script src="~/js/layout/layout.controller.js"></script>
+        <script src="~/js/layout/layout.service.js"></script>
+        <script src="~/js/items/app-items.js"></script>
+        <script src="~/js/items/itemDetail.service.js"></script>
+        <script src="~/js/items/itemDetail.controller.js"></script>
+        <script src="~/manual/angular-cookies.js"></script>
+        <script src="~/lib/sweet-alert/sweetalert.min.js"></script>
+        <script src="~/lib/wip-image-zoom/dist/wip-image-zoom.min.js"></script>
+        <script src="~/lib/angular-css-injector/angular-css-injector.js"></script>
+        @*<script src="~/js/main.js"></script>
+            <script src="~/manual/modernizr.js"></script>
+            <script src="~/manual/jquery.menu-aim.js"></script>
+            <script src="~/manual/md-data-table.js"></script>
+            <link href="~/manual/md-data-table.css" rel="stylesheet" />*@
+
+    </environment>
+</body>
+
+    
+
+    @RenderSection("scripts", required: false)
+
+</html>

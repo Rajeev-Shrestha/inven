@@ -1,0 +1,81 @@
+using System.Reflection;
+using HrevertCRM.Entities;
+using Xunit;
+
+namespace QueryProcessors.Test
+{
+    public class ProductQueryProcessorTests
+    {
+        [Theory]
+        [InlineData(1)]
+        public void Testing_Product_And_ProductViewModel(int id)
+        {
+            var vm = new Product()
+            {
+                Id = 1,
+              //produ = new List<int> { 1, 3 },
+                Code = "A",
+                CommissionRate = 1,
+                Commissionable = true,
+                Name = "A Product",
+                ProductDescription = "Test",
+                QuantityOnHand = 5,
+                QuantityOnOrder = 5,
+                UnitPrice = 10,
+                WebActive = true
+            };
+            var mappedProductVm = new HrevertCRM.Data.Mapper.ProductToProductViewModelMapper().Map(vm);
+            var product = new HrevertCRM.Data.Mapper.ProductToProductViewModelMapper().Map(mappedProductVm);
+            //Type prodType = vm.GetType();
+            //PropertyInfo[] properties = prodType.GetProperties();
+            //foreach (var propertyValuePair in properties)
+            //{
+            //    if (propertyValuePair.CanWrite && propertyValuePair.Name != "Id")
+            //        properties.Single(x => x.Name == propertyValuePair.Name)
+            //        .SetValue(product, propertyValuePair.GetValue(vm));
+            //}
+            //Test Product and mappedProduct are same
+            var res = true;
+
+            PropertyInfo[] mappedproperties = product.GetType().GetProperties();
+            foreach (var propertyValuePair in mappedproperties)
+            {
+                if (propertyValuePair.CanWrite)
+                {
+                    if (propertyValuePair.GetValue(product) == null && propertyValuePair.GetValue(vm)==null)
+                    {
+                        break;
+                    }
+                    if (propertyValuePair.GetValue(product) == null)
+                    {
+                        res = false;
+                        break;
+
+                    }
+                      
+
+                    res = propertyValuePair.GetValue(product).Equals(propertyValuePair.GetValue(vm));
+                    if (!res)
+                    {
+                        break;
+                    }
+                }
+                
+            }
+            Assert.True(res);
+
+            //Arrange
+            //var productQueryProcessorMock = new Mock<IProductQueryProcessor>();
+            //var userSeesionMock = new Mock<IUserSession>();
+            //var dbContextMock = new Mock<IDbContext>();
+            //productQueryProcessorMock.Setup(x => x.GetProduct(id)).Returns(new Product());
+            //var subject = new ProductQueryProcessor(userSeesionMock.Object, dbContextMock.Object);
+
+            ////Act
+            //var result = subject.GetProduct(id);
+
+            ////Assert
+            //Assert.Equal(new Product(), result);
+        }
+    }
+}

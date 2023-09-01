@@ -1,0 +1,226 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Delivery Rate Settings</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="panel panel-default" ng-show="!showModal">
+        <div class="panel-heading">
+            <div class="col-md-2" ng-show="selected.length>0">
+                <button class="btn btn-danger" value="Delete Selected" ng-click="vm.deleteSelected(selected)"> Delete Selected</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="open()"><span class="fa fa-plus"></span> New Delivery Rate</button>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control date" placeholder="Search Delivery" ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+            <div class="col-md-2">
+                <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.searchParamChanged()"/> Include Inactive</label>
+            </div>
+            <div class="col-md-2">
+                <!--<select class="form-control show-tick date" data-selected-text-format="count" ng-options="pagesize as pagesize for pagesize in vm.pageSizes" ng-model="vm.pageSize" ng-change="vm.getPageSize(vm.pageSize)"></select>-->
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width:5%"><input type="checkbox" ng-model="selectAll" name="" ng-click="vm.checkAll()" /></th>
+                            <th style="width:5%">#</th>
+                            <th style="width:10%">Product Code</th>
+                            <th style="width:30%">Product Name</th>
+                            <th style="width:15%">Rate</th>
+                            <th style="width:20%">Total From</th>
+                            <!--<th style="width:20%">Action</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="deliveryRate in vm.deliveryRate | filter:q as results" ng-hide="vm.deliveryRate.length==0" ng-class="deliveryRate.active ?'hrevert-inactiveLink' :'hrevert-activeLink'">
+                            <td><input type="checkbox" ng-model="selected" name="" ng-checked="vm.exist(deliveryRate)" ng-click="vm.toggleSelection(deliveryRate, $event)" /></td>
+                            <td>{{$index+1}}</td>
+                            <td>
+                                {{deliveryRate.productCode}}
+                                <div class="hrevert-updatelink-section" ng-show="deliveryRate.active">
+                                    <span><a ng-click="vm.deliveryRateActionChange(deliveryRate, 1)">Edit </a></span>|
+                                    <span><a ng-click="vm.deliveryRateActionChange(deliveryRate, 2)">Delete</a></span>
+
+                                </div>
+                                <div class="hrevert-updatelink-section" ng-show="!deliveryRate.active">
+                                    <span ng-click="vm.activateDeliveryRate(deliveryRate)"><a>Activate</a></span>
+                                </div>
+                            </td>
+                            <td>{{deliveryRate.productName}}</td>
+                            <td>{{deliveryRate.rate}}</td>
+                            <td>{{deliveryRate.docTotalFrom}}</td>
+                            <!--<td ng-show="deliveryRate.active">
+                                <div class="push-down-10">
+                                    <button class="btn btn-default" ng-click="vm.deliveryRateActionChange(deliveryRate, 1)"><span class="fa fa-pencil"></span> Edit</button>
+                                    <button class="btn btn-default" ng-click="vm.deliveryRateActionChange(deliveryRate, 2)"><span class="fa fa-recycle"></span> Delete</button>
+                                </div>-->
+                                <!--<select class="form-control select" ng-model="action" ng-options="action.id as action.name for action in vm.actionItems" ng-change="vm.actionChanged($event, deliveryRate, action)">
+                        <option class="" style="display: none" value="">Option</option>
+                    </select>-->
+                            <!--</td>
+                            <td ng-show="!deliveryRate.active">
+                                <button type="button" class="btn btn-info waves-effect" ng-click="vm.activateDeliveryRate(deliveryRate)"> Activate</button>
+                            </td>-->
+                        </tr>
+                        <tr ng-show="vm.deliveryRate.length==0">
+                            <td colspan="7">There is no data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="showModal">
+        <div class="col-md-12">
+
+            <form class="form-horizontal" name="vm.deliveryRateForm" novalidate>
+
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Delivery Rate information</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Delivery Method*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <select class="form-control show-tick date" name="deliveryMethod" data-selected-text-format="count" ng-options="deliveryMethod.id as deliveryMethod.description for deliveryMethod in vm.allDeliveryMethod" ng-model="vm.activeDeliveryRate.deliveryMethodId" required>
+                                            <option class="" value="" style="display:none;">Select Delivery Method</option>
+                                        </select>
+                                        <span ng-show="vm.deliveryRateForm.deliveryMethod.$touched && vm.deliveryRateForm.deliveryMethod.$error.required" style="color:red;">Select Delivery Method</span>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Delivery Zone*</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control show-tick date" name="deliveryZone" data-selected-text-format="count" ng-options="zone.id as zone.zoneName for zone in vm.zone" ng-model="vm.activeDeliveryRate.deliveryZoneId" required>
+                                            <option class="" value="" style="display:none;">Select Delivery Zone</option>
+                                        </select>
+                                        <span ng-show="vm.deliveryRateForm.deliveryZone.$touched && vm.deliveryRateForm.deliveryZone.$error.required" style="color:red;">Select Delivery Zone</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Weight From*</label>
+                                    <div class="col-md-9">
+                                        <input type="number" min="0" name="weightForm" class="form-control show-tick date" placeholder="Weight From" ng-model="vm.activeDeliveryRate.weightFrom" ng-change="vm.compareWeight(vm.activeDeliveryRate.weightTo, vm.activeDeliveryRate.weightFrom)" ng-model-options="{debounce: 1000}" required />
+                                        <span ng-show="vm.deliveryRateForm.weightForm.$touched && vm.deliveryRateForm.weightForm.$error.required" style="color:red;">Enter Weight From</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Weight To*</label>
+                                    <div class="col-md-9">
+                                        <input type="number" min="0" name="weightTo" class="form-control show-tick date" placeholder="Weight To" ng-model="vm.activeDeliveryRate.weightTo" ng-change="vm.compareWeight(vm.activeDeliveryRate.weightTo, vm.activeDeliveryRate.weightFrom)" ng-model-options="{debounce: 1000}" required />
+                                        <span ng-show="vm.deliveryRateForm.weightTo.$touched && vm.deliveryRateForm.weightTo.$error.required" style="color:red;">Enter Weight To</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Category*</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control show-tick date" name="category" data-selected-text-format="count" ng-options="category.id as category.name for category in vm.productCategory" ng-model="vm.activeDeliveryRate.productCategoryId" required>
+                                            <option class="" value="" style="display:none;">Select Product Category</option>
+                                        </select>
+                                        <span ng-show="vm.deliveryRateForm.category.$touched && vm.deliveryRateForm.category.$error.required" style="color:red;">Select Category</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Product*</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control show-tick date" name="product" data-selected-text-format="count" ng-options="product.id as product.name for product in vm.products" ng-model="vm.activeDeliveryRate.productId" required>
+                                            <option class="" value="" style="display:none;">Select Product</option>
+                                        </select>
+                                        <span ng-show="vm.deliveryRateForm.product.$touched && vm.deliveryRateForm.product.$error.required" style="color:red;">Select Product</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Minimum Rate*</label>
+                                    <div class="col-md-9">
+                                        <input type="number" min="0" name="minimumRate" class="form-control show-tick date" placeholder="Minimum Rate" ng-model="vm.activeDeliveryRate.minimumRate" required />
+                                        <span ng-show="vm.deliveryRateForm.minimumRate.$touched && vm.deliveryRateForm.minimumRate.$error.required" style="color:red;">Enter Minimum Rate</span>
+                                        <span ng-show="vm.deliveryRateForm.minimumRate.$touched && vm.deliveryRateForm.minimumRate.$error.number" style="color:red;">Enter Only Integers</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Rate*</label>
+                                    <div class="col-md-9">
+                                        <input type="number" min="0" name="rate" class="form-control show-tick date" placeholder="Rate" ng-model="vm.activeDeliveryRate.rate" required />
+                                        <span ng-show="vm.deliveryRateForm.rate.$touched && vm.deliveryRateForm.rate.$error.required" style="color:red;">Enter Rate</span>
+                                        <span ng-show="vm.deliveryRateForm.rate.$touched && vm.deliveryRateForm.rate.$error.number" style="color:red;">Enter Only Integers</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Total Amount*</label>
+                                    <div class="col-md-9">
+                                        <input type="number" min="0" name="totalAmount" class="form-control show-tick date" placeholder="Total Amount From" ng-model="vm.activeDeliveryRate.docTotalFrom" required />
+                                        <span ng-show="vm.deliveryRateForm.totalAmount.$touched && vm.deliveryRateForm.totalAmount.$error.required" style="color:red;">Enter Total Amount</span>
+                                        <span ng-show="vm.deliveryRateForm.totalAmount.$touched && vm.deliveryRateForm.totalAmount.$error.number" style="color:red;">Enter Only Integers</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Total Amount To*</label>
+                                    <div class="col-md-9">
+                                        <input type="number" min="0" name="totalAmountTo" class="form-control show-tick date" placeholder="Amount" ng-model="vm.activeDeliveryRate.docTotalTo" required />
+                                        <span ng-show="vm.deliveryRateForm.totalAmountTo.$touched && vm.deliveryRateForm.totalAmountTo.$error.required" style="color:red;">Enter Total Amount To</span>
+                                        <span ng-show="vm.deliveryRateForm.totalAmountTo.$touched && vm.deliveryRateForm.totalAmountTo.$error.number" style="color:red;">Enter Only Integers</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Unit From*</label>
+                                    <div class="col-md-9">
+                                        <input type="number" min="0" name="unitFormTo" class="form-control show-tick date" placeholder="Unit From" ng-model="vm.activeDeliveryRate.unitFrom" required />
+                                        <span ng-show="vm.deliveryRateForm.unitFormTo.$touched && vm.deliveryRateForm.unitFormTo.$error.required" style="color:red;">Enter Unit From</span>
+                                        <span ng-show="vm.deliveryRateForm.unitFormTo.$touched && vm.deliveryRateForm.unitFormTo.$error.number" style="color:red;">Enter Only Integers</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Unit To*</label>
+                                    <div class="col-md-9">
+                                        <input type="number" min="0" name="unitTo" class="form-control show-tick date" placeholder="Unit To" ng-model="vm.activeDeliveryRate.unitTo" required />
+                                        <span ng-show="vm.deliveryRateForm.unitTo.$touched && vm.deliveryRateForm.unitTo.$error.required" style="color:red;">Enter Unit To</span>
+                                        <span ng-show="vm.deliveryRateForm.unitTo.$touched && vm.deliveryRateForm.unitTo.$error.number" style="color:red;">Enter Only Integers</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Measure Unit*</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control show-tick date" name="measureUnit" data-selected-text-format="count" ng-options="measure.id as measure.measure for measure in vm.measureUnit" ng-model="vm.activeDeliveryRate.measureUnitId" ng-change="vm.priceTypeChange(vm.activeDeliveryRate.measureUnitId)" required>
+                                            <option class="" value="" style="display:none;">Select Measure Unit</option>
+                                        </select>
+                                        <span ng-show="vm.deliveryRateForm.measureUnit.$touched && vm.deliveryRateForm.measureUnit.$error.required" style="color:red;">Select Measure Unit</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-click="vm.saveDeliveryRate(vm.activeDeliveryRate)" ng-disabled="vm.deliveryRateForm.$invalid">{{vm.deliveryRatebtnText}}<span class="fa fa-floppy-o fa-right"></span></button>
+                            <button class="btn btn-primary" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

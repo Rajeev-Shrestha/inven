@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>allitem</title>
+</head>
+<body ng-cloak>
+<div>
+    <div class="{{vm.class}}"></div>
+</div>
+<div>
+    <div class="col-md-3">
+        <div data-angular-treeview="true"
+             data-tree-id="id"
+             data-tree-model="vm.categoryTree"
+             data-node-id="id"
+             data-node-label="name"
+             data-node-children="children"
+             ng-click="vm.getProductByCategory(id)"
+             multiple="true">
+        </div>
+    </div>
+    <div class="col-md-9">
+        <h2>
+            <b>{{vm.categoryName}}</b>
+        </h2>
+        <div class="col-md-4" ng-repeat="product in vm.allProduct">
+            <md-card>
+                <md-card-content style="max-height: 400px">
+                    <span class="md-headline">{{product.name | limitTo: 20}}</span>
+                    <br />
+                    <span class="md-subhead">{{product.code}}</span>
+                    <img src="../image/no-user-img.png" class="img-responsive" />
+                    <md-card-actions layout="row" layout-align="end center">
+                        <span class="md-headline">View </span>
+                        <span class="md-headline"> Add To cart</span>
+                    </md-card-actions>
+                </md-card-content>
+            </md-card>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

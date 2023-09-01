@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "SalesOpportunities";
+    Layout = "_Layout";
+}
+@section Scripts{
+    <script src="~/js/salesopportunities/app-salesOpportunities.js" asp-append-version="true"></script>
+    <script src="~/js/salesopportunities/salesOpportunities.controller.js" asp-append-version="true"></script>
+    <script src="~/js/salesopportunities/salesOpportunities.service.js" asp-append-version="true"></script>
+    <script src="~/manual/angularSortable.js"></script>
+    <script src="~/manual/paging.min.js"></script>
+    <script src="~/lib/angular-moment/moment.js"></script>
+    <script src="~/lib/angular-sanitize/angular-sanitize.js"></script>
+    <script src="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.js"></script>
+    <script src="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.templates.js"></script>
+   
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("salesOpportunities"), ['app-salesOpportunities']);
+    </script>
+}
+@section css{
+    <link href="~/manual/icon.css" rel="stylesheet" />
+    <link href="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.css" rel="stylesheet" />
+    <link href="~/css/SalesOpportunities/SalesOpportunities.css" rel="stylesheet" />
+    <link href="~/css/hrevert-date-picker/hrevert-date-picker.css" rel="stylesheet" />
+}
+<div ng-non-bindable>
+    <div class="" id="salesOpportunities">
+        <ui-view></ui-view>
+    </div>
+</div>

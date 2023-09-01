@@ -1,0 +1,27 @@
+﻿.rolesList {
+        font-size: 18px;
+    }
+    .rolesList:hover {
+        cursor: pointer;
+        font-size: 20px;
+        color: green;
+        width: 150px;
+        height: 30px;
+        border: none;
+        box-sizing: border-box;
+        background-color: gainsboro;
+        border-radius: 5px;
+    }
+
+
+.selected {
+    cursor: pointer;
+        font-size: 20px;
+        color: green;
+        width: 150px;
+        height: 30px;
+        border: none;
+        box-sizing: border-box;
+        background-color: gainsboro;
+        border-radius: 5px;
+}

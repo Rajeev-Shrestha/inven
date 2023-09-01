@@ -1,0 +1,30 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+@section Scripts {
+    
+    <script src="~/js/checkout/app-checkout.js" asp-append-version="true"></script>
+    <script src="~/js/checkout/checkout.controller.js" asp-append-version="true"></script>
+    <script src="~/js/checkout/checkout.service.js" asp-append-version="true"></script>
+
+<script src="~/manual/pdfmake.min.js" asp-append-version="true"></script>
+<script src="~/manual/vfs_fonts.js" asp-append-version="true"></script> 
+
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("checkout"), ['app-checkout']);
+</script>
+}
+
+
+@section css{
+}
+
+
+<div ng-non-bindable>
+    <div class="" id="checkout">
+        <ui-view></ui-view>
+    </div>
+</div>

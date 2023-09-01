@@ -1,0 +1,185 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Delivery Rate Settings</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="panel panel-default" ng-show="!showModal">
+        <div class="panel-heading">
+            <div class="col-md-2" ng-show="selected.length>0">
+                <button class="btn btn-danger" value="Delete Selected" ng-click="vm.deleteSelected(selected)"> Delete Selected</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="open()"><span class="fa fa-plus"></span> New Email Setting</button>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control date" placeholder="Search Email Setting" ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+            <div class="col-md-2">
+                <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.searchParamChanged()"/> Include Inactive</label>
+            </div>
+            <div class="col-md-2">
+                <!--<select class="form-control show-tick date" data-selected-text-format="count" ng-options="pagesize as pagesize for pagesize in vm.pageSizes" ng-model="vm.pageSize" ng-change="vm.getPageSize(vm.pageSize)"></select>-->
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width:5%"><input type="checkbox" ng-model="selectAll" name="" ng-click="vm.checkAll()" /></th>
+                        <th style="width:5%">#</th>
+                        <th style="width:20%">Host</th>
+                        <th style="width:10%">From</th>
+                        <th style="width:10%">Display Name</th>
+                       <!-- <th style="width:15%">Action</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="emailSetting in vm.allEmailSettings | filter:q as results" ng-hide="vm.allEmailSettings.length==0" ng-class="emailSetting.active ?'hrevert-inactiveLink' :'hrevert-activeLink'">
+                        <td><input type="checkbox" ng-model="selected" name="" ng-checked="vm.exist(emailSetting)" ng-click="vm.toggleSelection(emailSetting, $event)" /></td>
+                        <td>{{$index+1}}</td>
+                        <td>
+                            {{emailSetting.host}}:{{emailSetting.port}}
+                            <div class="hrevert-updatelink-section" ng-show="emailSetting.active">
+                                <span><a ng-click="vm.emailSettingTermActionChanged(emailSetting, 1)">Edit </a></span>|
+                                <span><a ng-click="vm.emailSettingTermActionChanged(emailSetting, 2)">Delete</a></span>
+
+                            </div>
+                            <div class="hrevert-updatelink-section" ng-show="!emailSetting.active">
+                                <span ng-click="vm.activeEmailSetting(emailSetting.id)"><a>Activate</a></span>
+                            </div>
+                        </td>
+                        <td>{{emailSetting.sender}}</td>
+                        <td>{{emailSetting.name}}</td>
+                        <!--<td ng-show="emailSetting.active">
+                            <div class="push-down-10">
+                                <button class="btn btn-default" ng-click="vm.emailSettingTermActionChanged(emailSetting, 1)"><span class="fa fa-pencil"></span> Edit</button>
+                                <button class="btn btn-default" ng-click="vm.emailSettingTermActionChanged(emailSetting, 2)"><span class="fa fa-recycle"></span> Delete</button>
+                            </div>-->
+                            <!--<select class="form-control select" ng-model="action" ng-options="action.id as action.name for action in vm.actionItems" ng-change="vm.actionChanged($event, emailSetting, action)">
+                                <option class="" style="display: none" value="">Option</option>
+                            </select>-->
+                        <!--</td>
+                        <td ng-show="!emailsetting.active">
+                            <button type="button" class="btn btn-info waves-effect" ng-click="vm.activeEmailSetting(emailSetting.id)"> Activate</button>
+                        </td>-->
+                    </tr>
+                    <tr ng-show="vm.allEmailSettings.length==0">
+                        <td colspan="7">There is no data.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="row" ng-show="showModal">
+        <div class="col-md-12">
+
+            <form class="form-horizontal" name="vm.emailSettingForm" novalidate>
+
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Email Setting information</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Mail Server*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" name="mailServer" class="form-control date" placeholder="Email Sever" ng-model="vm.activeEmailSetting.host" required>
+                                        <span ng-show="vm.emailSettingForm.mailServer.$touched && vm.emailSettingForm.mailServer.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Port*</label>
+                                    <div class="col-md-9">
+                                        <input positive type="number" name="port" class="form-control date" placeholder="Port" ng-model="vm.activeEmailSetting.port" ng-pattern="/^\-?\d+$/" required>
+                                        <span ng-show="vm.emailSettingForm.port.$touched && vm.emailSettingForm.port.$error.required" style="color:red;">Required</span>
+                                        <span ng-show="vm.emailSettingForm.port.$touched && vm.emailSettingForm.port.$error.number" style="color:red;">Integers only</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">From*</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="from" class="form-control date" placeholder="From" ng-model="vm.activeEmailSetting.sender" required>
+                                        <span ng-show="vm.emailSettingForm.from.$touched && vm.emailSettingForm.from.$error.required" style="color:red;">Required</span>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Email*</label>
+                                    <div class="col-md-9">
+                                        <input type="email" name="email" class="form-control date" placeholder="Email" ng-model="vm.activeEmailSetting.userName" ng-disabled="vm.emailSettingEmail" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/" required>
+                                        <span ng-show="vm.emailSettingForm.email.$touched && vm.emailSettingForm.email.$error.required" style="color:red;">Required</span>
+                                        <span ng-show="vm.emailSettingForm.email.$touched && vm.emailSettingForm.email.$error.email" style="color:red;">Invalid Email Address</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Password*</label>
+                                    <div class="col-md-9">
+                                        <input type="password" name="password" class="form-control" placeholder="Password" ng-model="vm.activeEmailSetting.password" ng-required="vm.emailSettingPassword == true" required />
+                                        <span ng-show="vm.emailSettingForm.password.$touched && vm.emailSettingForm.password.$error.required" style="color:red;">Required</span>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Confirm Password*</label>
+                                    <div class="col-md-9">
+                                        <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" ng-model="vm.activeEmailSetting.confirmPassword" ng-pattern="vm.activeEmailSetting.password" required />
+                                        <span ng-show="vm.emailSettingForm.confirmPassword.$touched && vm.emailSettingForm.confirmPassword.$error.required" style="color:red;">Required</span>
+                                        <span ng-show="vm.emailSettingForm.confirmPassword.$touched && vm.emailSettingForm.confirmPassword.$error.pattern" style="color:red;">Password Mismatch</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Display Name*</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="displayName" class="form-control" placeholder="Display Name" ng-model="vm.activeEmailSetting.name" required />
+                                        <span ng-show="vm.emailSettingForm.displayName.$touched && vm.emailSettingForm.displayName.$error.match" style="color:red;">Required</span>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Encryption Type*</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control show-tick date" name="encryptionType" data-selected-text-format="count" ng-options="encription.id as encription.value for encription in vm.encryptionType" ng-model="vm.activeEmailSetting.encryptionType" required>
+                                            <option class="" value="" style="display:none;">Select Encryption Type</option>
+                                        </select>
+                                        <span ng-show="vm.emailSettingForm.encryptionType.$touched && vm.emailSettingForm.encryptionType.$error.match" style="color:red;">Required</span>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Requires Authentication</label>
+                                    <div class="col-md-9">
+                                        <input type="checkbox" class="icheckbox" ng-model="vm.activeEmailSetting.requireAuthentication" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-click="vm.saveEmailSetting(vm.activeEmailSetting)" ng-disabled="vm.emailSettingForm.$invalid">{{vm.emailSettingBtnText}}<span class="fa fa-floppy-o fa-right"></span></button>
+                            <button class="btn btn-primary" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,28 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+@section Scripts {
+
+    <script src="~/js/items/app-items.js"></script>
+    <script src="~/js/items/itemDetail.controller.js"></script>
+    <script src="~/js/items/itemDetail.service.js"></script>
+<script src="~/lib/bootstrap-dialog/bootstrap-dialog.js"></script>
+
+@*<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />*@
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("itemDetail"), ['app-itemDetail']);
+</script>
+}
+
+
+@section css{
+
+}
+<div ng-non-bindable>
+    <div class="" id="itemDetail">
+        <ui-view></ui-view>
+    </div>
+</div>

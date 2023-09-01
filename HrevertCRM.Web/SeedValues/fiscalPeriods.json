@@ -1,0 +1,164 @@
+﻿[
+  {
+    "fiscalYearId": "1",
+    "name": "Jan-Feb",
+    "startDate": "2010-1-1",
+    "endDate": "2010-1-31"
+  },
+  {
+    "fiscalYearId": "1",
+    "name": "Feb-Mar",
+    "startDate": "2010-2-1",
+    "endDate": "2010-2-28"
+  },
+  {
+    "fiscalYearId": "1",
+    "name": "Mar-Apr",
+    "startDate": "2010-3-1",
+    "endDate": "2010-3-31"
+  },
+  {
+    "fiscalYearId": "2",
+    "name": "Jan-Feb",
+    "startDate": "2011-1-1",
+    "endDate": "2011-1-31"
+  },
+  {
+    "fiscalYearId": "2",
+    "name": "Feb-Mar",
+    "startDate": "2011-2-1",
+    "endDate": "2011-2-28"
+  },
+  {
+    "fiscalYearId": "2",
+    "name": "Mar-Apr",
+    "startDate": "2011-3-1",
+    "endDate": "2011-3-31"
+  },
+  {
+    "fiscalYearId": "3",
+    "name": "Jan-Feb",
+    "startDate": "2012-1-1",
+    "endDate": "2012-1-31"
+  },
+  {
+    "fiscalYearId": "3",
+    "name": "Feb-Mar",
+    "startDate": "2012-2-1",
+    "endDate": "2012-2-28"
+  },
+  {
+    "fiscalYearId": "3",
+    "name": "Mar-Apr",
+    "startDate": "2012-3-1",
+    "endDate": "2012-3-31"
+  },
+  {
+    "fiscalYearId": "4",
+    "name": "Jan-Feb",
+    "startDate": "2013-1-1",
+    "endDate": "2013-1-31"
+  },
+  {
+    "fiscalYearId": "4",
+    "name": "Feb-Mar",
+    "startDate": "2013-2-1",
+    "endDate": "2013-2-28"
+  },
+  {
+    "fiscalYearId": "4",
+    "name": "Mar-Apr",
+    "startDate": "2013-3-1",
+    "endDate": "2013-3-31"
+  },
+  {
+    "fiscalYearId": "5",
+    "name": "Jan-Feb",
+    "startDate": "2014-1-1",
+    "endDate": "2014-1-31"
+  },
+  {
+    "fiscalYearId": "5",
+    "name": "Feb-Mar",
+    "startDate": "2014-2-1",
+    "endDate": "2014-2-28"
+  },
+  {
+    "fiscalYearId": "5",
+    "name": "Mar-Apr",
+    "startDate": "2014-3-1",
+    "endDate": "2014-3-31"
+  },
+  {
+    "fiscalYearId": "6",
+    "name": "Jan-Feb",
+    "startDate": "2015-1-1",
+    "endDate": "2015-1-31"
+  },
+  {
+    "fiscalYearId": "6",
+    "name": "Feb-Mar",
+    "startDate": "2015-2-1",
+    "endDate": "2015-2-28"
+  },
+  {
+    "fiscalYearId": "6",
+    "name": "Mar-Apr",
+    "startDate": "2015-3-1",
+    "endDate": "2015-3-31"
+  },
+  {
+    "fiscalYearId": "7",
+    "name": "Jan-Apr",
+    "startDate": "2016-1-1",
+    "endDate": "2016-4-30"
+  },
+  {
+    "fiscalYearId": "7",
+    "name": "May-Aug",
+    "startDate": "2016-5-1",
+    "endDate": "2016-8-30"
+  },
+  {
+    "fiscalYearId": "7",
+    "name": "Sep-Dec",
+    "startDate": "2016-9-1",
+    "endDate": "2016-12-31"
+  },
+  {
+    "fiscalYearId": "8",
+    "name": "Jan-Apr",
+    "startDate": "2017-1-1",
+    "endDate": "2017-4-30"
+  },
+  {
+    "fiscalYearId": "8",
+    "name": "May-Aug",
+    "startDate": "2017-5-1",
+    "endDate": "2017-8-30"
+  },
+  {
+    "fiscalYearId": "8",
+    "name": "Sep-Dec",
+    "startDate": "2017-9-1",
+    "endDate": "2017-12-31"
+  },
+  {
+    "fiscalYearId": "9",
+    "name": "Jan-Apr",
+    "startDate": "2018-1-1",
+    "endDate": "2018-4-30"
+  },
+  {
+    "fiscalYearId": "9",
+    "name": "May-Aug",
+    "startDate": "2018-5-1",
+    "endDate": "2018-8-30"
+  },
+  {
+    "fiscalYearId": "9",
+    "name": "Sep-Dec",
+    "startDate": "2018-9-1",
+    "endDate": "2018-12-31"
+  }
+]

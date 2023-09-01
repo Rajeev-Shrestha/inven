@@ -1,0 +1,39 @@
+﻿
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "_Layout";
+}
+@section Scripts{
+
+    <script src="~/js/product/app-product.js" asp-append-version="true"></script>
+    <script src="~/js/product/product.controller.js" asp-append-version="true"></script>
+<script src="~/js/product/product.service.js" asp-append-version="true"></script>
+<script src="~/manual/angular-messages.js"></script>
+    <script src="~/manual/ng-img-crop.js"></script>
+    
+<script src="~/manual/multiselect/angular-bootstrap-multiselect.js"></script>
+<script src="~/manual/ui-select/select.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.js" asp-append-version="true"></script>
+@*<script src="~/manual/angular-sanitize/angular-sanitize.js"></script>*@
+
+@*<script src="~/manual/angular-img-cropper.js"></script>*@
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("product"), ['app-product']);
+</script>
+
+}
+@section css{
+<link href="~/manual/icon.css" rel="stylesheet" />
+<link href="~/manual/tree-control.css" rel="stylesheet" />
+<link href="~/manual/tree-control-attribute.css" rel="stylesheet" />
+<link href="~/css/ng-img-crop.css" rel="stylesheet" />
+<link href="~/manual/ui-select/select.css" rel="stylesheet" />
+    @*<link href="https://cdn.rawgit.com/alexk111/ngImgCrop/master/compile/minified/ng-img-crop.css" rel="stylesheet"/>*@
+    @*<link href="https://cdn.rawgit.com/CrackerakiUA/ngImgCropExtended/master/compile/unminified/ng-img-crop.css" rel="stylesheet"/>*@
+}
+<div ng-non-bindable>
+    <div class="" id="product">
+        <ui-view></ui-view>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+
+@{
+    ViewBag.Title = "Journal Master";
+    Layout = "_Layout";
+}
+@section Scripts{
+    <script src="~/js/journalmaster/app-journalMaster.js" asp-append-version="true"></script>
+    <script src="~/js/journalmaster/journalMaster.controller.js" asp-append-version="true"></script>
+    <script src="~/js/journalmaster/journalMaster.service.js" asp-append-version="true"></script>
+    <script src="~/lib/angular-moment/moment.js"></script>
+    <script src="~/manual/angular-messages.js"></script>
+    <script src="~/manual/angularSortable.js"></script>
+    <script src="~/manual/angular-animate.min.js"></script>
+    <script src="~/manual/angular-aria.min.js"></script>
+    <script src="~/manual/paging.min.js"></script>
+    <script src="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.js"></script>
+    <script src="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.templates.js"></script>
+    <script src="~/manual/dateTimeInput.js"></script>
+    <link href="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.css" rel="stylesheet" />
+@*<script src="~/manual/datepicker/js/bootstrap-material-datetimepicker.js"></script>
+<link href="~/manual/datepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />*@
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("journalMaster"), ['app-journalMaster']);
+</script>
+}
+@section css{
+}
+
+<div ng-non-bindable>
+    <div class="" id="journalMaster">
+        <ui-view></ui-view>
+    </div>
+</div>

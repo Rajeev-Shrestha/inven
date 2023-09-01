@@ -1,0 +1,258 @@
+/*Theme: Blue
+Author: Suresh Bhandari
+Author URL: http://www.sureshbhandari.com.np
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+--*/
+/* White */
+html,body, .col-pic label, label.b-from-right, .zoom-icon .glyphicon-menu-right, .banner-top em, .footer-middle-in input[type="submit"]:hover{
+	background:#fff;
+}
+
+.header-login ul li a, .nav > li > a:hover, .nav > li > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open > a:focus, .col-pic p, .b-link-stroke .b-wrapper, .b-link-stroke .b-wrapper1, .b-link-stroke .b-wrapper2, .b-from-right, .banner-top h1, .banner-top h2, .zoom-icon .icon, a.cart,.value-minus, .value-plus, .hvr-skew-backward,.hvr-skew-backward:hover, .hvr-skew-backward:focus, .hvr-skew-backward:active, .tabs  li a:hover,.tabs  li.active a, .footer-middle-in h6,.footer-class a:hover,.footer-middle-in input[type="submit"], .footer-class,.my-account a { color: #fff; }
+
+/* Black */
+.col1 h4, .item_add, .box_1 h3, .col-2 h2 a, a.buy-now:hover, .content-mid h3, .display-label h6 a, label.add-to, .star-on ul li i, .star-on a:hover, .single-bottom h4, .menu-drop > li > a, .span_2_of_a1 h3, h4.quick, .product-qty span, .login-bottom h2, .checkbox1 , .login-right h3, .contact-top h3, .contact-top div span, .contact-left h3, .address1 h3, .address-more h4, th, .sed h5 a:hover, .page-header h3, .rw-sentence span, .my-account ul li a{
+  color: #000;
+}
+
+a.cart:hover, .quantity-select .entry.value-minus:before, .quantity-select .entry.value-plus:before, .quantity-select .entry.value-plus:after, .footer-bottom{
+	background: #000;
+}
+
+/* Black and White */
+@media(max-width:1000px){
+.navbar-toggle {
+    background-color: #000 !important;
+}
+.navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+}
+.brand {
+	background:#e0ffff;	
+}
+
+/* Theme Color */
+.header-login ul li a:hover, .col-2 span, .col-2 h2 a:hover, a.buy-now, .col-pic h5, .display-label span, .b-from-left, .display-label h6 a:hover, .zoom-icon .glyphicon-menu-right, .banner-top h2 a, h4.cate, .menu-drop > li > a:hover, span.reducedfrom, span.actual, .wish-list li a, .login-mail i, .address-grid i, .address1 p a:hover, .four h3, .sed h5 a, .wishlist p, ul.in li a:hover, ul.tag-in li a:hover, .footer-middle-in input[type="submit"]:hover, .footer-class a, .rw-words-2 span { color: #011990; }
+
+.nav > li > a:hover, .nav > li > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open > a:focus, label.line, .zoom-icon .icon, .hvr-skew-backward , .footer-middle-in input[type="submit"], .starbox .colorbar, .starbox .hover .colorbar, .starbox .rated .colorbar, .starbox .rated.hover .colorbar, .starbox .ghost {
+    background-color: #011990;
+}
+
+a.buy-now{
+    border-bottom: 2px solid #011990;
+}
+
+ul.tag-in li a:hover{
+    border: 1px solid #011990;	
+}
+
+.tabs  li a:hover,.tabs  li.active a{
+	background:#011990 !important;
+}
+
+/*Slider CSS*/
+.myOffer {color:#082946;}
+.carousel-caption{text-shadow: 0 1px 2px rgba(0,0,0,0.2);}
+.myOffer .orig-price {color:#777;}
+.myOffer .expiry {color:#286090;}
+.myOffer .readmore a{color:#F00;}
+.myOffer .freeshipping{color:#337ab7;font-size:4vh;}
+.myOffer button {font-size:2vw;color:#000;}
+.carousel-indicators .active {background-color:#286090;}
+.carousel-control:focus, .carousel-control:hover {color:#337ab7;}
+.carousel-indicators li {border:1px solid #337ab7;}
+/*Slider CSS close*/
+
+
+/* Miscellaneous */
+.box_1 p a{
+  color: #B5B3B3;
+}
+
+.col-2 p, p.in-para, p.quick_desc, .tabs li a, .facts p, .facts ul li, .login-right p, .contact-left p, .four p, .footer-middle-in  p, .footer-middle-in  span, ul.in li a, ul.tag-in li a, .footer-middle-in input[type="text"],.single-para p, .offer-label p, .menu-drop ul li a:hover, td, .sed p{
+	color: #B3B3B3;
+}
+
+.header-top,.footer-middle {
+    background-color: #5d84ab;
+}
+
+ul.nav_1 li a, .heart li a {
+    color: #3A3A3A;
+}
+
+ul.nav_1 li, .heart li {
+    border-right:1px solid #EFEFEF;
+}
+
+a.buy-now:hover{
+    border-bottom: 2px solid #000;
+}
+
+.col-pic{
+	background:rgba(0, 0, 0, 0.59);
+}
+
+.b-link-stroke .b-wrapper:hover{
+	background:rgba(217, 84, 89, 0.58);
+}
+
+.b-link-stroke .b-wrapper1:hover{
+	background:rgba(8, 8, 8, 0.64);
+}
+
+.b-link-stroke .b-top-line,.b-link-stroke .b-bottom-line{
+	background:rgba(248, 69, 69, 0.59);
+}
+
+.canvas{
+	border: 1px solid #EFECEC;
+}
+
+.single-para h1, a.cart, .star-on a, .available h6{
+  background: #52D0C4;
+}
+
+.available ul li{
+	color:#4c4c4c;
+}
+
+.menu-drop ul li a {	
+	color:#C7C7C7;
+}
+
+p.in-para{
+	border-bottom: 1px solid #f0f0f0;
+    border-top: 3px double #f0f0f0;
+}
+
+.price_single {
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.price_single a, .login-mail input[type="text"],.login-mail input[type="password"] {
+	color: #999;
+}
+
+.value-minus,
+.value-plus{
+	border:1px solid #b2b2b2;
+}
+
+.value  {
+    color: #A9A9A9;
+    border: 1px solid #E5E5E5;
+    background-color: #E5E5E5;
+}
+
+.quantity-select .entry.value-minus:hover,
+ .quantity-select .entry.value-plus:hover{
+	background: #E5E5E5;
+}
+
+.hvr-skew-backward:hover, .hvr-skew-backward:focus, .hvr-skew-backward:active {
+	background:#FF6C6C;
+}
+
+.product-qty select {
+	border: 1px solid #eee;
+}
+
+.product-qty option {
+	border: 1px solid #EEE;
+}
+
+.wish-list {
+	border-bottom: 1px solid #f0f0f0;
+	border-top: 1px solid #f0f0f0;
+}
+
+.tabs li a {
+    border-bottom: 1px solid #EDEDED;
+}
+
+nav.nav-sidebar {
+	border-top: 1px solid #EDEDED;
+	border-left: 1px solid #EDEDED;
+}
+
+.one{
+	border: 1px solid #EDEDED;
+}
+.login-mail{
+	border: 1px solid #E9E9E9;
+}
+
+.news-letter {
+	color: #555;
+}
+.checkbox1 i {
+	border: 2px solid #E1DFDF;
+}
+.news-letter:hover {
+	color:#00BFF0;
+}
+
+.contact-top div input[type="text"], .contact-top div textarea {
+	border: 1px solid #F3EFEF;
+}
+
+.contact-top-in p{
+	color: #494949;
+}
+
+.address1 p a{
+	color: #7c7c7c;
+}
+
+.wishlist {
+  border:1px solid #A6A5A5;
+}
+
+.wishlist h6{
+    background: #F5F5F5;
+    border-bottom: 1px solid #A6A5A5;
+}
+
+.wishlist h6 a{
+	color:#a7a49c;
+}
+
+ul.tag-in li a, .footer-middle-in input[type="text"] {
+    border: 1px solid #B3B3B3;
+}
+
+@media(max-width:568px){
+.tabs li a {
+	border-right: 1px solid #EDEDED;
+	border-top: 1px solid #EDEDED;
+}
+}
+
+/* Override with your own image and size… */
+.banner{
+	/*Take this from Dashboard as well*/
+    background: url(../../images/ba11.jpg) no-repeat right top;
+}
+.banner-top{
+	/*Take this from dashboard later*/
+    background: url(../../images/back.jpg) no-repeat ;
+}
+
+.starbox .stars .star_holder .star {
+	background-image: url('https://github.com/sabberworm/jStarbox/raw/master/images/5-small.png');
+}
+.block span{
+	color: #A5A5A5;
+}
+/* Override with your own colours… */
+.starbox .stars { background: #b0b0b0; }
+.starbox .rated .stars { background: #b0b0b0; }
+.starbox .rated.hover .stars { background: #b0b0b0; }
+
+.class-i {
+	background:#ccc;
+	/*set color or background or both according to selection on dashboard */
+}

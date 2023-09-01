@@ -1,0 +1,198 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+     @media (max-width: 375px) {
+        .contact-manager-btn{
+            width: 200px;
+        }
+}
+.contact-manager-btn{
+    width: 250px;
+}
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Customer Contact Group</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="panel panel-default" ng-show="!showModal">
+        <div class="panel-heading">
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="open()"><span class="fa fa-plus"></span> New Contact Group</button>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control date" placeholder="Search Contact Group" ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+            <div class="col-md-2">
+                <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.searchParamChanged()"/> Include Inactive</label>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control show-tick date" data-selected-text-format="count" ng-options="pagesize as pagesize for pagesize in vm.pageSizes track by pagesize" ng-model="vm.pageSize" ng-change="vm.searchParamChanged()"></select>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="panel panel-default" ng-repeat="contactGroup in vm.customerContactGroup" ng-hide="vm.customerContactGroup.length==0">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{contactGroup.groupName}}</h3>
+                    <ul class="panel-controls" ng-show="!contactGroup.active">
+                        <li><a href="" class="control-danger" ng-click="vm.activeCustmerContactGroupById(contactGroup)"><span class="fa fa-plug">Activate</span></a></li>
+                    </ul>
+                    <ul class="panel-controls" ng-show="contactGroup.active">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-cog"></span></a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="action in vm.actionItems" ng-click="vm.actionChanged(contactGroup, action.id)"><a href="" class="panel-collapse">{{action.name}}</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-body scroll" style="height: 230px;">
+                    <div ng-repeat="contactList in contactGroup.customerAndContactGroupList">
+                        <div ng-repeat="customer in vm.allActiveCustomers | limitTo:6">
+                            <p ng-show="contactList.customerId===customer.id">{{customer.displayName}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" ng-show="vm.customerContactGroup.length==0">
+                <div class="panel-heading">
+                    <h3 class="panel-title">There is no data.</h3>
+                </div>
+            </div>
+            <div class="row">
+                <nav class="pull-right" ng-if="vm.totalPage >= 2">
+                    <div paging
+                         page="vm.pageNumber"
+                         page-size="1"
+                         total="vm.totalPage"
+                         show-prev-next="true"
+                         show-first-last="true"
+                         text-first="&laquo;"
+                         text-last="&raquo;"
+                         text-next="&rsaquo;"
+                         text-prev="&lsaquo;"
+                         text-title-page="Page {page}"
+                         text-title-first="First Page"
+                         text-title-last="Last Page"
+                         text-title-next="Next Page"
+                         text-title-prev="Previous"
+                         paging-action="vm.pageChanged(page)">
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" ng-show="showModal">
+        <div class="col-md-12">
+
+            <form class="form-horizontal" name="vm.contactGroupForm" novalidate>
+
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Customer Contact Group information</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="container-fluid">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-12 control-label">Group Name*</label>
+                                        <div class="col-md-9 col-xs-12">
+                                            <input type="text" placeholder="Group Name" name="groupName" class="form-control" ng-model="vm.activeCustomerContactGroup.groupName" ng-change="vm.checkIfExistsGroupName(vm.activeCustomerContactGroup.groupName)" ng-model-options="{debounce: 1500}" required>
+                                            <span ng-show="vm.contactGroupForm.groupName.$touched && vm.contactGroupForm.groupName.$error.required" style="color:red;">Enter Group Name</span>
+                                       </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-12 control-label">Description</label>
+                                        <div class="col-md-9">
+                                            <input type="text" placeholder="Description" class="form-control" ng-model="vm.activeCustomerContactGroup.description">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12 ">
+                                  
+                                            <!-- Input Group -->
+                                            <div class="row" style="margin-top:10px;">
+                                                <div id="termAssignErrorMessage">
+
+                                                </div>
+                                                <br />
+                                               
+                                                    <div class="row">
+                                                            <div class="multi-sortable" sv-root>
+                                                                <div class="col-md-12">
+                                                                    <div class="sortable-container col-md-6" sv-part="vm.customerListItems">
+                                                                        <md-card>
+                                                                            <md-card-content>
+                                                                                <input type="text" class="form-control" placeholder="Search Customer..." ng-model="vm.customerDisplayName"  />
+                                                                                <div sv-placeholder>
+                                                                                    <span>Place here to assign</span>
+                                                                                </div>
+                                                                                <div class="card" style="margin-top:15px;">
+                                                                                    <div class="container-fluid" >
+                                                                                        <h2>SELECTED CUSTOMER</h2>
+                                                                                    </div>
+                                                                                    <div class="body col-md-12 col-sm-12" >
+                                                                                        <button type="button" style="min-width:200px; margin-top:5px;" class="list-group-item select-Role-Button col-sm-12 contact-manager-btn" ng-model="customer.id" ng-repeat="customer in vm.customerListItems|filter:{displayName : vm.customerDisplayName||undefined}" sv-element>
+                                                                                            {{customer.displayName}}
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </md-card-content>
+                                                                        </md-card>
+                                                                    </div>
+                                                                    <div class="sortable-container col-md-6" sv-part="vm.notAssignedCustomers">
+                                                                        <md-card>
+                                                                            <md-card-content>
+                                                                                <input type="text" class="form-control" placeholder="Search Customers..." ng-model="vm.searchText" />
+                                                                                <div sv-placeholder class="placeholder-left">
+                                                                                    <span>Place here to assign</span>
+                                                                                </div>
+                                                                                <div class="card" style="margin-top:15px;">
+                                                                                    <div class="header">
+                                                                                        <h2 class="row">NOT ASSIGNED CUSTOMERS</h2>
+                                                                                    </div>
+                                                                                    <div class="body">
+                                                                                        <button type="button" class="list-group-item select-Role-Button" style="min-width:250px; margin-top:5px;" ng-model="customer.id" ng-repeat="customer in vm.notAssignedCustomers|filter:{displayName : vm.searchText||undefined}" sv-element>
+                                                                                            {{customer.displayName}}
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </md-card-content>
+                                                                        </md-card>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    </div>
+                                                
+                                            </div>
+                                        
+                                
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-click="vm.saveCustomerContactGroup(vm.activeCustomerContactGroup)" ng-disabled="vm.contactGroupForm.$invalid">Save Changes <span class="fa fa-floppy-o fa-right"></span></button>
+                            <button class="btn btn-primary" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

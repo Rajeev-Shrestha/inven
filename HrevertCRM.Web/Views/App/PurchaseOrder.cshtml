@@ -1,0 +1,37 @@
+﻿
+
+@{
+    ViewBag.Title = "Purchase Order";
+    Layout = "_Layout";
+}
+@section Scripts{
+    <script src="~/js/purchaseorder/app-purchaseOrder.js" asp-append-version="true"></script>
+    <script src="~/js/purchaseorder/purchaseOrder.controller.js" asp-append-version="true"></script>
+    <script src="~/js/purchaseorder/purchaseOrder.service.js" asp-append-version="true"></script>
+    <script src="~/manual/angularSortable.js"></script>
+    <script src="~/manual/paging.min.js"></script>
+    <script src="~/lib/angular-moment/moment.js"></script>
+    <script src="~/manual/ui-select.js"></script>
+    <script src="~/lib/angular-sanitize/angular-sanitize.js"></script>
+    <script src="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.js"></script>
+    <script src="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.templates.js"></script>
+    <script src="~/manual/dateTimeInput.js"></script>
+    <link href="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.css" rel="stylesheet" />
+
+@*<script src="~/manual/datepicker/js/bootstrap-material-datetimepicker.js"></script>
+<link href="~/manual/datepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />*@
+
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("purchaseOrder"), ['app-purchaseOrder']);
+</script>
+}
+@section css{
+    <link href="~/manual/icon.css" rel="stylesheet" />
+<link href="~/manual/ui-select/ui-select.css" rel="stylesheet" />
+<link href="~/manual/ui-select/select.css" rel="stylesheet" />
+}
+<div ng-non-bindable>
+    <div class="" id="purchaseOrder">
+        <ui-view></ui-view>
+    </div>
+</div>

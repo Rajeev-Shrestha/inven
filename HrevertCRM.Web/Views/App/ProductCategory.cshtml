@@ -1,0 +1,21 @@
+﻿@section Scripts {
+    <script src="~/js/category/app-category.js" asp-append-version="true"></script>
+    <script src="~/js/category/category.service.js" asp-append-version="true"></script>
+    <script src="~/js/category/category.controller.js" asp-append-version="true"></script>
+<script src="~/lib/angular-ui-tree/dist/angular-ui-tree.js"></script>
+    <link href="~/lib/angular-ui-tree/dist/angular-ui-tree.css" rel="stylesheet" />
+<script src="~/manual/recipe7/js/angular-ui-bootstrap-modal.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("category"), ['app-category']);
+</script>
+}
+@{
+    ViewBag.Title = "Category";
+    Layout = "_Layout";
+}
+
+<div ng-non-bindable>
+    <div class="" id="category">
+        <ui-view></ui-view>
+    </div>
+</div>

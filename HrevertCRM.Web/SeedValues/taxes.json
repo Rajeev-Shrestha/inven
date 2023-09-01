@@ -1,0 +1,38 @@
+﻿[
+  {
+    "taxCode": "Retail Transaction",
+    "description": "This is the most common tax people are familiar with. This is one of the most common ways your state and local government generate revenue and can often range from a few percentage points to more than ten percent of the cost of goods! Every time you go shopping, there is a good chance you are paying this tax. Buying toothpaste, paper towels, soda, and clothing will all have sales tax attached to the final price.",
+    "isRecoverable": false,
+    "taxType": 1,
+    "taxRate": 7.5,
+    "recoverableCalculationType": 0,
+    "webActive": true  
+  },
+  {
+    "taxCode": "Vendor Privilege",
+    "description": "These taxes are imposed on retailers for the privilege of doing business in a state. Think of this as a licensing tax to operate a business. It is different than a retail sales tax because it is charged to the seller rather than the consumer. Businesses usually have the option of paying this tax out of their own pocket or passing it along to customers in the form of higher prices.",
+    "isRecoverable": false,
+    "taxType": 1,
+    "taxRate": 10,
+    "recoverableCalculationType": 0,
+    "webActive": true
+  },
+  {
+    "taxCode": "Excise",
+    "description": "This tax is usually charged on items that are not considered necessary for survival. Cigarettes and alcohol usually have an excise tax tied to them. These taxes are paid by the people who produce them or the wholesalers. These taxes ultimately raise the price we pay for these items. For example, a bottle of wine that normally costs $9 may have an excise tax of $3 on it. The end result is that you will pay $12 for that bottle of wine.",
+    "isRecoverable": false,
+    "taxType": 1,
+    "taxRate": 30,
+    "recoverableCalculationType": 0,
+    "webActive": true
+  },
+  {
+    "taxCode": "VAT",
+    "description": "This tax is usually charged on items that are not considered necessary for survival. Cigarettes and alcohol usually have an excise tax tied to them. These taxes are paid by the people who produce them or the wholesalers. These taxes ultimately raise the price we pay for these items. For example, a bottle of wine that normally costs $9 may have an excise tax of $3 on it. The end result is that you will pay $12 for that bottle of wine.",
+    "isRecoverable": false,
+    "taxType": 1,
+    "taxRate": 13,
+    "recoverableCalculationType": 0,
+    "webActive": true
+  }
+]

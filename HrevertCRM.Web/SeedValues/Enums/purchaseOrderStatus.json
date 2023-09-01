@@ -1,0 +1,21 @@
+﻿[
+
+  {
+    "value": "Purchase Quote"
+  },
+  {
+    "value": "Purchase Order"
+  },
+  {
+    "value": "Purchase Invoice"
+  },
+  {
+    "value": "Credit Quote"
+  },
+  {
+    "value": "Credit Order"
+  },
+  {
+    "value": "Credit Memo"
+  }
+]

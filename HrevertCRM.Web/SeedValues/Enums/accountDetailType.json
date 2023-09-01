@@ -1,0 +1,38 @@
+﻿[
+  {
+    "value": "Bank"
+  },
+  {
+    "value": "Account Receivable"
+  },
+  {
+    "value": "Account Payable"
+  },
+  {
+    "value": "Inventory"
+  },
+  {
+    "value": "Accured Purchase"
+  },
+  {
+    "value": "Other Income"
+  },
+  {
+    "value": "Operating Expenses"
+  },
+  {
+    "value": "Cost of Goods"
+  },
+  {
+    "value": "Other Expenses"
+  },
+  {
+    "value": "Provision for Income Tax"
+  },
+  {
+    "value": "Customer Advances"
+  },
+  {
+    "value": "Other"
+  }
+]

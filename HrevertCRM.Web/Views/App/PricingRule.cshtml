@@ -1,0 +1,18 @@
+﻿
+
+@{
+    ViewBag.Title = "Pricing Rule";
+    Layout = "_Layout";
+}
+@section Scripts{
+<script src="~/js/pricingrule/app-pricingrule.js"></script>
+<script src="~/js/pricingrule/pricingruleController.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("pricingrule"), ['app-pricingrule']);
+</script>
+}
+<div ng-non-bindable>
+    <div class="" id="pricingrule">
+        <ui-view></ui-view>
+    </div>
+</div>

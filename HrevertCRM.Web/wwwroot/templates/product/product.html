@@ -1,0 +1,534 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+
+
+      * {
+  box-sizing: border-box;
+}
+/*td > div {
+  
+ opacity:0;
+}
+tr:hover td > div{
+ opacity:1;
+ cursor:pointer; 
+}
+td > div > a {
+  margin: 0 0.25em 0 0;
+  color: #0094ff;
+  text-decoration: none;
+  border-radius: 2px;
+    cursor: pointer;
+  padding: 3px;
+ }*/
+.red{
+  background-color:red;
+}
+
+
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Product</a></li> 
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="loading" ng-show="vm.isLoading">Loading&#8230;</div>
+<div class="page-content-wrap" ng-show="!vm.isLoading">
+    <div class="panel panel-default" ng-show="!vm.editPanel">
+        <div class="panel-heading">
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="open()"><span class="fa fa-plus"></span> New Product</button>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control date" placeholder="Search Product" ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+            <div class="col-md-2">
+                <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.searchParamChanged()" /> Include Inactive</label>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control select" data-selected-text-format="count" ng-options="pagesize as pagesize for pagesize in vm.pageSizes track by pagesize" ng-model="vm.pageSize" ng-change="vm.searchParamChanged()"></select>
+            </div>
+        </div>
+        <div class="row" style="margin-top:60px; padding:10px;" ng-show="selected.length > 0">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    <button class="btn btn-danger" value="Delete Selected" ng-click="vm.deleteSelected(selected)"> Delete Selected</button>
+                </div>
+                <div class="col-md-6">
+                    <ui-select multiple ng-model="vm.activeItem.categories" name="category" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" required>
+                        <ui-select-match placeholder="Select Categories...">{{$item.name}} </ui-select-match>
+                        <ui-select-choices repeat="category in vm.categories | filter:$select.search">
+                            <div ng-bind-html=""></div>
+                            <small>
+                                {{category.name}}
+                            </small>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary" value="" ng-click="vm.moveToCategory(selected, vm.activeItem.categories )"> Assign Categories</button>
+                </div>
+               
+            </div>
+          </div>
+        <div class="panel-body">
+            <div class="responsive-table">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width:5%"><input type="checkbox" ng-model="selectAll" name="" ng-click="vm.checkAll()"/></th>
+                            <th style="width:5%">#</th>
+                            <th style="width:20%">Product Name</th>     
+                            <th style="width:30%">Categories</th>                        
+                            <th style="width:10%">Unit Price</th>
+                            <th style="width:10%">Stock</th>
+                            <th style="width:20%">Quantity Ordered</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="product in vm.products | filter:q as results" ng-hide="vm.products.length==0" ng-class="product.active ?'hrevert-inactiveLink' :'hrevert-activeLink'">
+                            <td ><input type="checkbox" ng-model="selected" name="" ng-checked="vm.exist(product)" ng-click="vm.toggleSelection(product, $event)" /></td>
+                            <td>
+                                {{($index+1)+(vm.pageNumber-1)* vm.pageSize}}
+                            </td>
+                            <td>
+                                {{product.name}}
+                                <div class="hrevert-updatelink-section" ng-show="product.active">
+                                    <span><a ng-click="vm.editItem(product.id, product.active)">Edit</a></span>|
+                                    <span><a ng-click="vm.deleteItem(product)">Delete</a></span>
+                                   
+                                </div>
+                                <div class="hrevert-updatelink-section" ng-show="!product.active">
+                                    <span ng-click="vm.activateProduct(product)"><a>Activate</a></span>
+                                </div>
+                            </td>
+                            <td>
+                                <span ng-repeat="category in product.categories">{{category.name}}{{$last ? '' : ', '}}&nbsp;</span>
+                                
+                            </td>
+                            <td>
+                                {{product.unitPrice}}
+                            </td>
+                            <td>
+                                {{product.quantityOnHand}}
+                            </td>
+                            <td>
+                                {{product.quantityOnOrder}}
+                            </td>
+                            <!--<td ng-show="product.active">
+                                <div class="push-down-10">
+                                    <button class="btn btn-default" ng-click="vm.editItem(product.id, product.active)"><span class="fa fa-pencil"></span> Edit</button>
+                                    <button class="btn btn-default" ng-click="vm.deleteItem(product)"><span class="fa fa-recycle"></span> Delete</button>
+                                </div>-->
+                                <!--<select class="form-control select" ng-model="action" ng-options="action.id as action.name for action in vm.actionItems" ng-change="vm.actionChanged($event, product, action)">
+                        <option class="" style="display: none" value="">Option</option>
+                    </select>-->
+                            <!--</td>
+                            <td ng-show="!product.active">
+                                <button type="button" class="btn btn-info waves-effect" ng-click="vm.activateProduct(product)"> Activate </button>
+                            </td>-->
+                        </tr>
+                        <tr ng-show="vm.products.length==0">
+                            <td colspan="7">There is no data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="pull-right" ng-if="vm.pagingList >= 2">
+                <div paging
+                     page="vm.pageNumber"
+                     page-size="1"
+                     total="vm.pagingList"
+                     show-prev-next="true"
+                     show-first-last="true"
+                     text-first="&laquo;"
+                     text-last="&raquo;"
+                     text-next="&rsaquo;"
+                     text-prev="&lsaquo;"
+                     text-title-page="Page {page}"
+                     text-title-first="First Page"
+                     text-title-last="Last Page"
+                     text-title-next="Next Page"
+                     text-title-prev="Previous"
+                     paging-action="vm.pageChanged(page)">
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="row" ng-show="vm.editPanel">
+        <div class="col-md-12">
+            <form class="form-horizontal" name="vm.productForm" novalidate>
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active" ng-click="vm.productInformation()"><a href="#tab-first" role="tab" data-toggle="tab">Product information</a></li>
+                        <li><a href="#tab-second" role="tab" ng-click="vm.ImageInformation()" data-toggle="tab">Product Image</a></li>
+                        <!--<li><a href="#tab-third" role="tab" data-toggle="tab">Tax Information</a></li>-->
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Product Name*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" name="productName" class="form-control" ng-model="vm.activeItem.name" ng-change="vm.checkIfExistName(vm.activeItem.name)" ng-model-options="{debounce: 1500}" required />
+                                        <span ng-show="vm.productForm.productName.$touched && vm.productForm.productName.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Product Code*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" class="form-control" name="productCode" ng-model="vm.activeItem.code" ng-disabled="vm.productCode" ng-change="vm.checkIfExistCode(vm.activeItem.code)" ng-model-options="{debounce: 1500}" required />
+                                        <span ng-show="vm.productForm.productCode.$touched && vm.productForm.productCode.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Categories*</label>
+                                    <div class="col-md-8">
+                                        <div class="col-md-11 col-sm-11 col-xs-11" >
+                                            <!--<multiselect class="date" name="category" ng-model="vm.activeItem.categories" options="vm.categories" id-prop="id" display-prop="name" show-search="true" required>
+                                            </multiselect>
+                                            <span ng-show="vm.productForm.category.$touched && vm.productForm.category.$error.required" style="color:red;">Select Category</span>-->
+                                            <ui-select multiple ng-model="vm.activeItem.categories" name="category" theme="bootstrap" ng-disabled="" sortable="true" close-on-select="false" required>
+                                                <ui-select-match placeholder="Select Categories...">{{$item.name}} </ui-select-match>
+                                                <ui-select-choices repeat="category in vm.categories | filter:$select.search">
+                                                    <div ng-bind-html=""></div>
+                                                    <small>
+                                                        {{category.name}}
+                                                    </small>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span ng-show="vm.productForm.category.$touched && vm.productForm.category.$error.required" style="color:red;">Required</span>
+                                        </div>
+                                        <div class="col-md-1 col-sm-1 col-xs-1">
+                                            <button title="Add New Category" ng-click="vm.openCategoryDialog()" data-toggle="modal" data-target="#addCategory">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">  
+                                    <label class="col-md-3 control-label">Product Type*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <select class="form-control select" name="productType" ng-model="vm.activeItem.productType" ng-options="productType.id as productType.name for productType in vm.productType" ng-change="vm.productTypeSelect(vm.activeItem.productType)" ng-disabled="vm.productCode" required>
+                                            <option class="" style="display: none" value="">Select Product Type</option>
+                                        </select>
+                                        <span ng-show="vm.productForm.productType.$touched && vm.productForm.productType.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Taxes</label>
+                                    <div class="col-md-8">
+                                        <div class="col-md-11 col-sm-11 col-xs-11">
+                                            <!--<multiselect class="date" ng-model="vm.activeItem.taxes" options="vm.taxList" id-prop="id" display-prop="name" ng-disabled="vm.disableUnitPriceAndTax" ng-required="required">
+                                            </multiselect>
+                                            <span ng-show="vm.productForm.tax.$touched && vm.productForm.tax.$error.required" style="color:red;">Enter Tax</span>-->
+                                            <ui-select multiple ng-model="vm.activeItem.taxes" name="tax" theme="bootstrap" ng-disabled="vm.disableUnitPriceAndTax" sortable="true" close-on-select="false">
+                                                <ui-select-match placeholder="Select Taxes...">{{$item.name}} </ui-select-match>
+                                                <ui-select-choices repeat="tax in vm.taxList | filter:$select.search">
+                                                    <div ng-bind-html=""></div>
+                                                    <small>
+                                                        {{tax.name}}
+                                                    </small>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                        <div class="col-md-1 col-sm-1 col-xs-1">
+                                            <button title="Add New Taxes" ng-click="vm.openTaxDialog()" data-toggle="modal" data-target="#addTax">+</button>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Quantity*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" class="form-control" name="quantity" ng-model="vm.activeItem.quantityOnHand" min="1" required />
+                                        <span ng-show="vm.productForm.quantity.$touched && vm.productForm.quantity.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 col-xs-12 control-label">Unit Price*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" class="form-control" name="unitPrice" ng-model="vm.activeItem.unitPrice" ng-disabled="vm.disableUnitPriceAndTax" required/>
+                                        <span ng-show="vm.productForm.unitPrice.$touched && vm.productForm.unitPrice.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Short Description</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" class="form-control" ng-model="vm.activeItem.shortDescription" max="200" maxlength="200" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6" ng-if="vm.productReference">
+                                    <label class="col-md-3 control-label">Reference*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <!--multiselect class="date" id="2" ng-model="vm.activeItem.productsReferencedByKitAndAssembledType" options="vm.productsForRefrence" id-prop="id" display-prop="name" required="{{vm.requird}}">
+                                        </multiselect>-->
+
+                                        <ui-select multiple ng-model="vm.activeItem.productsReferencedByKitAndAssembledType" name="productsReferencedByKitAndAssembledType" theme="bootstrap" sortable="true" close-on-select="false" required>
+                                            <ui-select-match placeholder="Select References...">{{$item.name}} </ui-select-match>
+                                            <ui-select-choices repeat="productReference in vm.productsForRefrence | filter:$select.search">
+                                                <div ng-bind-html=""></div>
+                                                <small>
+                                                    {{productReference.name}}
+                                                </small>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Long Description</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <textarea class="form-control" rows="5" ng-model="vm.activeItem.longDescription" max="1000" maxlength="1000"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Allow Back Order</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="checkbox" ng-model="vm.activeItem.allowBackOrder"></input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab-second">
+                            <div class="row" ng-show="vm.showImageEdit">
+                                <div class="col-md-12">
+                                    <div>Select an image file: <input type="file" id="fileInput" class="fileInput" /></div>  <!--onchange="angular.element(this).scope().fileNameChanged(files)"-->
+                                    <div class="col-lg-6">
+                                        <div class="cropArea">
+                                            <img-crop image="myImage" area-type="rectangle" on-load-error="vm.loadError()" aspect-ratio="1.001" result-image="myCroppedImage" result-image-size='[{w: 1024,h: 1024},{w: 100,h: 100},{w: 300,h: 300}]' result-array-image='myArray'></img-crop>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-offset-2 col-lg-4">
+                                        <h3>Preview Image:</h3>
+                                        <div>
+                                            <img id="img" ng-src="{{myArray[2].dataURI}}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="margin-top:10px;">
+                                    <button type="button" class="btn btn-primary" ng-click="vm.saveImage(vm.selectedOption, vm.croppedImage)">Save Image</button>
+                                    <button type="button" class="btn btn-primary" ng-show="vm.showImageEdit" ng-click="vm.cancelEditImage()">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="gallery" id="links" ng-show="!vm.showImageEdit">
+                                <div class="gallery-item" title="{{vm.activeItem.name}}" ng-repeat="image in vm.imageList" ng-if="image.h===300" data-gallery>
+                                    <div class="image">
+                                        <img ng-src="{{image.dataURI}}" alt="Nature Image 1" />
+                                        <ul class="gallery-item-controls">
+                                            <li><span class="gallery-item-remove" ng-click="vm.deleteProductImage(image.productId, image.dataURI)"><i class="fa fa-times" title="Remove"></i></span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="meta">
+                                        <a href="{{image.dataURI}}">
+                                            <strong>{{vm.activeItem.name}}</strong>
+                                        </a>
+                                        <!--<span>Description</span> <a class="gallery-item"-->
+                                    </div>
+                                </div>
+                                <div class="pull-left push-up-10">
+                                    <button class="btn btn-primary" ng-click="vm.editImageDialog($event)">New Image</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="tab-pane" id="tab-third">
+                            this is test
+                        </div>-->
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-show="vm.saveChanges" ng-disabled="vm.productForm.$invalid" ng-click="vm.saveItem(vm.activeItem)">{{vm.btnProductSaveText}} <span class="fa fa-floppy-o fa-right"></span></button>
+                            <button class="btn btn-primary" ng-show="vm.cancel" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="addCategory" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="width: 100%; height: 100%; margin: 0px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="pull-right">all the * fields are required</span>
+                <h4 class="modal-title">Add Edit Category</h4>
+            </div>
+            <form name="vm.categoryForm" novalidate>
+                <div class="modal-body">
+                    <section>
+                        <div class="container-fluid">
+                            <!-- Input Group -->
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+                                            <div class="row clearfix">
+                                                <div class="row clearfix" style="padding:12px;">
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="categoryName" style="white-space:nowrap;">Category Name*</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" name="subcategoryName" class="form-control date" placeholder="Category Name" ng-model="vm.activeCategoryItem.name" ng-change="vm.checkIfExistsName(vm.activeCategoryItem.name)" ng-model-options="{debounce: 1500}" required>
+                                                                <span ng-show="vm.categoryForm.subcategoryName.$touched && vm.categoryForm.subcategoryName.$error.required" style="color:red;">Required</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2 form-control-label">
+                                                        <label for="termCode" style="white-space:nowrap;">Parent Category</label>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <select class="form-control show-tick date" data-selected-text-format="count" ng-options="parentCategory.id as parentCategory.name for parentCategory in vm.parentCagtegories" ng-model="vm.activeCategoryItem.parentId">
+                                                                    <option class="" value="" style="display: none">Select Parent Category</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row clearfix">
+                                                    <div class="col-md-1 form-control-label">
+                                                        <label for="description">Description</label>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <input type="text" class="form-control date" placeholder="Description" ng-model="vm.activeCategoryItem.description">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="demo-checkbox">
+                                                            <input type="checkbox" id="basic_checkbox_1" ng-model="vm.activeCategoryItem.webActive" />
+                                                            <label for="basic_checkbox_1">Web active</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="vm.hideCategoryDialog()" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="vm.saveCategory(vm.activeCategoryItem)" data-dismiss="modal" ng-disabled="vm.categoryForm.$invalid">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="addTax" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="width: 100%; height: 100%; margin: 0px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="pull-right">all the * fields are required</span>
+                <h4 class="modal-title">Add New Taxes</h4>
+            </div>
+            <form name="vm.taxForm" novalidate>
+                <div class="modal-body">
+                    <section>
+                        <div class="container-fluid">
+                            <!-- Input Group -->
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+                                            <div class="row clearfix">
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label class="col-md-3 col-xs-12 control-label">Tax Code*</label>
+                                                        <div class="col-md-9 col-xs-12">
+                                                            <input type="text" class="form-control" name="taxCode" ng-model="vm.tax.taxCode" ng-change="vm.checkIfTaxCodeExists(vm.tax.taxCode)" ng-model-options="{debounce: 1500}" required />
+                                                            <span ng-show="vm.taxForm.taxCode.$touched && vm.taxForm.taxCode.$error.required" style="color:red;">Enter Tax Code</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label class="col-md-3 control-label"> Tax Description</label>
+                                                        <div class="col-md-9 col-xs-12">
+                                                            <input type="text" class="form-control" ng-model="vm.tax.description" max="200" maxlength="200" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label class="col-md-3 control-label"> Tax Type</label>
+                                                        <div class="col-md-9 col-xs-12">
+                                                            <select class="form-control select" name="taxType" ng-model="vm.tax.taxType" ng-options="taxType.id as taxType.name for taxType in vm.taxes" required>
+                                                                <option class="" style="display: none" value="">Select Tax Type</option>
+                                                            </select>
+                                                            <span ng-show="vm.taxForm.taxType.$touched && vm.taxForm.taxType.$error.required" style="color:red;">Select Tax Type</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label class="col-md-3 col-xs-12 control-label">Tax Rate*</label>
+                                                        <div class="col-md-9 col-xs-12">
+                                                            <input type="text" class="form-control" name="taxRate" ng-model="vm.tax.taxRate" required />
+                                                            <span ng-show="vm.taxForm.taxRate.$touched && vm.taxForm.taxRate.$error.required" style="color:red;">Enter Rate</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    
+                                                    <div class="form-group col-md-6">
+                                                        <label class="col-md-3 col-xs-12 control-label">Tax IsRecoverable*</label>
+                                                        <div class="col-md-9 col-xs-12">
+                                                            <input type="checkbox" class="icheckbox" ng-model="vm.tax.isRecoverable" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label class="col-md-3 col-xs-12 control-label">WebActive*</label>
+                                                        <div class="col-md-9 col-xs-12">
+                                                            <input type="checkbox" class="icheckbox" ng-model="vm.tax.webActive" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="vm.hideTaxDialog()" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="vm.saveTax(vm.tax)" data-dismiss="modal" ng-disabled="vm.taxForm.$invalid">Save</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<!-- END PAGE CONTENT WRAPPER -->
+<style>
+    .cropArea {
+        background: #E4E4E4;
+        overflow: hidden;
+        width: 495px;
+        height: 300px;
+    }
+    .preview-image {
+        margin: 25px auto;
+        background: #E4E4E4;
+    }
+</style>

@@ -1,0 +1,47 @@
+﻿[
+  {
+    "purchaseOrderNumber": "100025",
+    "dueDate": "2016-11-24",
+    "status": 1,
+    "salesPolicy": "N/A",
+    "isWebOrder": false,
+    "fullyPaid": false,
+    "totalAmount": 1500000,
+    "paidAmount": 1000000,
+    "billingAddress": "",
+    "shippingAddress": "",
+    "orderType": 1,
+    "webActive": true,
+    "active": true
+  },
+  {
+    "purchaseOrderNumber": "110086",
+    "dueDate": "2017-1-20",
+    "status": 2,
+    "salesPolicy": "N/A",
+    "isWebOrder": false,
+    "fullyPaid": false,
+    "totalAmount": 500000,
+    "paidAmount": 100000,
+    "billingAddress": "",
+    "shippingAddress": "",
+    "orderType": 2,
+    "webActive": true,
+    "active": true
+  },
+  {
+    "purchaseOrderNumber": "120151",
+    "dueDate": "2016-12-05",
+    "status": 3,
+    "salesPolicy": "N/A",
+    "isWebOrder": false,
+    "fullyPaid": true,
+    "totalAmount": 150000,
+    "paidAmount": 150000,
+    "billingAddress": "",
+    "shippingAddress": "",
+    "orderType": 3,
+    "webActive": true,
+    "active": true
+  }
+]

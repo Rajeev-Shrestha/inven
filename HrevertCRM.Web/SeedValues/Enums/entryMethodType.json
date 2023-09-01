@@ -1,0 +1,21 @@
+﻿[
+  {
+    "value": "Decimal"
+  },
+  {
+    "value": "Fractional"
+  },
+
+  {
+    "value": "Hour" 
+
+  },
+  {
+    "value": "Min"
+  },
+
+  {
+    "value": "Day" 
+
+  }
+]

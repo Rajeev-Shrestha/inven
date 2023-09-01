@@ -1,0 +1,20 @@
+[
+  //put security groups in same order for seeding correctly
+  {
+    "groupName": "Admins",
+    "groupDescription": "This is the admins group"
+  },
+  {
+    "groupName": "Sales",
+    "groupDescription": "This is the Sales group"
+  },
+  {
+    "groupName": "Purchases",
+    "groupDescription": "This is the Purchase group"
+  },
+  {
+    "groupName": "Distributors",
+    "groupDescription": "This is the Distributors group"
+  }
+
+]

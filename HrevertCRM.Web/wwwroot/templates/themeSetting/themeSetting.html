@@ -1,0 +1,929 @@
+﻿<style>
+    .modal-dialog {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-content {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
+}
+</style>
+<div id="imageCropDialog" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row">
+                <div ng-if="dataUrl" class="img-container">
+                    <img ng-if="dataUrl" ng-src="{{dataUrl}}" width="800"
+                         ng-cropper
+                         ng-cropper-proxy="cropperProxy"
+                         ng-cropper-show="showEvent"
+                         ng-cropper-hide="hideEvent"
+                         ng-cropper-options="options">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="vm.closeCropDialog()">Close</button>
+                <button type="button" class="btn btn-default" ng-click="vm.saveCropedImage()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel-body">
+<main>
+<input class="tabs" id="tab1" type="radio" name="tabs" ng-click="vm.getGeneralSettings()" checked>
+<label for="tab1">General</label>
+
+<input class="tabs" id="tab2" type="radio" ng-click="vm.getHeaderSettings()" name="tabs">
+<label for="tab2">Header</label>
+
+<input class="tabs" id="tab3" type="radio" ng-click="vm.getFooterSettings()" name="tabs">
+<label for="tab3">Footer</label>
+
+<input class="tabs" id="tab4" type="radio" ng-click="vm.getLayoutSettings()" name="tabs">
+<label for="tab4">Layouts</label>
+
+<input class="tabs" id="tab5" type="radio" ng-click="vm.getSliderSettings()" name="tabs" ng-show="vm.generalSettings.enableSlides">
+<label for="tab5" ng-show="vm.generalSettings.enableSlides">Slides</label>
+        
+<section id="content1">
+    <h3>General Options</h3>
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-2" for="store-theme">Theme</label>
+                <div class="col-sm-10">
+                    <select class="form-control dropdown-toggle" id="store-theme" ng-options="theme.name as theme.name for theme in vm.ThemeColor" ng-model="vm.generalSettings.selectedTheme"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-2">
+                    <p>Logo</p>
+                </div>
+                <div class="col-md-10">
+                    <div>
+                        <input type="file" id="storeLogoFileInput" ng-show="!storeLogoBase64" />
+                    </div>
+                    <div class="form-group col-md-12" ng-show="storeLogoBase64">
+                        <img ng-src="{{storeLogoBase64}}" class="img-responsive" width="150" /><br />
+                        <button type="button" class="btn btn-default waves-effect" ng-click="vm.clearImage('storeLogo', vm.generalSettings.id)">
+                            <span class="fa fa-recycle"></span> Remove Logo
+                        </button>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-sm-2" for="store-theme">Store Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="vm.generalSettings.storeName" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-2">
+                    <p>Favicon</p>
+                </div>
+                <div class="col-md-10">
+                    <div ng-show="!fevIconBase64">
+                        <input type="file" id="fevIconFileInput" />
+                    </div>
+                    <div class="form-group col-md-12" ng-show="fevIconBase64">
+                        <img ng-src="{{fevIconBase64}}" class="img-responsive" width="150" /><br />
+                        <button type="button" class="btn btn-default waves-effect" ng-click="vm.clearImage('fevIcon', vm.generalSettings.id)">
+                            <span class="fa fa-recycle"></span> Remove Logo
+                        </button>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <fieldset>
+        <h3>Index Options</h3>
+        <div class="col-sm-6 clearfix">
+            <input class="enableitem" type="checkbox" ng-model="vm.generalSettings.enableSlides" name="enable-sl" id="enableSlide" />
+            <label for="enableSlide">Enable Slides</label>
+        </div>
+        <div class="col-sm-6 clearfix">
+            <input class="enableitem" type="checkbox" ng-model="vm.generalSettings.enableTopCategories" name="enable-l2" id="enable-l2" />
+            <label for="enable-l2">Enable Top Categories</label>
+        </div>
+        <div class="col-sm-6 clearfix">
+            <input class="enableitem" type="checkbox" ng-model="vm.generalSettings.enableTopTrendingProducts" name="enable-l3" id="enable-l3" />
+            <label for="enable-l3">Enable Top Trending Products</label>
+        </div>
+        <div class="col-sm-6 clearfix">
+            <input class="enableitem" type="checkbox" ng-model="vm.generalSettings.enableHotThisWeek" name="enable-l4" id="enable-l4" />
+            <label for="enable-l4">Enable Hot This Week</label>
+        </div>
+        <div class="col-sm-6 clearfix">
+            <input class="enableitem" type="checkbox" ng-model="vm.generalSettings.enableLatestProducts" name="enable-l5" id="enable-l5" />
+            <label for="enable-l5">Enable Latest Products</label>
+        </div>
+        <div class="col-sm-6 clearfix">
+            <input class="enableitem" type="checkbox" ng-model="vm.generalSettings.enableGetInspired" name="enable-l6" id="enable-l6" />
+            <label for="enable-l6">Enable Get Inspired</label>
+        </div>
+
+        <div class="col-sm-12">
+            <p>However, you can select all the layout options above, we recommend you to select only one between "Top Trending Products" and "Hot This Week".</p>
+        </div>
+    </fieldset>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default" ng-click="vm.saveGeneralSettings()">Save Settings</button>
+        </div>
+    </div>    
+</section>
+<section id="content2">
+    <h3>Header Options</h3>
+    <form class="form-horizontal">
+        <div class="row">
+            <input class="enableitem" type="checkbox" ng-model="vm.headerSettings.enableStoreLocator" name="storelocator" id="storelocator"><label for="storelocator">Enable "Store Locator"</label>
+        </div>
+        <div class="row" ng-show="vm.headerSettings.enableStoreLocator">
+            <div class="col-md-6">
+                <label for="store-count">How many Stores do you have?</label>
+            </div>
+            <div class="col-md-6">
+                <input type="number" class="form-control" id="store-count" ng-model="vm.headerSettings.numberOfStores" placeholder="Provide a number here">
+            </div>
+            <div class="col-md-12">
+                <input class="col-sm-2 btn btn-add" type="button" ng-click="openAddStoreDialog()" value="Add store" ng-show="vm.headerSettings.numberOfStores > 0" />
+            </div>
+        </div>
+        <br />
+        <div class="row" ng-show="vm.headerSettings.enableStoreLocator">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-striped hover">
+                        <tr>
+                            <th>1</th>
+                            <th>Store name</th>
+                            <th>Store Email</th>
+                            <th>View Details</th>
+                            <th>Remove</th>
+                        </tr>
+                        <tr ng-repeat="storeLocalValue in vm.headerSettings.storeLocatorViewModels">
+                            <td>{{$index + 1}}</td>
+                            <td>{{storeLocalValue.name}}</td>
+                            <td>{{storeLocalValue.email}}</td>
+                            <td ng-click="vm.viewStoreDetails(storeLocalValue, $index)">View</td>
+                            <td ng-click="vm.removeStoreDetails($index, storeLocalValue.id)">Remove</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <input class="enableitem" type="checkbox" ng-model="vm.headerSettings.enableWishlist" name="wishlist" id="wishlist"><label for="wishlist">Enable "Wishlist"</label><br />
+            <input class="enableitem" type="checkbox" ng-model="vm.headerSettings.enableSocialLinks" name="sociallinks" id="sociallinks"><label for="sociallinks">Enable "Social Links"</label><br />
+            <div ng-show="vm.headerSettings.enableSocialLinks">
+                <div class="clearfix">
+                    <label class="col-sm-4" for="facebook">Facebook:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="vm.headerSettings.facebookUrl" id="facebook" placeholder="Enter facebook profile address">
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <label class="col-sm-4" for="twitter">Twitter:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="vm.headerSettings.twitterUrl" id="twitter" placeholder="Enter twitter profile address">
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <label class="col-sm-4" for="instagram">Instagram:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="vm.headerSettings.instagramUrl" id="instagram" placeholder="Enter instagram profile address">
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <label class="col-sm-4" for="linkedin">LinkedIn:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="vm.headerSettings.linkedInUrl" id="linkedin" placeholder="Enter linkedin profile address">
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <label class="col-sm-4" for="tumblr">Tumblr:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="vm.headerSettings.tumblrUrl" id="tumblr" placeholder="Enter tumblr profile address">
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <label class="col-sm-4" for="rss">RSS:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="vm.headerSettings.rssUrl" id="rss" placeholder="Enter rss address">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-default" ng-click="vm.saveHeaderSettings(vm.headerSettings)">Save</button>
+        </div>
+    </form>
+</section>
+<section id="content3">
+    <h3>Footer Options</h3>
+    <input class="enableitem" type="checkbox" name="footerbrands" id="footerbrands" ng-model="vm.footerSettings.enableBrands" checked><label for="footerbrands">Enable "Brands"</label>
+    <input class="enableitem" type="checkbox" name="footermenu" id="footermenu" ng-model="vm.footerSettings.enableFooterMenu" checked><label for="footermenu">Enable "Footer Menus"</label>
+    <div class="row" ng-show="vm.footerSettings.enableBrands">
+        <div class="form-group">
+            <div class="col-md-2">
+                <p>Brand images</p>
+            </div>
+            <div class="col-md-10">
+                <div>
+                    <input type="file" id="brandImagesFileInput"/>
+                </div>
+                <br/>
+                <div class="form-group col-md-3" ng-repeat="brandImages in brandImagesBase64 track by $index" ng-show="brandImagesBase64.length > 0">
+                    <img ng-src="{{brandImages}}" class="img-responsive" style="height: 150px; width: auto"/><br/>
+                    <button type="button" class="btn btn-default waves-effect" ng-click="vm.clearImage('brandImage', vm.footerSettings.id, $index)">
+                        <span class="fa fa-recycle"></span> Remove Image
+                    </button>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="vm.footerSettings.enableFooterMenu">
+        <input class="enableitem" type="checkbox" name="shfooterlogo" id="shfooterlogo" ng-model="vm.footerSettings.showFooterLogo" checked><label for="shfooterlogo">Show Footer Logo</label>
+        <div class="row" ng-show="vm.footerSettings.showFooterLogo">
+            <div class="form-group">
+                <div class="col-md-2">
+                    <p>Footer Logo</p>
+                </div>
+                <div class="col-md-10">
+                    <div ng-show="!footerLogoBase64">
+                        <input type="file" id="footerLogoFileInput"/>
+                    </div>
+                    <br/>
+                    <div class="form-group col-md-3" ng-show="footerLogoBase64">
+                        <img ng-src="{{footerLogoBase64}}" class="img-responsive" style="height: 150px; width: auto"/><br/>
+                        <button type="button" class="btn btn-default waves-effect" ng-click="vm.clearImage('footerLogo', vm.footerSettings.id)">
+                            <span class="fa fa-recycle"></span> Remove Image
+                        </button>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-2">
+                    <p>About Store:</p>
+                </div>
+                <div class="col-md-10">
+                    <textarea class="form-control" id="store-about" ng-model="vm.footerSettings.aboutStore" placeholder="Write down about your store here."></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <p><strong>Store Info</strong>
+            </p>
+            <input class="enableitem" type="checkbox" ng-model="vm.footerSettings.enableAbout" name="aboutPage" id="aboutPage"><label for="aboutPage">Enable About</label><br/>
+            <input class="enableitem" type="checkbox" ng-model="vm.footerSettings.enableContact" name="contactPage" id="contactPage"><label for="contactPage">Enable Contact</label><br/>
+            <input class="enableitem" type="checkbox" ng-model="vm.footerSettings.enableStoreLocator" name="storeLocatorPage" id="storeLocatorPage"><label for="storeLocatorPage">Enable Store Locator</label><br/>
+            <input class="enableitem" type="checkbox" ng-model="vm.footerSettings.enablePolicies" name="policiesPage" id="policiesPage"><label for="policiesPage">Enable Policies</label><br/>
+            <input class="enableitem" type="checkbox" ng-model="vm.footerSettings.enableFaq" name="faqPage" id="faqPage"><label for="faqPage">Enable FAQ</label><br/>
+            <input class="enableitem" type="checkbox" ng-model="vm.footerSettings.enableNewsLetter" name="newsletter" id="newsletter"><label for="newsletter">Enable Newsletter</label><br/>
+        </div>
+        <div class="row">
+            <p><strong>User Info</strong>
+            </p>
+            <input class="enableitem" type="checkbox" name="loginout" id="loginout" ng-model="vm.footerSettings.showUserLoginLink" checked><label for="loginout">Show User Login Link</label>
+            <input class="enableitem" type="checkbox" name="orderhistory" id="orderhistory" ng-model="vm.footerSettings.showOrderHistoryLink" checked><label for="orderhistory">Show Order History Link</label>
+            <input class="enableitem" type="checkbox" name="fwishlist" id="fwishlist" ng-model="vm.footerSettings.showWishlistLink" checked><label for="fwishlist">Show WishList Link</label>
+        </div>
+        <div class="row">
+            <p><strong>Product Type</strong>
+            </p>
+            <div class="form-group">
+                <span ng-repeat="latestOrTrandingRadioList in vm.latestOrTrandingRadioList track by $index">
+                    <label class="" for="{{latestOrTrandingRadioList.id}}">{{latestOrTrandingRadioList.text}}</label><input id="{{latestOrTrandingRadioList.id}}" ng-value="latestOrTrandingRadioList.value" ng-model="$parent.vm.footerSettings.showTrendingOrLastest" type="radio" name="footer-tags"/>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-2">
+                    <p>Where to Find Us:</p>
+                </div>
+                <div class="col-md-10">
+                    <textarea class="form-control" id="store-contact" ng-model="vm.footerSettings.whereToFindUs" placeholder="Write down your primary store address here."></textarea>
+                </div>
+            </div>
+        </div>
+        <input class="enableitem" type="checkbox" name="cpright" id="cpright" ng-model="vm.footerSettings.enableCopyright"><label for="cpright" checked>Enable Copyright</label>
+        <div class="row" ng-show="vm.footerSettings.enableCopyright">
+            <div class="form-group">
+                <div class="col-md-2">
+                    <p>Change Copyright Text:</p>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="copyright" ng-model="vm.footerSettings.copyrightText" placeholder="&copy; 2017 Your Company Name. All rights Reserved.">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default" ng-click="vm.saveFooterSettings(vm.footerSettings)">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+</section>
+<section id="content4">
+<h3>Index Page Options</h3>
+<div class="row" ng-show="vm.generalSettings.enableTopCategories">
+    <h4>Top Categories</h4>
+    <input class="enableitem" type="checkbox" ng-model="vm.layoutSettings.showLayoutTitle" name="shlbltopcat" id="shlbltopcat"><label for="shlbltopcat">Show Layout Title (Not Recommended)</label>
+
+    <div class="col-md-12">
+        <label class="col-sm-4">Category 1</label>
+        <div class="col-sm-8">
+            <select class="form-control select" name="productType" ng-model="vm.layoutSettings.categoryOne" ng-options="category.id as category.name for category in vm.categories">
+                <option class="" style="display: none" value="">Select Category One</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <label class="col-sm-4">Category 2</label>
+        <div class="col-sm-8">
+            <select class="form-control select" name="productType" ng-model="vm.layoutSettings.categoryTwo" ng-options="category.id as category.name for category in vm.categories">
+                <option class="" style="display: none" value="">Select Category One</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <label class="col-sm-4">Category 3</label>
+        <div class="col-sm-8">
+            <select class="form-control select" name="productType" ng-model="vm.layoutSettings.categoryThree" ng-options="category.id as category.name for category in vm.categories">
+                <option class="" style="display: none" value="">Select Category One</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <label class="col-sm-4">Category 4</label>
+        <div class="col-sm-8">
+            <select class="form-control select" name="productType" ng-model="vm.layoutSettings.categoryFour" ng-options="category.id as category.name for category in vm.categories">
+                <option class="" style="display: none" value="">Select Category One</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="vm.generalSettings.enableTopTrendingProducts">
+    <h4>Trending Items</h4>
+    <input class="enableitem" type="checkbox" name="shlbltrending" ng-model="vm.layoutSettings.showTrendingItemsLayoutTitle" id="shlbltrending"><label for="shlbltrending">Show Layout Title</label>
+    <input class="enableitem" type="checkbox" ng-model="vm.layoutSettings.enableseparatorbtwcattren" name="en-sep-li++" id="en-sep-li++"><label for="en-sep-li++">Enable parallex image</label>
+    <div class="row" ng-show="vm.layoutSettings.enableseparatorbtwcattren">
+        <div class="form-group">
+            <div class="col-md-4">
+                <p>Trending parallex image</p>
+            </div>
+            <div class="col-md-8">
+                <div ng-show="!trendingParallexBase64">
+                    <input type="file" id="trendingParallexFileInput"/>
+                </div>
+                <div class="form-group col-md-12" ng-show="trendingParallexBase64">
+                    <img ng-src="{{trendingParallexBase64}}" class="img-responsive" width="150"/><br/>
+                    <button type="button" class="btn btn-default waves-effect" ng-click="vm.clearImage('trendingParallex', vm.layoutSettings.id)">
+                        <span class="fa fa-recycle"></span> Remove Image
+                    </button>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" ng-show="vm.layoutSettings.showTrendingItemsLayoutTitle">
+        <div class="row">
+            <label data-ng-repeat="trendingRadioButtionList in vm.titleList">
+                <input type="radio" name="trendingItems" data-ng-model="$parent.vm.layoutSettings.trendingItemsTitleStyle" data-ng-value="trendingRadioButtionList.value"/>
+                {{trendingRadioButtionList.text}}
+            </label>
+        </div>
+        <div class="row" ng-show="vm.layoutSettings.trendingItemsTitleStyle == 2">
+            <div class="form-group col-md-6" ng-show="vm.hasTrendingImage">
+                <img src="{{trendingImageBase64}}" class="img-responsive" width="150"/><br/>
+                <button type="button" class="btn btn-default waves-effect" ng-click="vm.clearImage('trendingImage', vm.layoutSettings.id)">
+                    <span class="fa fa-recycle"></span> Remove Image
+                </button>
+                <br/>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="col-md-4">
+                    <p>Pick color</p>
+                </div>
+                <div class="col-md-8">
+                    <input class="form-control" colorpicker colorpicker-position="right" ng-model="vm.layoutSetting.trendingItemsColor" type="text">
+                </div>
+            </div>
+            <div class="col-md-12" ng-show="!vm.hasTrendingImage">
+                <div ng-show="!trendingImageBase64">
+                    Select an image file: <input type="file" id="trendingImageFileInput"/>
+                </div>
+            </div>
+            <br/>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="vm.generalSettings.enableHotThisWeek">
+    <h4>Hot This Week</h4>
+    <input class="enableitem" type="checkbox" name="shlblhot" ng-model="vm.layoutSettings.showHotThisWeekLayoutTitle" id="shlblhot"><label for="shlblhot">Show Layout Title</label>
+    <input class="enableitem" type="checkbox" ng-model="vm.layoutSettings.enableseparatorbtwtrenhot" name="en-sep-li++" id="en-sep-hot"><label for="en-sep-hot">enable separator</label>
+    <div class="row" ng-show="vm.layoutSettings.enableseparatorbtwtrenhot">
+        <div class="form-group">
+            <div class="col-md-4">
+                <p>Hot this week parallex image</p>
+            </div>
+            <div class="col-md-8">
+                <div ng-show="!hotThisWeekParallexBase64">
+                    <input type="file" id="hotThisWeekParallexFileInput"/>
+                </div>
+                <div class="form-group col-md-12" ng-show="hotThisWeekParallexBase64">
+                    <img ng-src="{{hotThisWeekParallexBase64}}" class="img-responsive" width="150"/><br/>
+                    <button type="button" class="btn btn-default waves-effect" ng-click="vm.clearImage('hotThisWeekParallex', vm.layoutSettings.id)">
+                        <span class="fa fa-recycle"></span> Remove Image
+                    </button>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" ng-show="vm.layoutSettings.showHotThisWeekLayoutTitle">
+        <div class="row">
+            <label data-ng-repeat="hotThisWeek in vm.titleList">
+                <input type="radio" name="trendingItems" data-ng-model="$parent.vm.layoutSettings.hotThisWeekTitleStyle" data-ng-value="hotThisWeek.value"/>
+                {{hotThisWeek.text}}
+            </label>
+        </div>
+        <div class="row" ng-show="vm.layoutSettings.hotThisWeekTitleStyle == 2">
+            <div class="form-group col-md-6" ng-show="vm.hasHotThisWeekImage">
+                <img src="{{hotThisWeekImageBase64}}" class="img-responsive" width="150"/><br/>
+                <button type="button" class="btn btn-default waves-effect" ng-click="vm.clearImage('hotThisWeekImage', vm.layoutSettings.id)">
+                    <span class="fa fa-recycle"></span> Remove Image
+                </button>
+                <br/>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="col-md-4">
+                    <p>Pick color</p>
+                </div>
+                <div class="col-md-8">
+                    <input class="form-control" colorpicker colorpicker-position="right" ng-model="vm.layoutSettings.hotThisWeekColor" type="text">
+                </div>
+            </div>
+            <div class="col-md-12" ng-show="!vm.hasHotThisWeekImage">
+                <div ng-show="!hotThisWeekImageBase64">
+                    Select an image file: <input type="file" id="hotThisWeekImageFileInput"/>
+                </div>
+            </div>
+            <br/>
+
+        </div>
+    </div>
+
+</div>
+<div class="row" ng-show="vm.generalSettings.enableLatestProducts">
+    <h4>Latest product</h4>
+    <input class="enableitem" type="checkbox" name="shlbllatest" id="shlbllatest" ng-model="vm.layoutSettings.showLatestProductsLayoutTitle"><label for="shlbllatest">Show Layout Title</label>
+    <input class="enableitem" type="checkbox" ng-model="vm.layoutSettings.enableseparatorbtwhotprod" name="en-sep-li++" id="en-sep-product"><label for="en-sep-product">enable separator</label>
+    <div class="row" ng-show="vm.layoutSettings.enableseparatorbtwhotprod">
+        <div class="form-group">
+            <div class="col-md-4">
+                <p>Latest Product parallex image</p>
+            </div>
+            <div class="col-md-8">
+                <div ng-show="!latestProductParallexBase64">
+                    <input type="file" id="latestProductFileInput"/>
+                </div>
+                <div class="form-group col-md-12" ng-show="latestProductParallexBase64">
+                    <img ng-src="{{latestProductParallexBase64}}" class="img-responsive" width="150"/><br/>
+                    <button type="button" class="btn btn-default waves-effect" ng-click="vm.clearImage('latestProductParallex', vm.layoutSettings.id)">
+                        <span class="fa fa-recycle"></span> Remove Image
+                    </button>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" ng-show="vm.layoutSettings.showLatestProductsLayoutTitle">
+        <div class="row">
+            <label data-ng-repeat="latestProduct in vm.titleList">
+                <input type="radio" name="latestProduct" data-ng-model="$parent.vm.layoutSettings.latestProductsTitleStyle" data-ng-value="latestProduct.value"/>
+                {{latestProduct.text}}
+            </label>
+        </div>
+        <div class="row" ng-show="vm.layoutSettings.latestProductsTitleStyle == 2">
+            <div class="form-group col-md-6" ng-show="vm.hasLatestProductsImage">
+                <img src="{{latestProductsImageBase64}}" class="img-responsive" width="150"/><br/>
+                <button type="button" class="btn btn-default waves-effect" ng-click="vm.clearImage('latestProducts', vm.layoutSettings.id)">
+                    <span class="fa fa-recycle"></span> Remove Image
+                </button>
+                <br/>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="col-md-4">
+                    <p>Pick color</p>
+                </div>
+                <div class="col-md-8">
+                    <input class="form-control" colorpicker colorpicker-position="right" ng-model="vm.layoutSettings.latestProductsColor" type="text">
+                </div>
+            </div>
+            <div class="col-md-12" ng-show="!vm.hasLatestProductsImage">
+                <div ng-show="!latestProductsImageBase64">
+                    Select an image file: <input type="file" id="latestProductsFileInput"/>
+                </div>
+            </div>
+            <br/>
+
+        </div>
+    </div>
+
+</div>
+<div class="row" ng-show="vm.generalSettings.enableGetInspired">
+    <h4>Get inspired</h4>
+    <div class="col-md-12">
+        <div class="row">
+            <label data-ng-repeat="getInspired in vm.getInspiredRadioList">
+                <input type="radio" name="getInspired" data-ng-model="$parent.vm.layoutSettings.backgroundImageOrColor" data-ng-value="getInspired.value"/>
+                {{getInspired.text}}
+            </label>
+        </div>
+        <div class="row" ng-show="vm.layoutSettings.backgroundImageOrColor == 1">
+            <div class="form-group col-md-6" ng-show="vm.hasGetInspiredImage">
+                <img src="{{getInspiredImageBase64}}" class="img-responsive" width="150"/><br/>
+                <button type="button" class="btn btn-default waves-effect" ng-click="vm.clearImage('getInspired', vm.layoutSettings.id)">
+                    <span class="fa fa-recycle"></span> Remove Image
+                </button>
+                <br/>
+            </div>
+
+            <div class="col-md-12" ng-show="!vm.hasGetInspiredImage">
+                <div ng-show="!getInspiredImageBase64">
+                    Select an image file: <input type="file" id="getInspiredFileInput"/>
+                </div>
+            </div>
+            <br/>
+
+        </div>
+        <div class="row" ng-show="vm.layoutSettings.backgroundImageOrColor == 2">
+            <div class="form-group col-md-12">
+                <div class="col-md-4">
+                    <p>Pick color</p>
+                </div>
+                <div class="col-md-8">
+                    <input class="form-control" colorpicker colorpicker-position="right" ng-model="vm.layoutSettings.colorCode" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3>Personnel Settings</h3>
+    <div class="table-responsive" border="1px">
+        <button class="btn btn-default" ng-click="vm.showPsRecommendationDialog()" style="margin-bottom: 5px;">Add Recommendation</button>
+        <table class="table table-striped hover">
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th style="width: 20%;">Recommendation Text</th>
+                <th style="width: 20%;">Image</th>
+                <th style="width: 45%;">Name</th>
+                <th style="width: 45%;">Address</th>
+                <th style="width: 18%;">View</th>
+                <th style="width: 13%;">Remove</th>
+            </tr>
+            <tr ng-repeat="recommendation in vm.recommendationList">
+                <th style="width: 5%;">{{$index+1}}</th>
+                <th style="width: 45%;">{{recommendation.recommendationText}}</th>
+                <th style="width: 45%;"><img src="{{recommendation.personnelImage}}" style="max-height: 35px; width: auto;"/></th>
+                <th style="width: 45%;">{{recommendation.recommendingPersonName}}</th>
+                <th style="width: 45%;">{{recommendation.recommendingPersonAddress}}</th>
+                <th style="width: 18%;" ng-click="vm.viewRecommendationDetails(recommendation,$index)">View</th>
+                <th style="width: 13%;" ng-click="vm.removeRecommendation($index)">Remove</th>
+            </tr>
+        </table>
+    </div>
+
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default" ng-click="vm.saveLayoutSetting(vm.layoutSettings)">Save</button>
+        </div>
+    </div>
+</div>
+</section>
+    <section id="content5">
+        <h3>Slides Options</h3>
+        <div class="row">
+            <label class="col-sm-4">Number of Slides</label>
+            <div class="col-sm-8">
+                <select class="form-control select" name="productType" ng-model="vm.slideSetting.numberOfSlides" ng-options="slideConfigurationNumber.id as slideConfigurationNumber.name for slideConfigurationNumber in vm.slideConfigurationNumbers" ng-change="vm.sildeNumberSelect(vm.slideSetting.numberOfSlides)">
+                    <option class="" style="display: none">Select Product Type</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 table-responsive" border="1px">
+                <table class="table table-striped hover">
+                    <tr>
+                        <th style="width:5%;">#</th>
+                        <th style="width:45%;">Limited Time Offer</th>
+                        <th style="width:45%;">Explore To Link Page</th>
+                        <th style="width:18%;">View</th>
+                        <th style="width:13%;">Remove</th>
+                    </tr>
+                    <tr ng-repeat="slideConfiguration in vm.slideConfigurationList">
+                        <th style="width:5%;">{{$index+1}}</th>
+                        <th style="width:45%;">{{slideConfiguration.limitedTimeOfferText}}</th>
+                        <th style="width:45%;">{{slideConfiguration.exploreToLinkPage}}</th>
+                        <th style="width:18%;" ng-click="vm.viewSlideConfigurationDetails(slideConfiguration,$index)">View</th>
+                        <th style="width:13%;" ng-click="vm.removeSlideConfiguration($index)">Remove</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row" ng-show="vm.slideSetting.numberOfSlides && vm.showConfigForm">
+            <div class="col-md-12">
+                <span ng-repeat="parallaxRadioList in vm.parallaxRadioList track by $index">
+                    <label class="" for="{{parallaxRadioList.id}}">{{parallaxRadioList.text}}</label><input id="{{parallaxRadioList.id}}" ng-value="parallaxRadioList.value" ng-model="$parent.vm.slideSetting.individualSlideSettingViewModels.slideBackground" type="radio" name="footer-tags" />
+                </span>
+            </div>
+            <div class="row" ng-show="vm.slideSetting.individualSlideSettingViewModels.slideBackground == 1">
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <p>Logo</p>
+                    </div>
+                    <div class="col-md-10">
+                        <div>
+                            <input type="file" id="sliderParallaxFileInput" ng-show="!sliderParallaxBase64" />
+                        </div>
+                        <div class="form-group col-md-12" ng-show="sliderParallaxBase64">
+                            <img src="{{sliderParallaxBase64}}" class="img-responsive" width="150" /><br />
+                            <button type="button" class="btn btn-default waves-effect" ng-click="vm.clearImage('sliderParallax', vm.slideSetting.id)">
+                                <span class="fa fa-recycle"></span> Remove Logo
+                            </button>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <p>Color</p>
+                    </div>
+                    <div class="col-md-10">
+                        <input class="form-control" colorpicker colorpicker-position="right" ng-model="vm.slideSetting.individualSlideSettingViewModels.colorCode" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <p>Select Product</p>
+                    </div>
+                    <div class="col-md-10">
+                        <select class="form-control select" name="productType" ng-model="vm.slideSetting.individualSlideSettingViewModels.productType" ng-options="productType.id as productType.itemName for productType in vm.discountProducts" ng-change="vm.selectProduct(vm.slideSetting.individualSlideSettingViewModels.productType)">
+                            <option class="" style="display: none">Select Product Type</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6" ng-show="vm.hasSlideSettingImage">
+                    <img src="{{slideSettingBase64}}" class="img-responsive" width="150" /><br />
+                    <button type="button" class="btn btn-default waves-effect" ng-click="vm.clearImage('slideSetting', vm.layoutSettings.id)">
+                        <span class="fa fa-recycle"></span> Remove Image
+                    </button>
+                    <br />
+                </div>
+                <div class="col-md-12" ng-show="!vm.hasSlideSettingImage">
+                    <div ng-show="!slideSettingBase64">
+                        Select an image file: <input type="file" id="slideSettingFileInput" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        Limited Time Offer Text
+                    </div>
+                    <div class="col-md-6">
+                        <textarea class="form-control" id="ltd-offer-i" ng-model="vm.slideSetting.individualSlideSettingViewModels.limitedTimeOfferText" placeholder="Enter Your Offer Text"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+
+                    </div>
+                    <div class="col-md-6">
+                        <input class="enableitem" type="checkbox" name="chkoffer-expire" ng-model="vm.slideSetting.individualSlideSettingViewModels.IsExpires" id="chkoffer-expires" ng-checked="vm.slideSetting.individualSlideSettingViewModels.IsExpires"><label class="col-sm-6" for="chkoffer-i">Expires?</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-4" for="offer-price-i">Price</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" ng-model="vm.slideSetting.individualSlideSettingViewModels.salesPrice" id="offer-price-i" placeholder="Enter the sale price" disabled />
+                        <div class="col-sm-6">
+                            <label class="col-sm-10" for="op-original-i"> Original Price</label>
+                            <input class="enableitem" type="radio" name="chkoffer-i" ng-model="$parent.vm.slideSetting.individualSlideSettingViewModels.originalPriceCheck" ng-checked="vm.slideSetting.individualSlideSettingViewModels.originalPriceCheck" id="chkoffer-i" disabled>
+                        </div>
+                        <div class="col-sm-6 clearfix">
+                            <input type="text" class="form-control" id="offer-original-i" ng-show="vm.slideSetting.individualSlideSettingViewModels.originalPriceCheck" ng-model="vm.slideSetting.individualSlideSettingViewModels.originalPrice" placeholder="Enter the Original Price" disabled> <!--Must be higher than the Offer Price-->
+                        </div>
+                        <div class="col-sm-12 clearfix"></div>
+                        <div class="col-sm-6">
+                            <label class="col-sm-10" for="op-discount-i"> Discount %</label>
+                            <input class="enableitem" type="radio" name="chkoffer-discount" ng-model="$parent.vm.slideSetting.individualSlideSettingViewModels.discountPercentageCheck" ng-checked="vm.slideSetting.individualSlideSettingViewModels.discountPercentageCheck" id="chkoffer-discount" disabled />
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" ng-show="vm.slideSetting.individualSlideSettingViewModels.discountPercentageCheck" ng-model="vm.slideSetting.individualSlideSettingViewModels.discountPercentage" id="offer-percent-i" placeholder="Enter the discount %" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-4" for="explore-link-i">Explore to Link Page</label>
+                    <div class="col-sm-8">
+                        <input type="explore-link-i" class="form-control" ng-model="vm.slideSetting.individualSlideSettingViewModels.exploreToLinkPage" id="explore-link-i" placeholder="Enter Explore Product Link">
+                    </div>
+                </div>
+                <div class="col-sm-offset-4 col-sm-8 clearfix">
+                    <input class="enableitem" type="checkbox" ng-model="vm.slideSetting.individualSlideSettingViewModels.ShowAddToCartOption" name="add-atc-i" id="add-atc-i" checked>
+                    <label for="add-atc-i">Add "Add to Cart"</label>
+                </div>
+                <div class="col-sm-offset-4 col-sm-8 clearfix">
+                    <input class="enableitem" type="checkbox" ng-model="vm.slideSetting.individualSlideSettingViewModels.showAddToListOption" name="add-wl-i" id="add-wl-i" checked><label for="add-wl-i">Add "Add to WishList"</label>
+                </div>
+                <div class="col-sm-offset-4 col-sm-8 clearfix">
+                    <input class="enableitem" type="checkbox" name="en-frsh-i" ng-model="vm.slideSetting.individualSlideSettingViewModels.enableFreeShipping" id="en-frship-i"><label for="en-frship-i">Enable "Free Shipping"</label>
+                </div>
+            </div>
+            
+            <div class="clearfix">
+                <button class="btn btn-default" ng-click="vm.saveConfiguration(vm.slideSetting.individualSlideSettingViewModels, $index)">Save configuration</button>
+                <button class="btn btn-default" ng-click="vm.cancelConfiguration(vm.slideSetting)">Cancel</button>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-offset-10">
+                    <button type="submit" class="btn btn-default" ng-click="vm.saveSliderSetting(vm.slideSetting)">Save</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</div>
+<div id="addStore" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Store</h4>
+            </div>
+            <div class="modal-body">
+                <form name="vm.addStore">
+                    <div class="form-group">
+                        <div class="clearfix">
+                            <label class="col-sm-4" for="sl-name-i">Dashboard Store Name</label>
+                            <div class="col-sm-8">
+                                <input type="text" ng-model="vm.storeDataLocal.name" name="name" class="form-control" id="sl-name-i" placeholder="Enter Your Google Map Location" required>
+                            </div>
+                            <span ng-show="vm.addStore.name.$touched && vm.addStore.name.$error.required" style="color:red;">Required</span>
+
+                        </div>
+                        <div class="clearfix">
+                            <label class="col-sm-4" for="phone-i">Store Phone</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" ng-model="vm.storeDataLocal.phone" name="phone" id="phone-i" placeholder="Enter Your Phone Number" allow-only-numbers required>
+                            </div>
+                            <span ng-show="vm.addStore.phone.$touched && vm.addStore.phone.$error.required" style="color:red;">Required</span>
+
+                        </div>
+                        <div class="clearfix">
+                            <label class="col-sm-4" for="fax-i">Store Fax</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" ng-model="vm.storeDataLocal.fax" name="fax" id="fax-i" placeholder="Enter Your Fax Number" allow-only-numbers required>
+                            </div>
+                            <span ng-show="vm.addStore.fax.$touched && vm.addStore.fax.$error.required" style="color:red;">Required</span>
+
+                        </div>
+                        <div class="clearfix">
+                            <label class="col-sm-4" for="mobile-i">Store Cell/Mobile Number</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" ng-model="vm.storeDataLocal.mobileNumber" name="mobileNumber" id="mobile-i" placeholder="Enter Your Mobile Number" allow-only-numbers required>
+                            </div>
+                            <span ng-show="vm.addStore.mobileNumber.$touched && vm.addStore.mobileNumber.$error.required" style="color:red;">Required</span>
+                        </div>
+                        <div class="clearfix">
+                            <label class="col-sm-4" for="email-i">Store Email</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" ng-model="vm.storeDataLocal.email" name="email" id="email-i" placeholder="Enter Your Email address" ng-pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/" required>
+                            </div>
+                            <span ng-show="vm.addStore.email.$touched && vm.addStore.email.$error.email" style="color:red;">Invalid Email</span>
+                            <span ng-show="vm.addStore.email.$touched && vm.addStore.email.$error.required" style="color:red;">Required</span>
+                        </div>
+                        <label>Google Map Location: </label>
+                        <div class="clearfix">
+                            <label class="col-sm-4" for="email-i">Longitude</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" ng-model="vm.storeDataLocal.longitude" name="longitude" id="longitude-i" placeholder="Enter store longitude" required>
+                            </div>
+                            <span ng-show="vm.addStore.longitude.$touched && vm.addStore.longitude.$error.required" style="color:red;">Required</span>
+
+                        </div>
+                        <div class="clearfix">
+                            <label class="col-sm-4" for="email-i">Latitude</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" ng-model="vm.storeDataLocal.latitude" name="latitude" id="latitude-i" placeholder="Enter store latitude" required>
+                            </div>
+                            <span ng-show="vm.addStore.latitude.$touched && vm.addStore.latitude.$error.required" style="color:red;">Required</span>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-disabled="vm.addStore.$invalid" ng-show="!vm.isStoreEditing" ng-click="vm.addStoreInLocal(vm.storeDataLocal)">Add</button>
+                <button class="btn btn-success" ng-disabled="vm.addStore.$invalid" ng-show="vm.isStoreEditing" ng-click="vm.updateStoreInLocal(vm.storeDataLocal)">Update</button>
+                <button class="btn" ng-click="closeAddStoreDialog()">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="addRecomendation" class="modal fade">
+    <div class="modal-dialog" style="width: 100%; height: 100%; margin: 0; padding: 0;">
+        <div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Recomendation</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" ng-show="vm.hasReccomandationImage">
+                    <img src="{{reccomandationImageBase64}}" class="img-responsive" width="150" /><br />
+                    <button type="button" class="btn btn-default waves-effect" ng-click="vm.clearImage('reccomandation', vm.layoutSettings.id)">
+                        <span class="fa fa-recycle"></span> Remove Image
+                    </button>
+                    <br />
+                </div>
+                <div class="col-md-12" ng-show="!vm.hasReccomandationImage">
+                    <div ng-show="!reccomandationImageBase64">
+                        Select an image file: <input type="file" id="reccomandationFileInput"/>
+                    </div>
+                </div>
+                <div ng-show="dataUrl" class="img-container">
+                    <img ng-if="dataUrl" ng-src="{{dataUrl}}" width="800"
+                         ng-cropper
+                         ng-cropper-proxy="cropperProxy"
+                         ng-cropper-show="showEvent"
+                         ng-cropper-hide="hideEvent"
+                         ng-cropper-options="options">
+                </div>
+
+                <div class="row" ng-show="reccomandationImageBase64">
+                    <div class="clearfix">
+                        <label class="col-sm-4" for="recommendation-i">Recommendation Text</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="recommendation-i" ng-model="vm.recommendation.recommendationText" placeholder="Enter Recommendation Text"></textarea>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <label class="col-sm-4" for="rec-user-i">Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="rec-user-i" ng-model="vm.recommendation.recommendingPersonName" placeholder="Name of Recommending Person">
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <label class="col-sm-4" for="rec-address-i">Address</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="rec-address-i" ng-model="vm.recommendation.recommendingPersonAddress" placeholder="Address">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-show="dataUrl" ng-click="vm.saveCropedImage()">Add Image</button>
+                <button class="btn btn-success" ng-show="!vm.isRecomendationEditing" ng-click="vm.addRecommendation(vm.recommendation)">Add</button>
+                <button class="btn btn-success" ng-show="vm.isRecomendationEditing" ng-click="vm.addRecommendation(vm.recommendation)">Update</button>
+                <button class="btn" ng-click="vm.hidePsRecommendationDialog()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

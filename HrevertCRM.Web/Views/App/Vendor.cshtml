@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Vendor";
+    Layout = "_Layout";
+}
+@section Scripts{
+    <script src="~/js/vendor/app-vendor.js" asp-append-version="true"></script>
+    <script src="~/js/vendor/vendor.controller.js" asp-append-version="true"></script>
+    <script src="~/js/vendor/vendor.service.js" asp-append-version="true"></script>
+    <script src="~/js/common/common.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("vendor"), ['app-vendor']);
+</script>
+}
+@section css{
+}
+<div ng-non-bindable>
+    <div class="" id="vendor">
+        <ui-view></ui-view>
+    </div>
+</div>

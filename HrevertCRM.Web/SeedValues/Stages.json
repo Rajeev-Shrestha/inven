@@ -1,0 +1,37 @@
+﻿[
+  {
+    "StageName": "Prospect",
+    "Rank": 1,
+    "Probability": 20
+  },
+  {
+    "StageName": "Qualified",
+    "Rank": 2,
+    "Probability": 30
+  },
+  {
+    "StageName": "Analysis",
+    "Rank": 3,
+    "Probability": 40
+  },
+  {
+    "StageName": "Demonstration",
+    "Rank": 4,
+    "Probability": 50
+  },
+  {
+    "StageName": "Evaluation",
+    "Rank": 5,
+    "Probability": 60
+  },
+  {
+    "StageName": "Proposal",
+    "Rank": 6,
+    "Probability": 70
+  },
+  {
+    "StageName": "Negotiation",
+    "Rank": 7,
+    "Probability": 80
+  }
+]

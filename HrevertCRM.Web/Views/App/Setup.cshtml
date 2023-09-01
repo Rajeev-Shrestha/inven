@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@section Scripts{
+    <script src="~/js/setup/app-setup.js" asp-append-version="true"></script>
+    <script src="~/js/setup/setup.controller.js" asp-append-version="true"></script>
+    <script src="~/js/setup/setup.service.js" asp-append-version="true"></script>
+
+
+
+<script src="~/manual/angular-messages.js"></script>
+<script src="~/manual/angular-animate.min.js"></script>
+<script src="~/manual/angular-aria.min.js"></script>
+<script src="~/lib/angular-moment/moment.js"></script>
+    <script src="~/manual/ng-img-crop.js"></script>
+<link href="~/css/ng-img-crop.css" rel="stylesheet" />
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("setup"), ['app-setup']);
+</script>
+}
+@*<div class="row" ng-app="app-setup">
+    <ui-view></ui-view>
+</div>*@
+<div ng-non-bindable>
+    <div class="" id="setup">
+        <ui-view></ui-view>
+    </div>
+</div>

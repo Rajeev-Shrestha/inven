@@ -1,0 +1,14 @@
+[
+  //put security groups in same order for seeding correctly
+  {
+    "groupName": "Important Customers"
+
+  },
+  {
+    "groupName": "Pokhara Core"
+  },
+  {
+    "groupName": "Solar Solutions"
+  }
+
+]

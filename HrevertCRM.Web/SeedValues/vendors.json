@@ -1,0 +1,57 @@
+﻿[
+  {
+    "code": "V-00000001",
+    "Name": "Prime Enterprises",
+    "creditLimit": "1000000",
+    "debit": "0",
+    "credit": "0",
+    "email": "primeenterprises@gmail.com",
+    "contactPhone": "+9779823569851",
+    "contactName": "Pradeep Upadhyay",
+    "webActive": "True"
+  },
+  {
+    "code": "V-00000002",
+    "Name": "Oracle Communications",
+    "creditLimit": "1500000",
+    "debit": "0",
+    "credit": "0",
+    "email": "oraclecomm@hotmail.com",
+    "contactPhone": "+9779820124555",
+    "contactName": "Sanjeeb Adhikari",
+    "webActive": "True"
+  },
+  {
+    "code": "V-00000002",
+    "Name": "Muktinath Hardware and Solutions",
+    "creditLimit": "2500000",
+    "debit": "0",
+    "credit": "0",
+    "email": "muktinathhs@yahoo.com",
+    "contactPhone": "+9779820021547",
+    "contactName": "Muktinath Poudel",
+    "webActive": "True"
+  },
+  {
+    "code": "V-00000003",
+    "Name": "Arun Enterprises",
+    "creditLimit": "2500000",
+    "debit": "0",
+    "credit": "0",
+    "email": "arubenterprises@gmail.com",
+    "contactPhone": "+977984436587",
+    "contactName": "Arun Jha",
+    "webActive": "True"
+  },
+  {
+    "code": "V-00000004",
+    "Name": "Shree Hanuman Trading",
+    "creditLimit": "3000000",
+    "debit": "0",
+    "credit": "0",
+    "email": "shreehanumantrading@ymail.com",
+    "contactPhone": "+9778523610021",
+    "contactName": "Rupesh Bastola",
+    "webActive": "True"
+  }
+]

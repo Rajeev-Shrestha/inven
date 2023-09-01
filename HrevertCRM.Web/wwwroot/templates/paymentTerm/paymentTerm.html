@@ -1,0 +1,287 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+    .button-design{
+        margin-bottom:5px;
+    }
+    .red{
+        background-color:#E04B4A;
+    }
+    .white{
+        background-color:white;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li> 
+    <li><a href="#">paymentTerm</a></li>  
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="panel panel-default" ng-show="!showModal && !showAssignModal">
+        <div class="panel-heading">
+            <div class="col-md-2" ng-show="selected.length>0">
+                <button class="btn btn-danger" value="Delete Selected" ng-click="vm.deleteSelected(selected)"> Delete Selected</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="open()"><span class="fa fa-plus"></span> New payment Term</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="assignPayment()"><span class="fa fa-plus"></span>Assign Payment Term</button>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control date" placeholder="Search Term" ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+            <div class="col-md-2">
+                <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.searchParamChanged()" /> Include Inactive</label>
+            </div>
+            <div class="col-md-2">
+                <!--<select class="form-control select" data-selected-text-format="count" ng-options="pagesize as pagesize for pagesize in vm.pageSizes track by pagesize" ng-model="vm.pageSize" ng-change="vm.getPageSize(vm.pageSize)"></select>-->
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width:5%"><input type="checkbox" ng-model="selectAll" name="" ng-click="vm.checkAll()" /></th>
+                            <th style="width:5%">#</th>
+                            <th style="width:20%">Term Code</th>
+                            <th style="width:40%">Description</th>
+                            <th style="width:20%">Due Date</th>
+                            <th style="width:15%">Discount</th>
+                            <!--<th style="width:20%">Action</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="paymentTerm in vm.allPaymentTerm | filter:q as results" ng-hide="vm.allPaymentTerm.length==0" ng-class="paymentTerm.active ?'hrevert-inactiveLink' :'hrevert-activeLink'">
+                            <td><input type="checkbox" ng-model="selected" name="" ng-checked="vm.exist(paymentTerm)" ng-click="vm.toggleSelection(paymentTerm, $event)" /></td>
+                            <td>{{$index+1}}</td>
+                            <td>
+                                {{paymentTerm.termCode}}
+                                <div class="hrevert-updatelink-section" ng-show="paymentTerm.active">
+                                    <span><a ng-click="vm.termActionChanged(paymentTerm, 1)">Edit </a></span>|
+                                    <span><a ng-click="vm.termActionChanged(paymentTerm, 2)">Delete</a></span>
+
+                                </div>
+                                <div class="hrevert-updatelink-section" ng-show="!paymentTerm.active">
+                                    <span ng-click="vm.activePaymentTerms(paymentTerm.id)"><a>Activate</a></span>
+                                </div>
+                            </td>
+                            <td>{{paymentTerm.termName}}</td>
+                            <td>{{paymentTerm.dueDateValue}}</td>
+                            <td>{{paymentTerm.discountValue}}</td>
+                            <!--<td ng-show="paymentTerm.active">
+                                <div class="push-down-10">
+                                    <button class="btn btn-default" ng-click="vm.termActionChanged(paymentTerm, 1)"><span class="fa fa-pencil"></span> Edit</button>
+                                    <button class="btn btn-default" ng-click="vm.termActionChanged(paymentTerm, 2)"><span class="fa fa-recycle"></span> Delete</button>
+                                </div>-->
+                                <!--<select class="form-control select" ng-model="action" ng-options="action.id as action.name for action in vm.actionItems" ng-change="vm.actionChanged($event, paymentTerm, action)">
+                            <option class="" style="display: none" value="">Option</option>
+                        </select>-->
+                            <!--</td>
+                            <td ng-show="!paymentTerm.active">
+                                <button type="button" class="btn btn-info waves-effect" ng-click="vm.activePaymentTerms(paymentTerm.id)"> Activate</button>
+                            </td>-->
+                        </tr>
+                        <tr ng-show="vm.allPaymentTerm.length==0">
+                            <td colspan="7">There is no data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="showModal">
+        <div class="col-md-12">
+            <form class="form-horizontal" name="vm.paymentTermForm">
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Payment Term</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Term Code*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" name="termCodeUI" class="form-control date" placeholder="Term Code" ng-model="vm.activePaymentTerm.termCode" max="100" maxlength="100" ng-change="vm.checkIfExistCode(vm.activePaymentTerm.termCode)" ng-model-options="{debounce: 1500}" required>
+                                        <span ng-show="vm.paymentTermForm.termCodeUI.$touched && vm.paymentTermForm.termCodeUI.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Term Name*</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="termNameUI" class="form-control date" placeholder="Term Name" ng-model="vm.activePaymentTerm.termName" maxlength="50" max="50" ng-disabled="vm.productCode" ng-change="vm.checkIfExistName(vm.activePaymentTerm.termName)" ng-model-options="{debounce: 1500}" required>
+                                        <span ng-show="vm.paymentTermForm.termNameUI.$touched && vm.paymentTermForm.termNameUI.$error.required" style="color:red;">Required</span>
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Term Type*</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control show-tick date" name="termTypeUI" data-selected-text-format="count" ng-options="termType.id as termType.value for termType in vm.termType" ng-model="vm.activePaymentTerm.dueType" ng-change="vm.onAccount(vm.activePaymentTerm.dueType)" required>
+                                            <option class="" value="" style="display: none">Select Term Type</option>
+                                        </select>
+                                        <span ng-show="vm.paymentTermForm.termTypeUI.$touched && vm.paymentTermForm.termTypeUI.$error.required" style="color:red;">Required</span>
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group" ng-show="vm.onAccountSelected===3">
+                                    <label class="col-md-3 control-label">Due Type*</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control show-tick date" name="dueTypeUI" data-selected-text-format="count" ng-options="dueType.id as dueType.value for dueType in vm.dueType" ng-model="vm.activePaymentTerm.dueType" ng-change="vm.onSpecifiedDays(vm.activePaymentTerm.dueDateType)" ng-required="vm.onAccountSelected">
+                                            <option class="" value="" style="display: none">Select Due Type</option>
+                                        </select>
+                                        <span ng-show="vm.paymentTermForm.dueTypeUI.$touched && vm.paymentTermForm.dueTypeUI.$error.required" style="color:red;">Required</span>
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Due Date Type*</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control show-tick date" name="dueDateTypeUI" data-selected-text-format="count" ng-options="dueDateType.id as dueDateType.value for dueDateType in vm.dueDateType" ng-model="vm.activePaymentTerm.dueDateType" ng-change="vm.onSpecifiedDays(vm.activePaymentTerm.dueDateType)" ng-required="vm.onAccountSelected">
+                                            <option class="" value="" style="display: none">Select Due Date Type</option>
+                                        </select>
+                                        <span ng-show="vm.paymentTermForm.dueDateTypeUI.$touched && vm.paymentTermForm.dueDateTypeUI.$error.required" style="color:red;">Required</span>
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group" ng-show="vm.onSpecifiedDaysSelected === 2">
+                                    <label class="col-md-3 control-label">Due Date*</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control show-tick date" name="dueDateUI" placeholder="Due date value" ng-model="vm.activePaymentTerm.dueDateValue" ng-required="vm.onSpecifiedDaysSelected ==='2'" required />
+                                        <span ng-show="vm.paymentTermForm.dueDateUI.$touched && vm.paymentTermForm.dueDateUI.$error.required" style="color:red;">Required</span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group" ng-show="vm.onDiscountTypeSelected === 2">
+                                    <label class="col-md-3 control-label">Days*</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control show-tick date" name="daysUI" placeholder="Days" ng-model="vm.activePaymentTerm.discountDays" ng-required="vm.onSpecifiedDaysSelected ==='2'" required />
+                                        <span ng-show="vm.paymentTermForm.daysUI.$touched && vm.paymentTermForm.daysUI.$error.required" style="color:red;">Required</span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Values*</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control show-tick date" name="valuesUI" placeholder="Values" ng-model="vm.activePaymentTerm.discountValue" required/>
+                                        <span ng-show="vm.paymentTermForm.valuesUI.$touched && vm.paymentTermForm.valuesUI.$error.required" style="color:red;">Required</span>
+                                </div>
+                            </div>
+                                <br />
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-disabled="vm.paymentTermForm.$invalid" ng-click="vm.savePaymentTerm(vm.activePaymentTerm)">{{vm.btnPaymentTermText}}<span class="fa fa-floppy-o fa-right"></span></button>
+                            <button class="btn btn-primary" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+
+            </form>
+
+        </div>
+    </div>
+    <div class="row" ng-show="showAssignModal">
+        <div class="col-md-12">
+
+            <form class="form-horizontal" name="vm.deliveryMethodForm">
+
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Assign Roles</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="card">
+                                        <div class="header">
+                                            <h2>SELECT TERM</h2>
+                                        </div>
+                                        <div class="body">
+                                            <div class="list-group">
+                                                <button type="button" class="list-group-item button-design" ng-repeat="term in vm.allPaymentTermWithoutAccountType" ng-click="vm.termNameSelected(term, vm.paymentGroup)">{{term.termCode}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8" ng-hide="vm.termAssign">
+                                    <h2>Please Select payment term to assign</h2>
+                                </div>
+
+                                <div class="col-md-8" ng-show="vm.termAssign && !vm.loadingTermAssign">
+
+                                    <div class="multi-sortable" sv-root sv-on-sort="vm.checkDirty($item)">
+                                        <div class="col-md-12">
+                                            <h2>
+                                                <span class="fa fa-user"></span> Selected Term: {{vm.termName}}
+                                            </h2>
+                                        </div>
+                                        <div class="col-md-12">
+                                              <div class="sortable-container col-md-6" sv-part="vm.paymentGroup">
+                                                <md-card>
+                                                    <md-card-content>
+                                                        <div sv-placeholder class="placeholder-left">
+                                                            <span>Place here to assign</span>
+                                                        </div>
+                                                        <div class="card">
+                                                            <div class="header">
+                                                                <h2>SELECTED PAYMENT METHODS</h2>
+                                                            </div>
+                                                            <div class="body" >
+                                                                <button class="list-group-item button-design" ng-repeat="payment in vm.paymentGroup" sv-element>
+                                                                    <span>{{payment.methodName}}</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </md-card-content>
+                                                </md-card>
+                                            </div>
+                                            <div class="sortable-container col-md-6" sv-part="vm.notAssignedPaymentMethod">
+                                                <md-card>
+                                                    <md-card-content>
+                                                        <div sv-placeholder class="placeholder-left">
+                                                            <span>Place here to assign</span>
+                                                        </div>
+                                                        <div class="card">
+                                                            <div class="header">
+                                                                <h2>NOT ASSIGNED PAYMENT METHODS</h2>
+                                                            </div>
+                                                            <div class="body">
+                                                                <button type="button" class="list-group-item button-design" ng-repeat="payment in vm.notAssignedPaymentMethod" sv-element>
+                                                                    {{payment.methodName}}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </md-card-content>
+                                                </md-card>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-click="vm.savePaymentRole(vm.paymentGroup)" ng-disabled="!vm.dirtyList">Assign <span class="fa fa-floppy-o fa-right"></span></button>
+                            <button class="btn btn-primary" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

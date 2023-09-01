@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "myaccount";
+}
+@section Scripts {
+
+    <script src="~/js/myaccount/app-myaccount.js" asp-append-version="true"></script>
+    <script src="~/js/myaccount/myaccount.service.js" asp-append-version="true"></script>
+    <script src="~/js/myaccount/myaccount.controller.js" asp-append-version="true"></script>
+    
+
+
+
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("myaccount"), ['app-myaccount']);
+    </script>
+
+}
+
+@section css{
+    
+}
+<div ng-non-bindable>
+    <div class="" id="myaccount">
+        <ui-view></ui-view>
+    </div>
+</div>

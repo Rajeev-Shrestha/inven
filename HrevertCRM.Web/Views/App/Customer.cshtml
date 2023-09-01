@@ -1,0 +1,27 @@
+﻿
+
+@{
+    ViewBag.Title = "Customers";
+    Layout = "_Layout";
+}
+@section Scripts{
+<script src="~/js/customer/app-customer.js" asp-append-version="true"></script>
+<script src="~/js/customer/customers.controller.js" asp-append-version="true"></script>
+<script src="~/js/customer/customers.service.js" asp-append-version="true"></script>
+<script src="~/manual/paging.min.js"></script>
+<script src="~/lib/angular-sanitize/angular-sanitize.js"></script>
+<script src="~/lib/angular-csv-import/dist/angular-csv-import.js"></script>
+<script src="~/lib/ng-csv/build/ng-csv.js"></script>
+<script src="~/js/common/common.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("customer"), ['app-customer']);
+</script>
+}
+@section css{
+}
+
+<div ng-non-bindable>
+    <div class="" id="customer">
+        <ui-view></ui-view>
+    </div>
+</div>

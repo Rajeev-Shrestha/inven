@@ -1,0 +1,23 @@
+﻿@section Scripts {
+<script src="~/js/contactmanager/app-contactManager.js"></script>
+<script src="~/js/contactmanager/contactManager.Service.js"></script> 
+<script src="~/js/contactmanager/contactManager.controller.js"></script> 
+<script src="~/manual/angular-file-upload.js"></script>
+<script src="~/manual/angularSortable.js"></script>
+<script src="~/manual/paging.min.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("contactmanager"), ['app-contactmanager']);
+</script>
+}
+@section css{
+}
+@{
+    ViewBag.Title = "Contact Manager";
+    Layout = "_Layout";
+}
+
+<div ng-non-bindable>
+    <div class="" id="contactmanager">
+        <ui-view></ui-view>
+    </div>
+</div>

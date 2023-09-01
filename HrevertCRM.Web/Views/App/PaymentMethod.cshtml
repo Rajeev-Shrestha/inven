@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+
+@{
+    ViewBag.Title = "Payment Method";
+    Layout = "_Layout";
+}
+@section Scripts{
+<script src="~/js/paymentmethod/app-paymentMethod.js" asp-append-version="true"></script>
+<script src="~/js/paymentmethod/paymentMethod.controller.js" asp-append-version="true"></script>
+<script src="~/js/paymentmethod/paymentMethod.service.js" asp-append-version="true"></script>
+<script src="~/lib/angular-moment/moment.js"></script>
+<script src="~/manual/angular-messages.js"></script>
+<script src="~/manual/angularSortable.js"></script>
+<script src="~/manual/angular-animate.min.js"></script>
+<script src="~/manual/angular-aria.min.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("paymentMethod"), ['app-paymentMethod']);
+</script>
+}
+@section css{
+}
+<div ng-non-bindable>
+    <div class="" id="paymentMethod">
+        <ui-view></ui-view>
+    </div>
+</div>

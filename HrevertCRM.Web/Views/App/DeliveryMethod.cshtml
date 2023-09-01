@@ -1,0 +1,28 @@
+﻿
+
+@{
+    ViewBag.Title = "Delivery Method";
+    Layout = "_Layout";
+}
+@section Scripts{
+   
+<script src="~/js/deliverymethod/app-deliveryMethod.js" asp-append-version="true"></script>
+<script src="~/js/deliverymethod/deliveryMethod.controller.js" asp-append-version="true"></script>
+<script src="~/js/deliverymethod/deliveryMethod.service.js" asp-append-version="true"></script>
+<script src="~/manual/angular-messages.js"></script>
+<script src="~/manual/angularSortable.js"></script>
+<script src="~/manual/angular-animate.min.js"></script>
+<script src="~/manual/angular-aria.min.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("deliveryMethod"), ['app-deliveryMethod']);
+</script>
+}
+@section css{
+    
+}
+
+<div ng-non-bindable>
+    <div class="" id="deliveryMethod">
+        <ui-view></ui-view>
+    </div>
+</div>

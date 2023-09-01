@@ -1,0 +1,26 @@
+﻿[
+  {
+    "productCost": "15000",
+    "quantity": 25,
+    "discount": 5,
+    "taxAmount": 13,
+    "webActive": true,
+    "Active": true
+  },
+  {
+    "productCost": "90000",
+    "quantity": 10,
+    "discount": 7.5,
+    "taxAmount": 12.7,
+    "webActive": true,
+    "Active": true
+  },
+  {
+    "productCost": "6000",
+    "quantity": 9,
+    "discount": 10,
+    "taxAmount": 6.5,
+    "webActive": true,
+    "Active": true
+  }
+]

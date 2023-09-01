@@ -1,0 +1,17 @@
+﻿[
+  {
+    "value": "General"
+  },
+  {
+    "value": "Purchase"
+  },
+  {
+    "value": "Payment"
+  },
+  {
+    "value": "Sales"
+  },
+  {
+    "value": "Receipt"
+  }
+]

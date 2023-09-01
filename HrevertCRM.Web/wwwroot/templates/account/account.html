@@ -1,0 +1,274 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+
+   
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Account</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+
+    <div class="panel panel-default">
+        <div class="col-md-4">
+            <div class="scroll-container" style="overflow:scroll; height:95vh">
+                <div ui-tree data-drag-enabled="false" ng-hide="vm.accounts.length==0">
+                    <ol ui-tree-nodes="" ng-model="vm.accounts" id="tree-node" style="cursor:default;">
+                        <li ng-repeat="item in vm.accounts" ui-tree-node>
+                            <div ui-tree-handle>
+                                <p style="margin-bottom:15px;">
+                                    <span ng-click="item.active === true && vm.nodeClicked(item)" style="cursor:default;">{{item.accountDescription}}</span>
+                                    <span class="pull-right" ng-show="item.active == true">
+                                        <label>
+                                            <i class="glyphicon glyphicon-pencil" aria-hidden="true" style="cursor:default;" ng-click="vm.nodeClickedForEdit(item)"></i>
+                                        </label>
+                                        <label>|</label>
+                                        <label>
+                                            <i class="glyphicon glyphicon-remove" aria-hidden="true" style="cursor:default;" ng-click="vm.deleteDialog(item)"></i>
+                                        </label>
+                                    </span>
+                                    <span class="pull-right" ng-show="item.active == false">
+                                        <label>
+                                            <button class="btn btn-primary waves-effect" aria-hidden="true" style="cursor:default;" ng-click="vm.acitvateAccount(item)">Activate</button>
+                                        </label>
+                                    </span>
+                                </p>
+                            </div>
+                            <ol ui-tree-nodes="" ng-model="item.children">
+                                <li ng-repeat="subItem in item.children" ui-tree-node>
+                                    <div ui-tree-handle="">
+                                        <p style="margin-bottom:15px;">
+                                            <span ng-click="subItem.active === true && vm.nodeClicked(subItem)" style="cursor:default;" ng-disabled="subItem.active === 'false'">{{subItem.accountDescription}}</span>
+                                            <span class="pull-right" ng-show="subItem.active == true">
+                                                <label>
+                                                    <i class="glyphicon glyphicon-pencil" aria-hidden="true" style="cursor:default;" ng-click="vm.nodeClickedForEdit(subItem)"></i>
+                                                </label>
+                                                <label>|</label>
+                                                <label>
+                                                    <i class="glyphicon glyphicon-remove" aria-hidden="true" style="cursor:default;" ng-click="vm.deleteDialog(subItem)"></i>
+                                                </label>
+                                            </span>
+                                            <span class="pull-right" ng-show="subItem.active == false">
+                                                <label>
+                                                    <button class="btn btn-primary" aria-hidden="true" style="cursor:default;" ng-click="vm.acitvateAccount(subItem)">Activate</button>
+                                                </label>
+                                            </span>
+                                        </p>
+
+                                    </div>
+                                    <ol ui-tree-nodes="" ng-model="subItem.children">
+                                        <li ng-repeat="nextsubItem in subItem.children" ui-tree-node>
+                                            <div ui-tree-handle="">
+                                                <p style="margin-bottom:15px;">
+                                                    <span ng-click="nextsubItem.active === true && vm.nodeClicked(nextsubItem)" style="cursor:default;">{{nextsubItem.accountDescription}}</span>
+                                                    <span class="pull-right" ng-show="nextsubItem.active == true">
+                                                        <label>
+                                                            <i class="glyphicon glyphicon-pencil" aria-hidden="true" style="cursor:default;" ng-click="vm.nodeClickedForEdit(nextsubItem)"></i>
+                                                        </label>
+                                                        <label>|</label>
+                                                        <label>
+                                                            <i class="glyphicon glyphicon-remove" aria-hidden="true" style="cursor:default;" ng-click="vm.deleteDialog(nextsubItem)"></i>
+                                                        </label>
+                                                    </span>
+                                                    <span class="pull-right" ng-show="nextsubItem.active == false">
+                                                        <label>
+                                                            <button class="btn btn-primary" aria-hidden="true" style="cursor:default;" ng-click="vm.acitvateAccount(nextsubItem)">Activate</button>
+                                                        </label>
+                                                    </span>
+                                                </p>
+
+
+                                            </div>
+                                            <ol ui-tree-nodes="" ng-model="subItem3.children">
+                                                <li ng-repeat="subItem3 in subItem3.children" ui-tree-node>
+                                                    <div ui-tree-handle="">
+                                                        <span ng-click="subItem3.active === true && vm.nodeClicked(subItem3)">{{subItem3.accountDescription}}</span>
+
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </li>
+                                    </ol>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+                <div ng-show="vm.accounts.length==0">There is no data.</div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="panel-heading">
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary waves-effect" ng-click="open()">New Item</button>
+                </div>
+                <div class="col-md-10">
+                    <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.checkInactive($event, vm.check)" /> Include Inactive</label>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <!--<button class="btn btn-primary waves-effect" ng-click="open()" ng-hide="vm.hideGrid === 'disabled'">
+                        New Account
+                    </button>-->
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-striped table-hover dataTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Bank Account</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-hide="showAccountModal" ng-repeat="data in vm.dataForGrid | filter:q as results">
+                                    <td ng-click="vm.editAccount(data)">{{$index + 1}}</td>
+                                    <td ng-click="vm.editAccount(data)">{{data.accountCode}}</td>
+                                    <td ng-click="vm.editAccount(data)">{{data.accountDescription}}</td>
+                                    <td ng-click="vm.editAccount(data)">
+                                        <div ng-if="data.bankAccount===false"><span><i class="glyphicon glyphicon-remove"></i></span></div>
+                                        <div ng-if="data.bankAccount===true"><span><i class="glyphicon glyphicon-check"></i></span></div>
+                                    </td>
+                                    <td ng-click="vm.editAccount(data)">{{data.currentBalance}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8"  ng-show="showModal">
+            <form name="vm.accountForm">
+                <!--<div class="col-md-8" ng-show="showModal">-->
+                    <div class="panel-body">
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Account Code*</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <input type="text" name="accountCode" class="form-control date" placeholder="Account Code" ng-model="vm.editingItem.accountCode" ng-disabled="vm.accountCode" ng-change="vm.checkIfExistCode(vm.editingItem.accountCode)" ng-model-options="{debounce: 1500}" required>
+                                    <span ng-show="vm.accountForm.accountCode.$touched && vm.accountForm.accountCode.$error.required" style="color:red;">Required</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Description*</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <input type="text" name="description" class="form-control date" placeholder="Account Description" ng-model="vm.editingItem.accountDescription" ng-change="vm.checkIfExistDescription(vm.editingItem.accountDescription)" ng-model-options="{debounce: 1500}" required>
+                                    <span ng-show="vm.accountForm.description.$touched && vm.accountForm.description.$error.required" style="color:red;">Required</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Account Level*</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <select class="form-control" name="accountLevel" ng-model="vm.editingItem.level" ng-options="level.id as level.value for level in vm.levels" ng-change="vm.levelChange(vm.editingItem.level)" required>
+                                        <option value="" class="" style="display:none;">Select Account Level</option>
+                                    </select>
+                                    <span ng-show="vm.accountForm.accountLevel.$touched && vm.accountForm.accountLevel.$error.required" style="color:red;">Required</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Account Type*</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <select class="form-control" name="accountType" ng-model="vm.editingItem.accountType" ng-options="accountType.id as accountType.value for accountType in vm.accountTypes" ng-change="vm.accountTypeChange(vm.editingItem.accountType)" required>
+                                        <option value="" class="" style="display:none;">Select Account Type</option>
+                                    </select>
+                                    <span ng-show="vm.accountForm.accountType.$touched && vm.accountForm.accountType.$error.required" style="color:red;">Required</span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">A/C Detail Type*</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <select class="form-control" name="detailType" ng-model="vm.editingItem.accountDetailType" ng-options="accountDetailType.id as accountDetailType.value for accountDetailType in vm.accountDetailTypes" ng-change="vm.accountTypeChange(vm.editingItem.accountDetailType)" ng-disabled="vm.accountDetailTypeLabel" required>
+                                        <option value="" class="" style="display:none;">Select Account Detail Type</option>
+                                    </select>
+                                    <span ng-show="vm.accountForm.detailType.$touched && vm.accountForm.detailType.$error.required" style="color:red;">Required</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Cashflow Type*</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <select class="form-control" name="cashflowType" ng-model="vm.editingItem.accountCashFlowType" ng-options="cashFlow.id as cashFlow.value for cashFlow in vm.cashFlow" ng-disabled="vm.accountCashFlowType" required>
+                                        <option value="" class="" style="display:none;">Select Account Cash Flow Type</option>
+                                    </select>
+                                    <span ng-show="vm.accountForm.cashflowType.$touched && vm.accountForm.cashflowType.$error.required" style="color:red;">Required</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom:10px;">
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Parent Account*</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <select class="form-control select_dropdown" name="parentAccount" ng-model="vm.editingItem.parentAccountId" ng-options="account.id as account.accountDescription for account in vm.parentAccounts" required>
+                                        <option value="" style="display:none;">Select Parent Account</option>
+                                    </select>
+                                    <span ng-show="vm.accountForm.parentAccount.$touched && vm.accountForm.parentAccount.$error.required" style="color:red;">Required</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row pull-right" style="margin-top:5px;">
+                            <button type="button" class="btn btn-primary" ng-click="hide()">Close</button>
+                            <button type="button" class="btn btn-primary" ng-click="vm.updateAccount(vm.editingItem, vm.operation)" ng-disabled="vm.accountForm.$invalid">{{vm.operation}}</button>
+                        </div>
+                    </div>
+                <!--</div>-->
+            </form>
+        </div>
+        <div class="row">
+            <div modal="showAccountModal" class="category-delete-modal" close="cancel()">
+                <div class="modal-header">
+                    <h4>Are You Sure Want To Deactivate?</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="checkbox">
+                        <label><input type="checkbox" ng-model="vm.deleteCheck" name="remember"> Include Sub-Categories</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" ng-click="vm.ok(vm.deleteCheck)">Okay</button>
+                        <button class="btn" ng-click="vm.cancel()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!--<div modal="accountModal" class="category-delete-modal" close="cancel()">
+                <div class="modal-header">
+                    <h4>Are You Sure You Want To Deactivate?</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="checkbox">
+                        <label><input type="checkbox" ng-model="vm.deleteCheck" name="remember"> Include Sub-Categories</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" ng-click="vm.ok(vm.deleteCheck)">Okay</button>
+                        <button class="btn btn-default" ng-click="vm.cancel()">Cancel</button>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+</div>
+<!-- END PAGE CONTENT WRAPPER -->

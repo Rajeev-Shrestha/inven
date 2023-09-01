@@ -1,0 +1,31 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+@section Scripts {
+    
+    <script src="~/js/cartdetail/app-cartdetails.js"></script>
+    <script src="~/js/cartdetail/cartdetails.controller.js"></script>
+    <script src="~/js/cartdetail/cartdetails.service.js"></script>
+<script src="~/js/layout/app-layout.js"></script>
+<script src="~/js/layout/layout.controller.js"></script>
+<script src="~/js/layout/layout.service.js"></script>
+
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("cartdetails"), ['app-cartdetails']);
+    </script>
+}
+
+
+@section css{
+   
+}
+
+
+<div ng-non-bindable>
+    <div class="" id="cartdetails">
+        <ui-view></ui-view>
+    </div>
+</div>

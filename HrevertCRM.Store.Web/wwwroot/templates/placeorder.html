@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>placeorder</title>
+</head>
+<body ng-cloak>
+    <div>
+        <div class="{{vm.class}}"></div>
+    </div>
+<div class="col-md-12">
+    <div class="alert alert-success" role="alert">Thank you for your order. You will get invoice by your email soon</div>
+
+    <div class="col-md-6">
+        <h4>Billing Address</h4>
+        <p>
+            {{vm.billingAddressDetails.firstName}}&nbsp;{{vm.billingAddressDetails.lastName}}
+        </p>
+        <p>
+            {{vm.billingAddressDetails.companyName}}
+        </p>
+        <p>
+            {{vm.billingAddressDetails.addressLine1}}, {{vm.billingAddressDetails.city}}, {{vm.billingAddressDetails.state}}
+        </p>
+        <p>
+            {{vm.billingAddressDetails.country}}, {{vm.billingAddressDetails.mobilePhone}}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <h4>Shipping Address</h4>
+        <p>
+            {{vm.shippingAddressDetails.firstName}}&nbsp;{{vm.shippingAddressDetails.lastName}}
+        </p>
+        <p>
+            {{vm.shippingAddressDetails.companyName}}
+        </p>
+        <p>
+            {{vm.shippingAddressDetails.addressLine1}}, {{vm.shippingAddressDetails.city}}, {{vm.shippingAddressDetails.state}}
+        </p>
+        <p>
+            {{vm.shippingAddressDetails.country}}, {{vm.shippingAddressDetails.mobilePhone}}
+        </p>
+    </div>
+    <!--<div class="col-md-4">
+        <h4>Payment Information</h4>
+        <p>
+            Invoice Number: 000156D
+        </p>
+        <p>
+            Card Name: Card User Name
+        </p>
+        <p>
+            Card type: Visa / Master / Credit / Debit
+        </p>
+        <p>
+            Card Number: 0156-58961-5345-21
+        </p>
+        <p>
+            Status: Approved / Declined
+        </p>
+        <p>
+            Order Date: 29/Nov/2016 1:55 P.M.
+        </p>
+    </div>-->
+</div>
+<div class="col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Product Details</h3>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Total
+                        </th>
+                    </tr>
+                    <tr ng-repeat="item in vm.cartDetails.shoppingCartDetails">
+                        <td>
+                            {{$index + 1}}
+                        </td>
+                        <td>
+                            <span ng-model="item.productName">{{item.productName}}</span>
+                        </td>
+                        <td>
+
+                            <span ng-model="item.name">{{item.quantity}}</span>
+                        </td>
+                        <td>
+                            <span ng-model="item.productCost">{{item.productCost}}</span>
+                        </td>
+                        <td>
+                            <span ng-model="item.total"><b>{{item.quantity * item.productCost}}</b></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"> Shipping Cost</td>
+                        <td><b> {{vm.shippingCost}}</b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"> Total Cost</td>
+                        <td><b> {{vm.grandTotal}} </b></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <a href="/" target="_self"><button class="btn btn-info">Return Home</button></a>
+</div>
+</body>
+</html>

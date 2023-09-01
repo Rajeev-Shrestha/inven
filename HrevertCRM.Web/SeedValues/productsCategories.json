@@ -1,0 +1,110 @@
+//products and category
+[
+  {
+    "name": "Dell",
+    "description": "Dell Laptops",
+    "categoryImageUrl": "companyMM/1/ProductCategoryImages/dellcategoryimage1.png", 
+    "CategoryRank": 2,
+    "ParentCategory": {
+      "name": "Laptops",
+      "description": "Group of different brands of laptop.",
+      "categoryImageUrl": "companyMM/1/ProductCategoryImages/laptopscategoryimage1.png",
+      "CategoryRank": 1
+    }
+  },
+
+  {
+    "name": "A Day in life",
+    "description": "Author describes his most interesting day.",
+    "categoryImageUrl": "companyMM/1/ProductCategoryImages/adayinlifecategoryimage1.png",
+    "CategoryRank": 4,
+    "ParentCategory": {
+      "name": "Books",
+      "categoryImageUrl": "companyMM/1/ProductCategoryImages/bookscategoryimage1.png",
+      "description": "Group of books",
+      "CategoryRank": 3
+    }
+  },
+
+  {
+    "name": "HL Microwave",
+    "description": "5000W high powered microwave",
+    "categoryImageUrl": "companyMM/1/ProductCategoryImages/hlmicrowavecategoryimage1.png",
+    "CategoryRank": 6,
+    "ParentCategory": {
+      "name": "Home Appliances",
+      "categoryImageUrl": "companyMM/1/ProductCategoryImages/homeappliancescategoryimage1.png",
+      "description": "Group of dfferenct home appliances",
+      "CategoryRank": 5
+    }
+  }
+  
+  /*,
+ 
+  {
+    "name": "HP",
+    "description": "HP Laptops",
+    "CategoryRank": 7,
+    "ParentCategory": {
+      "name": "Laptops",
+      "description": "Group of dfferenct brands laptop",
+      "CategoryRank": 1
+    }
+  },
+
+  {
+    "name": "Lenevo",
+    "description": "Lenevo Laptops",
+    "CategoryRank": 8,
+    "ParentCategory": {
+      "name": "Laptops",
+      "description": "Group of dfferenct brands laptop",
+      "CategoryRank": 1
+    }
+  },
+ 
+  {
+    "name": "Alienware 17",
+    "description": "Alienware Series Laptops",
+    "CategoryRank": 9,
+    "ParentCategory": {
+      "name": "Dell",
+      "description": "Dell Laptops",
+      "CategoryRank": 1
+    }
+  },
+ 
+  {
+    "name": "Inspiron 15 5000 Series",
+    "description": "Inspiron Series Laptops",
+    "CategoryRank": 10,
+    "ParentCategory": {
+      "name": "Dell",
+      "description": "Dell Laptops",
+      "CategoryRank": 2
+    }
+  },
+  
+  {
+    "name": "Thinkpad X1 Carbon",
+    "description": "Thinkpad Series Laptops",
+    "CategoryRank": 11,
+    "ParentCategory": {
+      "name": "Lenevo",
+      "description": "Lenevo Laptops",
+      "CategoryRank": 8
+    }
+  },
+
+  {
+    "name": "Thinkpad T450",
+    "description": "Thinkpad Series Laptops",
+    "CategoryRank": 12,
+    "ParentCategory": {
+      "name": "Lenevo",
+      "description": "Lenevo Laptops",
+      "CategoryRank": 8
+    }
+  }
+    */
+]

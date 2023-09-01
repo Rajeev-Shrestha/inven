@@ -1,0 +1,26 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+@section Scripts {
+   
+    <script src="~/js/category/app-category.js"></script>
+    <script src="~/js/category/category.controller.js"></script>
+    <script src="~/js/category/category.service.js"></script>
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("category"), ['app-category']);
+    </script>
+}
+
+
+@section css{
+}
+
+<!-- ng-non-bindable-->
+<div>
+    <div class="container" id="category">
+        <ui-view></ui-view>
+    </div>
+</div>

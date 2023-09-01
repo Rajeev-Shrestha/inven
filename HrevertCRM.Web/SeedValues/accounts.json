@@ -1,0 +1,1000 @@
+﻿[
+  {
+    "accountCode": "10000",
+    "accountDescription": "Assets",
+    "accountType": "1",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": true,
+    "level": 1,
+    "active": true,
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+     
+
+
+
+  },
+  {
+    "accountCode": "11000",
+    "accountDescription": "Current Assets",
+    "accountType": "1",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "10000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+
+
+  },
+  {
+    "accountCode": "11100",
+    "accountDescription": "Cash",
+    "accountType": "1",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "11000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+
+
+  },
+  {
+    "accountCode": "11110",
+    "accountDescription": "Petty Cash",
+    "accountType": "1",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "11100",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+
+
+  },
+  {
+    "accountCode": "11200",
+    "accountDescription": "Bank Accounts",
+    "accountType": "1",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "11000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+
+  },
+  {
+    "accountCode": "11210",
+    "accountDescription": "Bank - Checking Account",
+    "accountType": "1",
+    "currentBalance": 0,
+    "bankAccount": true,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "11200",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 1
+
+
+  },
+  {
+    "accountCode": "11300",
+    "accountDescription": "Accounts Receivable",
+    "accountType": "1",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "11000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+
+
+  },
+
+  {
+    "accountCode": "11310",
+    "accountDescription": "Accounts Receivable",
+    "accountType": "1",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "11300",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 2
+
+
+  },
+  {
+    "accountCode": "11400",
+    "accountDescription": "Inventory",
+    "accountType": "1",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "11000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+
+
+  },
+  {
+    "accountCode": "11410",
+    "accountDescription": "Inventory",
+    "accountType": "1",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "11400",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 4
+
+
+  },
+  {
+    "accountCode": "12000",
+    "accountDescription": "Fixed Assets",
+    "accountType": "1",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "10000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+
+
+
+  },
+  {
+    "accountCode": "12010",
+    "accountDescription": "FA-Original Value",
+    "accountType": "1",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "12000",
+    "AccountCashFlowType": 2,
+    "AccountDetailType": 12
+
+
+  },
+  {
+    "accountCode": "12020",
+    "accountDescription": "FA-Accumulated Depreciation",
+    "accountType": "1",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "12000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+
+
+  },
+  {
+    "accountCode": "20000",
+    "accountDescription": "Liabilities",
+    "accountType": "2",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": true,
+    "level": 1,
+    "active": true,
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+
+
+  },
+
+  {
+    "accountCode": "21000",
+    "accountDescription": "Short Term Liabilities",
+    "accountType": "2",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "20000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+
+
+  },
+  {
+    "accountCode": "21100",
+    "accountDescription": "Accounts Payable",
+    "accountType": "2",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "21000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+
+
+  },
+  {
+    "accountCode": "21110",
+    "accountDescription": "Accounts Payable",
+    "accountType": "2",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "21100",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 3
+
+
+  },
+  {
+    "accountCode": "21120",
+    "accountDescription": "Customer Advances",
+    "accountType": "2",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "21100",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 11
+
+
+  },
+  {
+    "accountCode": "21200",
+    "accountDescription": "Sales Tax Payable",
+    "accountType": "2",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "21000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+
+
+  },
+
+  {
+    "accountCode": "21210",
+    "accountDescription": "VAT Payable",
+    "accountType": "2",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "21200",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+
+
+  },
+  {
+    "accountCode": "22000",
+    "accountDescription": "Long Term Liabilities",
+    "accountType": "2",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "20000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+
+
+  },
+  {
+    "accountCode": "22100",
+    "accountDescription": "Long Term Bank Loan",
+    "accountType": "2",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "22000",
+    "AccountCashFlowType": 3,
+    "AccountDetailType": 12
+
+
+  },
+  {
+    "accountCode": "30000",
+    "accountDescription": "Equity",
+    "accountType": "3",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": true,
+    "level": 1,
+    "active": true,
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "31000",
+    "accountDescription": "Capital Investment",
+    "accountType": "3",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "30000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "32000",
+    "accountDescription": "Earnings",
+    "accountType": "3",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "30000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "32010",
+    "accountDescription": "Current Earnings",
+    "accountType": "3",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "32000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "32020",
+    "accountDescription": "Retained Earnings",
+    "accountType": "3",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "32000",
+    "AccountCashFlowType": 3,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "40000",
+    "accountDescription": "Revenues",
+    "accountType": "4",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": true,
+    "level": 1,
+    "active": true,
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "41000",
+    "accountDescription": "Sales",
+    "accountType": "4",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "40000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "41010",
+    "accountDescription": "Sales – Products",
+    "accountType": "4",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "41000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "41020",
+    "accountDescription": "Sales – Services",
+    "accountType": "4",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "41000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "42000",
+    "accountDescription": "Sales Returns & Discounts",
+    "accountType": "4",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "40000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+
+  },
+  {
+    "accountCode": "42010",
+    "accountDescription": "Sales Discounts",
+    "accountType": "4",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "42000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "42020",
+    "accountDescription": "Sales Returns",
+    "accountType": "4",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "42000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "43000",
+    "accountDescription": "Shipping",
+    "accountType": "4",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "40000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "43010",
+    "accountDescription": "Shipping Revenue",
+    "accountType": "4",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "43000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "50000",
+    "accountDescription": "Expenses",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": true,
+    "level": 1,
+    "active": true,
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+
+
+  },
+  {
+    "accountCode": "51000",
+    "accountDescription": "Cost of Goods Sold",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "50000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "51010",
+    "accountDescription": "Cost of Goods Sold",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "51000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "51020",
+    "accountDescription": "Cost Factoring",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "51000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "52000",
+    "accountDescription": "Operating Expenses",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "50000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "52100",
+    "accountDescription": "Building Expenses",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "52000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "52110",
+    "accountDescription": "Utilities",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "52100",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "52120",
+    "accountDescription": "Rent and Lease",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "52100",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "52130",
+    "accountDescription": "Repairs and Maintenance",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "52100",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "52200",
+    "accountDescription": "Selling Expenses",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "52000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "52210",
+    "accountDescription": "Advertising",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "52200",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "52220",
+    "accountDescription": "Entertainment and PR",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "52200",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "52230",
+    "accountDescription": "Travel",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "52200",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "52300",
+    "accountDescription": "Other Operating Expenses",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "52000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "52310",
+    "accountDescription": "Cash Discrepancies",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "52300",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "52320",
+    "accountDescription": "Bad Debt Expense",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "52300",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "52330",
+    "accountDescription": "Misc. Operating Expenses",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "52300",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "53000",
+    "accountDescription": "Depreciation",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "50000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "53010",
+    "accountDescription": "FA–Depreciation",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "53000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "54000",
+    "accountDescription": "Insurance",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "50000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "54010",
+    "accountDescription": "Insurance Expense",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "54000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "55000",
+    "accountDescription": "Tax Expenses",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "50000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "55010",
+    "accountDescription": "Property Tax",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "55000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+
+  {
+    "accountCode": "56000",
+    "accountDescription": "Freight",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "50000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "56010",
+    "accountDescription": "Freight-In",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "56000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "56020",
+    "accountDescription": "Freight-Out",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "56000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "57000",
+    "accountDescription": "Employee Expenses",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "50000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "57010",
+    "accountDescription": "Salaries",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "57000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+
+  {
+    "accountCode": "57020",
+    "accountDescription": "Wages",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "57000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "57030",
+    "accountDescription": "Medical Expenses",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "57000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "58000",
+    "accountDescription": "Insurance",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "50000",
+    "AccountCashFlowType": 4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "58010",
+    "accountDescription": "Insurance Expense",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "58000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "59000",
+    "accountDescription": "Other Expenses",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 1,
+    "active": true,
+    "ParentAccountId": "50000",
+    "AccountCashFlowType":4,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "59010",
+    "accountDescription": "Inventory Adjustments",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "59000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "59020",
+    "accountDescription": "Loss on Returns",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "59000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "59030",
+    "accountDescription": "Loss on Sale of Fixed Assets",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "59000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  },
+  {
+    "accountCode": "59030",
+    "accountDescription": "Financial/Bank Expense",
+    "accountType": "5",
+    "currentBalance": 0,
+    "bankAccount": false,
+    "mainAccount": false,
+    "level": 2,
+    "active": true,
+    "ParentAccountId": "59000",
+    "AccountCashFlowType": 1,
+    "AccountDetailType": 12
+  }
+]

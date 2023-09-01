@@ -1,0 +1,434 @@
+﻿<style>
+    li{
+            list-style: none;
+        }
+     [data-tooltip] {
+         position: relative;
+         z-index: 2;
+         cursor: pointer;
+     }
+
+    /* Hide the tooltip content by default */
+    [data-tooltip]:before,
+    [data-tooltip]:after {
+        visibility: hidden;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+        filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* Position tooltip above the element */
+    [data-tooltip]:before {
+        position: absolute;
+        bottom: 150%;
+        left: 50%;
+        margin-bottom: 5px;
+        margin-left: -80px;
+        padding: 7px;
+        width: 160px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        background-color: #000;
+        background-color: hsla(0, 0%, 20%, 0.9);
+        color: #fff;
+        content: attr(data-tooltip);
+        text-align: center;
+        font-size: 14px;
+        line-height: 1.2;
+    }
+
+    /* Triangle hack to make tooltip look like a speech bubble */
+    [data-tooltip]:after {
+        position: absolute;
+        bottom: 150%;
+        left: 50%;
+        margin-left: -5px;
+        width: 0;
+        border-top: 5px solid #000;
+        border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+        border-right: 5px solid transparent;
+        border-left: 5px solid transparent;
+        content: " ";
+        font-size: 0;
+        line-height: 0;
+    }
+
+    /* Show tooltip content on hover */
+    [data-tooltip]:hover:before,
+    [data-tooltip]:hover:after {
+        visibility: visible;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+        filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+        opacity: 1;
+    }
+</style>
+
+<div class="single">
+    <div class="row">
+        <div class="container">
+            <div class="col-md-9">
+                <div class="col-md-5 grid">
+                    <!--<div class="flexslider">
+                    <ul class="slides">
+                        <li data-thumb="../images/theme/theme/si.jpg">
+                            <div class="thumb-image"> <img src="../images/theme/si.jpg" data-imagezoom="true" class="img-responsive"> </div>
+                        </li>
+                        <li data-thumb="../images/theme/si1.jpg">
+                            <div class="thumb-image"> <img src="../images/theme/si1.jpg" data-imagezoom="true" class="img-responsive"> </div>
+                        </li>
+                        <li data-thumb="../images/theme/si2.jpg">
+                            <div class="thumb-image"> <img src="../images/theme/si2.jpg" data-imagezoom="true" class="img-responsive"> </div>
+                        </li>
+                    </ul>
+                </div>-->
+                    <img
+                         wip-image-zoom="vm.options"
+                         selected-model="vm.selected"
+                         selected-index="vm.selectedIndex">
+
+                </div>
+                <div class="col-md-7 single-top-in">
+                    <div class="span_2_of_a1 simpleCart_shelfItem">
+                        <h3>{{vm.product.name}}</h3>
+                        <p class="in-para"> {{vm.product.code}}</p>
+                        <div class="price_single">
+                            <span class="reducedfrom item_price">{{vm.product.unitPrice}}</span>
+                            <a href="#">click for offer</a>
+                            <div class="clearfix"></div>
+                        </div>
+                        <h4 class="quick">Quick Overview:</h4>
+                        <p class="quick_desc"> {{vm.product.shortDescription}}</p>
+                        <div class="wish-list">
+                            <ul>
+                                <li class="wish"><a href="#"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>Add to Wishlist</a></li>
+                                <li class="compare" ng-click="vm.compareProduct(vm.product)"><a href="#"><span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span>Add to Compare</a></li>
+                            </ul>
+                        </div>
+                        <div class="quantity">
+                            <div class="quantity-select">
+                                <div class="entry value-minus" ng-click="vm.changeQuantity('minus')">&nbsp;</div>
+                                <div class="entry value"><span>{{vm.itemQuantity}}</span></div>
+                                <div class="entry value-plus active" ng-click="vm.changeQuantity('plus')">&nbsp;</div>
+                            </div>
+                        </div>
+
+                        <a href="#" class="add-to item_add hvr-skew-backward" ng-click="vm.addToCard(vm.product, vm.itemQuantity)">Add to cart</a>
+                        <div class="clearfix"> </div>
+                    </div>
+
+                </div>
+                <div class="clearfix"> </div>
+                <!---->
+                <div class="tab-head">
+                    <nav class="nav-sidebar">
+                        <ul class="nav tabs">
+                            <li class="active"><a href="#tab1" data-toggle="tab">Product Description</a></li>
+                            <li class="" ng-show="vm.product.productsRefByAssembledAndKit"><a href="#tab2" data-toggle="tab">Refrence Products</a></li>
+                            <!--<li class=""><a href="#tab3" data-toggle="tab">Reviews</a></li>-->
+                        </ul>
+                    </nav>
+                    <div class="tab-content one">
+                        <div class="tab-pane active text-style" id="tab1">
+                            <div class="facts">
+                                <p> {{vm.product.longDescription}} </p>
+                                <!--<ul>
+                                <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Research</li>
+                                <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Design and Development</li>
+                                <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Porting and Optimization</li>
+                                <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>System integration</li>
+                                <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Verification, Validation and Testing</li>
+                                <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Maintenance and Support</li>
+                            </ul>-->
+                            </div>
+
+                        </div>
+                        <div class="tab-pane text-style" id="tab2" ng-show="vm.product.productsRefByAssembledAndKit">
+
+                            <div class="facts">
+                                <div class="bs-example4" data-example-id="simple-responsive-table">
+                                    <div class="table-responsive">
+                                        <table class="table-heading simpleCart_shelfItem">
+                                            <tr>
+                                                <th class="table-grid">Item</th>
+
+                                                <th>Prices</th>
+                                                <th>Subtotal</th>
+                                            </tr>
+                                            <tr class="cart-header" ng-repeat="cartItem in vm.product.productsRefByAssembledAndKit">
+
+                                                <td class="ring-in">
+                                                    <a href="/items/{{cartItem.id}}" target="_self" class="at-in"><img src="{{vm.crmLocation + '/'}}{{cartItem.mediumImageUrls[0]}}" class="img-responsive" alt=""></a>
+                                                    <div class="sed">
+                                                        <h5><a href="/items/{{cartItem.id}}" target="_self">{{cartItem.name}}</a></h5>
+                                                        <p>{{cartItem.shortDescription}} </p>
+
+                                                    </div>
+                                                    <div class="clearfix"> </div>
+                                                    <div class="close1"> </div>
+                                                </td>
+                                                <td>{{cartItem.unitPrice}}</td>
+                                                <td class="item_price">{{cartItem.unitPrice}}</td>
+                                            </tr>
+                                            <!--<tr class="cart-header1">
+                                            <td class="ring-in">
+                                                <a href="single.html" class="at-in"><img src="images/ch2.jpg" class="img-responsive" alt=""></a>
+                                                <div class="sed">
+                                                    <h5><a href="single.html">Sed ut perspiciatis unde</a></h5>
+                                                    <p>(At vero eos et accusamus et iusto odio dignissimos ducimus ) </p>
+                                                </div>
+                                                <div class="clearfix"> </div>
+                                                <div class="close2"> </div>
+                                            </td>
+                                            <td>$100.00</td>
+                                            <td>FREE SHIPPING</td>
+                                            <td class="item_price">$100.00</td>
+                                            <td class="add-check"><a class="item_add hvr-skew-backward" href="#">Add To Cart</a></td>
+                                        </tr>
+                                        <tr class="cart-header2">
+                                            <td class="ring-in">
+                                                <a href="single.html" class="at-in"><img src="images/ch1.jpg" class="img-responsive" alt=""></a>
+                                                <div class="sed">
+                                                    <h5><a href="single.html">Sed ut perspiciatis unde</a></h5>
+                                                    <p>(At vero eos et accusamus et iusto odio dignissimos ducimus ) </p>
+                                                </div>
+                                                <div class="clearfix"> </div>
+                                                <div class="close3"> </div>
+                                            </td>
+                                            <td>$100.00</td>
+                                            <td>FREE SHIPPING</td>
+                                            <td class="item_price">$100.00</td>
+                                            <td class="add-check"><a class="item_add hvr-skew-backward" href="#">Add To Cart</a></td>
+                                        </tr>-->
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--<div class="tab-pane text-style" id="tab3">
+
+                        <div class="facts">
+                            <p> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined </p>
+                            <ul>
+                                <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Research</li>
+                                <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Design and Development</li>
+                                <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Porting and Optimization</li>
+                                <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>System integration</li>
+                                <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Verification, Validation and Testing</li>
+                                <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Maintenance and Support</li>
+                            </ul>
+                        </div>
+
+                    </div>-->
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!---->
+            </div>
+            <!----->
+
+            <div class="col-md-3 product-bottom product-at">
+                <!--categories-->
+                <div class="rsidebar span_1_of_left">
+                    <h4 class="cate">Categories</h4>
+                    <ul class="menu-drop">
+                        <li class="item1" ng-repeat="categoryTree in vm.categoryTree">
+                            <a href="" ng-click="vm.selectCategory(categoryTree)">{{categoryTree.name}}</a>
+                            <ul class="cute" ng-repeat="subCategoryTree in categoryTree.children">
+                                <li class="subitem1" ng-click="vm.selectCategory(subCategoryTree)"><a href="">{{subCategoryTree.name}} </a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!--initiate accordion-->
+                <!--<script type="text/javascript">
+                $(function () {
+                    var menu_ul = $('.menu-drop > li > ul'),
+                           menu_a = $('.menu-drop > li > a');
+                    menu_ul.hide();
+                    menu_a.click(function (e) {
+                        e.preventDefault();
+                        if (!$(this).hasClass('active')) {
+                            menu_a.removeClass('active');
+                            menu_ul.filter(':visible').slideUp('normal');
+                            $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                        } else {
+                            $(this).removeClass('active');
+                            $(this).next().stop(true, true).slideUp('normal');
+                        }
+                    });
+
+                });
+                </script>-->
+                <!--//menu-->
+                <!--<section class="sky-form">
+                <h4 class="cate">Discounts</h4>
+                <div class="row row1 scroll-pane">
+                    <div class="col col-4">
+                        <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Upto - 10% (20)</label>
+                    </div>
+                    <div class="col col-4">
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>40% - 50% (5)</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>30% - 20% (7)</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>10% - 5% (2)</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Other(50)</label>
+                    </div>
+                </div>
+            </section>-->
+                <!---->
+                <section class="sky-form">
+                    <h4 class="cate">Type</h4>
+                    <div class="row row1 scroll-pane">
+                        <!--<div class="col col-4">
+                        <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Sofa Cum Beds (30)</label>
+                    </div>
+                    <div class="col col-4">
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bags  (30)</label>
+                    </div>-->
+                        <div class="col col-4">
+                            <label class="checkbox" ng-repeat="categoryList in vm.categoryList"><input type="checkbox" name="checkbox"><i></i>{{categoryList.name}}</label>
+                            <!--<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Caps & Hats (30)</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Jackets & Coats   (30)</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Jeans  (30)</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Shirts   (30)</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Sunglasses  (30)</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Swimwear  (30)</label>-->
+                        </div>
+                    </div>
+                </section>
+                <!--<section class="sky-form">
+                <h4 class="cate">Brand</h4>
+                <div class="row row1 scroll-pane">
+                    <div class="col col-4">
+                        <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Roadstar</label>
+                    </div>
+                    <div class="col col-4">
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Levis</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Persol</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Nike</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Edwin</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>New Balance</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Paul Smith</label>
+                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Ray-Ban</label>
+                    </div>
+                </div>
+            </section>-->
+            </div>
+            
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <!-- Position Left Side? -->
+            <div class="col-md-2 no-padding">
+                <div class="class-i">
+                    <!--Show text or image?-->
+                    <h3>Trending Items</h3>
+                    <label class="line"></label>
+                </div>
+            </div>
+            <div class="col-md-10 no-padding">
+                <data-owl-carousel class="owl-carousel" data-options="{navigation: true, pagination: true, rewindNav : false, items: 4}">
+                    <li owl-carousel-item="" ng-repeat="latestProduct in vm.latestProduct" class="item col-sm-12">
+                        <div class="canvas">
+                            <div class="product-image">
+                                <img src="{{vm.crmLocation + '/'}}{{latestProduct.mediumImageUrls[0]}}" class="img-responsive" alt="">
+                                <div class="zoom-icon ">
+                                    <a class="picture" href="/items/{{latestProduct.id}}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
+                                    <a href="" ng-click="vm.addToCart(latestProduct)"><i class="glyphicon glyphicon-shopping-cart icon"></i></a>
+                                </div>
+                            </div>
+                            <div class="display-label">
+                                <div class="label-top elo">
+                                    <span>{{latestProduct.code}} </span>
+                                    <h6><a href="/items/{{latestProduct.id}}" data-tooltip="Product Name:  {{latestProduct.name}}">{{ latestProduct.name | limitTo: 13 }}{{latestProduct.name.length > 13 ? '...' : ''}}</a></h6>
+                                </div>
+                                <div class="img item_add">
+                                    <a href="" ng-click="vm.addToCart(latestProduct, 1)"><img src="../images/theme/ca.png" alt=""></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="offer-label">
+                                <p>
+                                    <label ng-show="latestProduct.discountType === 1">-{{latestProduct.discountPercentage}}% OFF</label>
+                                    <label ng-show="latestProduct.discountType === 2">-Rs: {{latestProduct.discountPrice}} OFF</label>
+                                    <em class="item_price">{{latestProduct.unitPrice}}</em>
+                                </p>
+                                <div class="block">
+                                    <div class="starbox small ghosting"> </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </li>
+                </data-owl-carousel>
+                <!--<div class="col-md-3 item-grid simpleCart_shelfItem" ng-repeat="latestProduct in vm.latestProduct">
+
+                </div>
+
+                <div class="clearfix"></div>-->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <!-- Position Left Side? -->
+            <div class="col-md-2 no-padding">
+                <div class="class-i">
+                    <!--Show text or image?-->
+                    <h3>You May Also Like</h3>
+                    <label class="line"></label>
+                </div>
+            </div>
+            <div class="col-md-10 no-padding">
+                <data-owl-carousel class="owl-carousel" data-options="{navigation: true, pagination: true, rewindNav : false, items: 4}">
+                    <li owl-carousel-item="" ng-repeat="latestProduct in vm.latestProduct" class="item col-sm-12">
+                        <div class="canvas">
+                            <div class="product-image">
+                                <img src="{{vm.crmLocation + '/'}}{{latestProduct.mediumImageUrls[0]}}" class="img-responsive" alt="">
+                                <div class="zoom-icon ">
+                                    <a class="picture" href="/items/{{latestProduct.id}}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
+                                    <a href="" ng-click="vm.addToCart(latestProduct)"><i class="glyphicon glyphicon-shopping-cart icon"></i></a>
+                                </div>
+                            </div>
+                            <div class="display-label">
+                                <div class="label-top">
+                                    <span>{{latestProduct.code}} </span>
+                                    <h6><a href="/items/{{latestProduct.id}}" data-tooltip="Product Name:  {{latestProduct.name}}">{{ latestProduct.name | limitTo: 13 }}{{latestProduct.name.length > 13 ? '...' : ''}}</a></h6>
+                                </div>
+                                <div class="img item_add">
+                                    <a href="" ng-click="vm.addToCart(latestProduct, 1)"><img src="../images/theme/ca.png" alt=""></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="offer-label">
+                                <p>
+                                    <label ng-show="latestProduct.discountType === 1">-{{latestProduct.discountPercentage}}% OFF</label>
+                                    <label ng-show="latestProduct.discountType === 2">-Rs: {{latestProduct.discountPrice}} OFF</label>
+                                    <em class="item_price">{{latestProduct.unitPrice}}</em>
+                                </p>
+                                <div class="block">
+                                    <div class="starbox small ghosting"> </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </li>
+                </data-owl-carousel>
+                <!--<div class="col-md-3 item-grid simpleCart_shelfItem" ng-repeat="latestProduct in vm.latestProduct">
+
+                </div>
+
+                <div class="clearfix"></div>-->
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+
+
+</div>

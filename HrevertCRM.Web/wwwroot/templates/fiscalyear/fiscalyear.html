@@ -1,0 +1,339 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+    .fiscal-period-date {
+        margin-left: 23px;
+    }
+</style>
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">fiscalyear</a></li>
+</ul>
+<div class="page-content-wrap">
+    <div class="panel panel-default" ng-show="!vm.showModal">
+        <div class="panel-heading">
+            <div class="col-md-2" ng-show="selected.length>0">
+                <button class="btn btn-danger" value="Delete Selected" ng-click="vm.deleteSelected(selected)"> Delete Selected</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="open()"><span class="fa fa-plus"></span> New fiscal year</button>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="Search fiscal year" ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+            <div class="col-md-2">
+                <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.searchParamChanged()" /> Include Inactive</label>
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width:5%"><input type="checkbox" ng-model="selectAll" name="" ng-click="vm.checkAll()" /></th>
+                        <th style="width:5%">#</th>
+                        <th style="width:20%">Year Name</th>
+                        <th style="width:10%">Start date</th>
+                        <th style="width:10%">End Date</th>
+                      <!--  <th style="width:10%">Action</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="fiscalyear in vm.fiscalYear | filter:q as results" ng-hide="vm.fiscalYear.length==0" ng-class="fiscalyear.active ?'hrevert-inactiveLink' :'hrevert-activeLink'">
+                        <td><input type="checkbox" ng-model="selected" name="" ng-checked="vm.exist(fiscalyear)" ng-click="vm.toggleSelection(fiscalyear, $event)" /></td>
+                        <td ng-click="vm.editFiscal(fiscalyear.id,fiscalyear.active)">{{$index+1}}</td>
+                        <td ng-click="vm.editFiscal(fiscalyear.id, fiscalyear.active)">
+                            {{fiscalyear.name}}
+                            <div class="hrevert-updatelink-section" ng-show="fiscalyear.active">
+                                <span><a ng-click="vm.actionChanged(fiscalyear, 1)">Edit </a></span>|
+                                <span><a ng-click="vm.actionChanged(fiscalyear, 2)">Delete</a></span>
+
+                            </div>
+                            <div class="hrevert-updatelink-section" ng-show="!fiscalyear.active">
+                                <span ng-click="vm.activeYear(fiscalyear)"><a>Activate</a></span>
+                            </div>
+                        </td>
+                        <td ng-click="vm.editFiscal(fiscalyear.id, fiscalyear.active)">{{fiscalyear.startDate| date:'yyyy-MM-dd'}}</td>
+                        <td ng-click="vm.editFiscal(fiscalyear.id, fiscalyear.active)">{{fiscalyear.endDate| date:'yyyy-MM-dd'}}</td>
+                        <!--<td ng-show="fiscalyear.active">
+                            <div class="push-down-10">
+                                <button class="btn btn-default" ng-click="vm.actionChanged(fiscalyear, 1)"><span class="fa fa-pencil"></span> Edit</button>
+                                <button class="btn btn-default" ng-click="vm.actionChanged(fiscalyear, 2)"><span class="fa fa-recycle"></span> Delete</button>
+                            </div>
+                        </td>
+                        <td ng-show="!fiscalyear.active">
+                            <button type="button" class="btn btn-info waves-effect" ng-click="vm.activeYear(fiscalyear)"> Activate</button>
+                        </td>-->
+                    </tr>
+                    <tr ng-show="vm.fiscalYear.length==0">
+                        <td colspan="7">There is no data.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="row" ng-show="vm.showModal">
+        <div class="col-md-12">
+
+            <form class="form-horizontal">
+
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Fiscal Year Details</a></li>
+                        <li><a href="#tab-second" role="tab" data-toggle="tab">Fiscal Period Details</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="row">
+
+                                <div class="form-group col-md-2">
+                                    <label class="control-label">Fiscal Name {{vm.formatText}}</label>
+                                </div>
+                                <div class="form-group col-md-10 col-sm-12 col-xs-12" >
+                                    <div class="col-md-2 col-sm-4 col-xs-4" style="text-align:center; ">
+                                        <input type="text" class="form-control date" ui-mask="{{vm.mask}}" ng-model="vm.activeFiscal.name" style="padding-left:30px;" ng-change="vm.getFiscalYear(vm.activeFiscal.name)" ng-model-options="{debounce: 1500}" />
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            <div class="row" ng-if="vm.activeFiscal.name" style="margin-bottom:3px;">
+                                <span style="color:#1caf9a; font-size:15px; font-weight:800; text-align:center;">{{vm.fiscalYearText }}</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-3">
+                                        <label class="control-label">Start Date</label>
+                                    </div>
+                                    <div class="form-group col-md-9">
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle" id="dropdownStartDate" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" data-ng-model="vm.activeFiscal.startDate" data-date-time-input="YYYY-MM-DD"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                </div>
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                <datetimepicker data-ng-model="vm.activeFiscal.startDate"
+                                                                data-before-render="startDateBeforeRender($dates)"
+                                                                data-on-set-time="startDateOnSetTime(vm.activeFiscal.startDate)"
+                                                                data-datetimepicker-config="{
+                                                                dropdownSelector: '#dropdownStartDate',
+                                                                startView:'day', minView:'day',
+                                                                renderOn: 'end-date-changed',
+                                                     }" />
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-3">
+                                        <label class="control-label">End Date</label>
+                                    </div>
+                                    <div class="form-group col-md-9">
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" data-ng-model="vm.activeFiscal.endDate" data-date-time-input="YYYY-MM-DD" name="date" id="date"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                </div>
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                <datetimepicker data-ng-model="vm.activeFiscal.endDate"
+                                                                data-on-set-time="endDateOnSetTime(vm.activeFiscal.endDate)"
+                                                                data-before-render="endDateBeforeRender($view, $dates, $leftDate, $upDate, $rightDate)"
+                                                                data-datetimepicker-config="{
+                                                                dropdownSelector: '#dropdown2',
+                                                                startView:'day',
+                                                                minView:'day',
+                                                                renderOn: 'start-date-changed'
+                                                        }" />
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                               
+                                       
+                                        <!--<div class="dropdown form-group dropdown-start-parent">
+                <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target=".dropdown-start-parent" href="#">
+                    <div class="input-group date">
+                        <input type="text" class="form-control" placeholder="Choose Start Date" data-ng-model="vm.activeFiscal.fiscalYearStartDateTime">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    </div>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <datetimepicker data-ng-model="vm.activeFiscal.fiscalYearStartDateTime" data-on-set-time="vm.startDateOnSetTime()"></datetimepicker>
+                </ul>
+            </div>-->
+                                        <!--  <input type="text" class="form-control date" id="materialDatePicker1" placeholder="Start Year Date" ng-model="vm.activeFiscal.startDate" required>-->
+                                    </div>
+                        </div>
+
+                            
+
+
+                            
+                                
+                                    <!--<div class="dropdown form-group dropdown-end-parent">
+                                <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown" data-target=".dropdown-end-parent"
+                                   href="#">
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" placeholder="Choose End Date" data-ng-model="vm.activeFiscal.fiscalYearEndDateTime">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                    <datetimepicker data-ng-model="vm.activeFiscal.fiscalYearEndDateTime" data-on-set-time="vm.endDateOnSetTime()"></datetimepicker>
+                                </ul>
+                            </div>-->
+                                    <!--<input type="text" class="form-control date" id="materialDatePicker2" placeholder="End Year Date" ng-model="vm.activeFiscal.endDate" required>-->
+                               
+                  
+                    <div class="tab-pane" id="tab-second">
+
+                      
+                        <table class="table table-bordered dataTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Period Name</th>
+                                    <th>Start date</th>
+                                    <th>End Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="fiscalperiod in vm.fiscalPeriod">
+                                    <form id="newFiscalPeriod">
+                                        <td>{{$index + 1}}</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control date" placeholder="Period Name" ng-model="fiscalperiod.name" id="test" required>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="form-line">
+                                                    <div class="dropdown">
+                                                        <a class="dropdown-toggle" id="dropdownStartPeriod" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                                            <div class="input-group">
+                                                                <input type="text" placeholder="Ex.2010-04-12" title="Date Should be 'YYYY-MM-DD' format ." class="form-control" data-ng-model="fiscalperiod.startDate" data-date-time-input="YYYY-MM-DD"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                            </div>
+                                                        </a>
+                                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                            <datetimepicker data-ng-model="fiscalperiod.startDate"
+                                                                            data-datetimepicker-config="{ dropdownSelector: '#dropdownStartPeriod',startView:'day', minView:'day' }" />
+                                                        </ul>
+                                                    </div>
+                                                    <!--<div class="dropdown form-group dropdown-end-period-parent">
+                                                <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown" data-target=".dropdown-end-period-parent"
+                                                   href="#">
+                                                    <div class="input-group fiscal-period-date date">
+                                                        <input type="text" class="form-control" placeholder="Start Period Date (Ex.2010-04-12)" title="Date Should be 'YYYY-MM-DD' format ." data-ng-model="fiscalperiod.startDate" required>
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                    </div>
+                                                </a>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                    <datetimepicker data-ng-model="fiscalperiod.startDate"></datetimepicker>
+                                                </ul>
+                                            </div>-->
+                                                    <!--  <input type="text" class="form-control date" data-toggle="tooltip" title="Date Should be 'YYYY-MM-DD' format ." id="materialDesignDateStart{{$index+3}}" placeholder="Start Period Date (Ex.2010-04-12)" ng-model="fiscalperiod.startDate" onclick="kontakte(this)" ng-change="vm.validateDate(fiscalperiod)" required>-->
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="form-line">
+                                                    <div class="dropdown">
+                                                        <a class="dropdown-toggle" id="dropdownEndPeriod" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                                            <div class="input-group">
+                                                                <input type="text" placeholder="Ex.2010-04-12" title="Date Should be 'YYYY-MM-DD' format ." class="form-control" data-ng-model="fiscalperiod.endDate" data-date-time-input="YYYY-MM-DD"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                            </div>
+                                                        </a>
+                                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                            <datetimepicker data-ng-model="fiscalperiod.endDate" data-datetimepicker-config="{ dropdownSelector: '#dropdownEndPeriod',startView:'day', minView:'day' }" />
+                                                        </ul>
+                                                    </div>
+                                                    <!--<div class="dropdown form-group dropdown-start-period-parent">
+                                                <a class="dropdown-toggle" id="dropdownstart" role="button" data-toggle="dropdown" data-target=".dropdown-start-period-parent"
+                                                   href="#">
+                                                    <div class="input-group fiscal-period-date date">
+                                                        <input type="text" class="form-control" placeholder="End Period Date (Ex.2010-06-12)" title="Date Should be 'YYYY-MM-DD' format ." data-ng-model="fiscalperiod.endDate" required>
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                    </div>
+                                                </a>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                    <datetimepicker data-ng-model="fiscalperiod.endDate"></datetimepicker>
+                                                </ul>
+                                            </div>-->
+                                                    <!--  <input type="text" class="form-control date" placeholder="End Period Date (Ex.2010-06-12)" data-toggle="tooltip" title="Date Should be 'YYYY-MM-DD' format ." id="materialDesignDateEnd{{$index+3}}" ng-model="fiscalperiod.endDate" onclick="kontakte(this)" ng-change="vm.validateDate(fiscalperiod)" required>-->
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td ng-if="fiscalperiod.active===true">
+                                            <button type="button" class="btn btn-danger waves-effect" ng-click="vm.deletePeriod(fiscalperiod)">Delete</button>
+                                        </td>
+                                        <td ng-if="fiscalperiod.active!=true">
+                                            <button type="button" class="btn btn-primary waves-effect" ng-click="vm.activeFiscalPeriod(fiscalperiod)">Activate</button>
+                                        </td>
+                                    </form>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-info waves-effect" ng-click="vm.addFiscalPeriod(fiscalperiod)">New Fiscal Period</button>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary" ng-click="hide()">Close</button>
+                        <button type="button" class="btn btn-primary" ng-click="vm.saveFiscalDetails(vm.activeFiscal,vm.fiscalPeriod)" ng-disabled="fiscalYearForm.$invalid">{{vm.fiscalYearSaveUpdateBtnText}}</button>
+                    </div>
+                </div>
+</div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+<!--<script type="text/javascript">
+    function kontakte(e) {
+        var getthevalue = $(e).attr('id');
+        //console.log(getthevalue);
+        $('#'+ getthevalue).bootstrapMaterialDatePicker({
+            time: false,
+            clearButton: true,
+            weekStart: 0
+        });
+    }
+
+    $(document).ready(function () {
+        //$('#materialDatePicker1').bootstrapMaterialDatePicker({
+        //    time: false,
+        //    clearButton: true,
+        //    weekStart: 0
+        //});
+        //$('#materialDatePicker2').bootstrapMaterialDatePicker({
+        //    time: false,
+        //    clearButton: true,
+        //    weekStart: 0
+        //});
+        //$('#materialDatePicker3').bootstrapMaterialDatePicker({
+        //    time: false,
+        //    clearButton: true,
+        //    weekStart: 0
+        //});
+        //$('#materialDatePicker4').bootstrapMaterialDatePicker({
+        //    time: false,
+        //    clearButton: true,
+        //    weekStart: 0
+        //});
+
+        $('.date').tooltip();
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>-->

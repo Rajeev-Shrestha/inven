@@ -1,0 +1,62 @@
+﻿[
+  {
+    "Title": "Sales Opportunity Title",
+    "closingDate": "2017-01-26 12:35:00.0000000",
+    "businessValue": 100.00,
+    "probability": 20,
+    "Priority": "2",
+    "IsClosed": false,
+    "ClosedDate": "2017-01-27 12:35:00.0000000",
+    "IsSucceeded": false,
+    "CustomerId": 1,
+    "StageId": 1,
+    "SourceId": 1,
+    "GradeId": 1,
+    "ReasonClosedId": 1
+  },
+  {
+    "Title": "ABCD",
+    "ClosingDate": "2017-01-26 12:35:00.0000000",
+    "BusinessValue": 100.00,
+    "Probability": 30,
+    "Priority": "2",
+    "IsClosed": true,
+    "ClosedDate": "2017-01-27 12:35:00.0000000",
+    "IsSucceeded": false,
+    "CustomerId": 2,
+    "StageId": 2,
+    "SourceId": 2,
+    "GradeId": 2,
+    "ReasonClosedId": 2
+  },
+  {
+    "Title": "Sales Opportunity Title 3",
+    "closingDate": "2017-01-26 12:35:00.0000000",
+    "businessValue": 100.00,
+    "probability": 20,
+    "Priority": "2",
+    "IsClosed": false,
+    "ClosedDate": "2017-01-27 12:35:00.0000000",
+    "IsSucceeded": false,
+    "CustomerId": 1,
+    "StageId": 3,
+    "SourceId": 1,
+    "GradeId": 1,
+    "ReasonClosedId": 1
+  },
+  {
+    "Title": "Sales 2",
+    "ClosingDate": "2017-01-26 12:35:00.0000000",
+    "BusinessValue": 100.00,
+    "Probability": 30,
+    "Priority": "2",
+    "IsClosed": true,
+    "ClosedDate": "2017-01-27 12:35:00.0000000",
+    "IsSucceeded": false,
+    "CustomerId": 2,
+    "StageId": 3,
+    "SourceId": 2,
+    "GradeId": 2,
+    "ReasonClosedId": 2
+  }
+]

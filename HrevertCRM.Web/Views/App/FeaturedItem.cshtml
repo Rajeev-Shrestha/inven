@@ -1,0 +1,29 @@
+﻿
+
+@{
+    ViewBag.Title = "Featured Item";
+    Layout = "_Layout";
+}
+@section Scripts{
+
+    <script src="~/js/featureditem/app-featuredItem.js" asp-append-version="true"></script>
+    <script src="~/js/featureditem/featuredItem.controller.js" asp-append-version="true"></script>
+    <script src="~/js/featureditem/featuredItem.service.js" asp-append-version="true"></script>
+    <script src="~/manual/angular-messages.js"></script>
+    <script src="~/manual/angularSortable.js"></script>
+    <script src="~/manual/angular-animate.min.js"></script>
+    <script src="~/manual/angular-aria.min.js"></script>
+    <script src="~/manual/ng-img-crop.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("featuredItem"), ['app-featuredItem']);
+</script>
+}
+@section css{
+@*<link href="https://cdn.rawgit.com/alexk111/ngImgCrop/master/compile/minified/ng-img-crop.css" rel="stylesheet" />*@
+<link href="~/css/ng-img-crop.css" rel="stylesheet" />
+}
+<div ng-non-bindable>
+    <div class="" id="featuredItem">
+        <ui-view></ui-view>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿[
+  {
+    "customerSerialNo": 7,
+    "vendorSerialNo": 7,
+    "allowGuest": true,
+    "shippingCalculationType": 1,
+    "discountCalculationType": 1,
+    "saalesOrderCode": 0,
+    "purchaseOrderCode": 0,
+    "fiscalYearFormat": 1,
+    "isEstoreInitialized": true
+  }
+]

@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div class="container">
+
+        <div class="row" ng-model="vm.groupUserName()">
+
+            <div class="col-md-2 recDiv">
+                <ul class="ulItem">
+                    <li ng-repeat="role in vm.roles" class="listItem">
+                        <!--<a ng-click="vm.groupUserName(role.id)">{{role.groupName}}</a>-->
+                        {{role.groupName}}
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4 recDiv">
+                <ul class="ulItem">
+                    <li class="listItem">
+
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default">Add</button>
+                <button class="btn btn-default">remove</button>
+            </div>
+            <div class="col-md-4 recDiv">
+                <ul class="ulItem">
+                    <li ng-repeat="user in vm.users" class="listItem">
+                        {{user.securityGroupList}}
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+    <style>
+        .recDiv {
+            background-color: lavenderblush;
+            border: none;
+            border-radius: 10px;
+            padding: 5px;
+            margin: 5px;
+            height: auto;
+            width: 300px;
+        }
+
+        .listItem {
+            list-style: none;
+        }
+
+        .ulItem {
+            margin: 0px auto;
+        }
+
+    </style>
+
+</body>
+</html>

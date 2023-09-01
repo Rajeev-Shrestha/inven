@@ -1,0 +1,51 @@
+﻿[
+  {
+    "methodCode": "CC",
+    "methodName": "Credit Card",
+    "receipentMemo": "N/A",
+    "webActive": "True",
+    "accountId": 0
+  },
+  {
+    "methodCode": "DC",
+    "methodName": "Debit Card",
+    "receipentMemo": "N/A",
+    "webActive": "True",
+    "accountId": 0
+  },
+  {
+    "methodCode": "CHQ",
+    "methodName": "Cheque",
+    "receipentMemo": "N/A",
+    "webActive": "False",
+    "accountId": 0
+  },
+  {
+    "methodCode": "EFH",
+    "methodName": "Electronic Fund Transfer",
+    "receipentMemo": "N/A",
+    "webActive": "False",
+    "accountId": 0
+  },
+  {
+    "methodCode": "MoP",
+    "methodName": "Mobile Payments",
+    "receipentMemo": "N/A",
+    "webActive": "False",
+    "accountId": 0
+  },
+  {
+    "methodCode": "SWI",
+    "methodName": "Swift",
+    "receipentMemo": "N/A",
+    "webActive": "False",
+    "accountId": 0
+  },
+  {
+    "methodCode": "COD",
+    "methodName": "Cash On Delivery",
+    "receipentMemo": "N/A",
+    "webActive": "True",
+    "accountId": 0
+  }
+]

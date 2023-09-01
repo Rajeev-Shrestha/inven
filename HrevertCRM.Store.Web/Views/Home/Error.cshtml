@@ -1,0 +1,29 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+@section Scripts {
+    <script src="~/js/error/app-error.js"></script>
+    <script src="~/js/error/error.controller.js"></script>
+    <script src="~/js/error/error.service.js"></script>
+<script src="~/js/items/app-items.js"></script>
+<script src="~/js/items/itemDetail.controller.js"></script>
+<script src="~/js/items/itemDetail.service.js"></script>
+
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("error"), ['app-error']);
+    </script>
+}
+
+
+@section css{
+}
+
+
+<div ng-non-bindable>
+    <div class="" id="error">
+        <ui-view></ui-view>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>retailer</title>
+</head>
+<body>
+    <section>
+        <div class="container-fluid">
+            <!-- Input Group -->
+            <div class="row clearfix">
+
+                <div class="col-md-8">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <md-card>
+                                <md-card-content>
+                                    <div class="card">
+                                        <div class="header">
+                                            <h2>SELECTED RETAILERS</h2>
+                                        </div>
+                                        <div class="body">
+                                            <button class="list-group-item" ng-repeat="retailers in vm.retailers" ng-click="vm.removeRetailer(retailers)">
+                                                <span>{{retailers.name}}</span><span class="pull-right">Remove</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </md-card-content>
+                            </md-card>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <md-card>
+                                <md-card-content>
+                                    <div class="card">
+                                        <div class="header">
+                                            <h2>NOT ASSIGNED RETAILERS</h2>
+                                            
+                                        </div>
+                                        <div class="body">
+                                            <input type="text" class="form-control" placeholder="Search companies" ng-model="vm.searchText" ng-change="vm.searchRetailers(vm.searchText)" style="margin-bottom: 10px;" ng-model-options="{debounce: 1500}" />
+                                            <div class="body">
+                                                <button class="list-group-item" ng-repeat="companyList in vm.companyList" ng-click="vm.assignCompanyAsRetailer(companyList)">
+                                                    <span>{{companyList.name}}</span><span class="pull-right">Add</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </md-card-content>
+                            </md-card>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- #END# Input Group -->
+
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,17 @@
+﻿[
+  {
+    "value": "None"
+  },
+  {
+    "value": "Specific Days"
+  },
+  {
+    "value": "End of Month"
+  },
+  {
+    "value": "End of Next Month"
+  },
+  {
+    "value": "Same Day Next Month"
+  }
+]

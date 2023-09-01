@@ -1,0 +1,52 @@
+[
+  {
+    "securityCode": 1001,
+    "securityDescription": "Add System User"
+  },
+  {
+    "securityCode": 1002,
+    "securityDescription": "View System Users"
+  },
+  {
+    "securityCode": 1003,
+    "securityDescription": "Delete System User"
+  },
+  {
+    "securityCode": 1004,
+    "securityDescription": "Update System User"
+  },
+  {
+    "securityCode": 2001,
+    "securityDescription": "Add Fiscal Year"
+  },
+  {
+    "securityCode": 2002,
+    "securityDescription": "View Fiscal Years"
+  },
+  {
+    "securityCode": 2003,
+    "securityDescription": "Delete Fiscal Year"
+  },
+  {
+    "securityCode": 2004,
+    "securityDescription": "Update Fiscal Year"
+  },
+  {
+    "securityCode": 4001,
+    "securityDescription": "Add Product Category"
+  },
+  {
+    "securityCode": 4002,
+    "securityDescription": "View Product Categories"
+  },
+  {
+    "securityCode": 4003,
+    "securityDescription": "Delete Product Categories"
+  },
+  {
+    "securityCode": 4004,
+    "securityDescription": "Update Product Categories"
+  }
+
+
+]

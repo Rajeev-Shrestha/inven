@@ -1,0 +1,24 @@
+﻿@section Scripts {
+    <script src="~/js/account/app-account.js"></script>
+    <script src="~/js/account/account.service.js"></script> 
+    <script src="~/js/account/account.controller.js"></script> 
+
+<script src="~/lib/angular-ui-tree/dist/angular-ui-tree.js"></script>
+<script src="~/manual/recipe7/js/angular-ui-bootstrap-modal.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("account"), ['app-account']);
+</script>
+}
+@section css{
+<link href="~/lib/angular-ui-tree/dist/angular-ui-tree.css" rel="stylesheet" />
+}
+@{
+    ViewBag.Title = "Account";
+    Layout = "_Layout";
+}
+
+<div ng-non-bindable>
+    <div class="" id="account">
+        <ui-view></ui-view>
+    </div>
+</div>

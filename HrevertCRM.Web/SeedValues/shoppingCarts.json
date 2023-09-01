@@ -1,0 +1,20 @@
+﻿[
+  {
+    "hostIp": "192.168.1.5",
+    "amount": "25000",
+    "active": true, 
+    "webActive": true
+  },
+  {
+    "hostIp": "192.168.55.96",
+    "amount": "58000",
+    "active": true,
+    "webActive": true
+  },
+  {
+    "hostIp": "192.168.36.54",
+    "amount": "150000",
+    "active": true,
+    "webActive": true
+  }
+]

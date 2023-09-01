@@ -1,0 +1,25 @@
+{
+
+  "compilerOptions": {
+    "target": "es5",
+    //"lib": [ "es5", "dom" ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+
+    "skipLibCheck": true
+  },
+  "compileOnSave": true,
+  "exclude": [
+    "node_modules",
+    "wwwroot/js",
+    "typings/main",
+    "typings/main.d.ts",
+    "app/test"
+
+  ]
+}

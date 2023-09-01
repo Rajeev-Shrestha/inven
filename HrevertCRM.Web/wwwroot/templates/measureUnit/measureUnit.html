@@ -1,0 +1,143 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Measure Unit</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="panel panel-default" ng-show="!showModal">
+        <div class="panel-heading">
+            <div class="col-md-2" ng-show="selected.length>0">
+                <button class="btn btn-danger" value="Delete Selected" ng-click="vm.deleteSelected(selected)"> Delete Selected</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="open()"><span class="fa fa-plus"></span> New Measure Unit</button>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control date" placeholder="Search unit" ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+            <div class="col-md-2">
+                <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.searchParamChanged()" /> Include Inactive</label>
+            </div>
+            <div class="col-md-2">
+                <!--<select class="form-control select" data-selected-text-format="count" ng-options="pagesize as pagesize for pagesize in vm.pageSizes track by pagesize" ng-model="vm.pageSize" ng-change="vm.getPageSize(vm.pageSize)"></select>-->
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width:5%"><input type="checkbox" ng-model="selectAll" name="" ng-click="vm.checkAll()" /></th>
+                            <th style="width:5%">#</th>
+                            <th style="width:15%">Measure Code</th>
+                            <th style="width:30%">Measure Name</th>
+                            <th style="width:25%">Entry Method</th>                            
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="unit in vm.measureUnit | filter:q as results" ng-hide="vm.measureUnit.length==0" ng-class="unit.active ?'hrevert-inactiveLink' :'hrevert-activeLink'">
+                            <td><input type="checkbox" ng-model="selected" name="" ng-checked="vm.exist(unit)" ng-click="vm.toggleSelection(unit, $event)" /></td>
+                            <td>{{$index+1}}</td>
+                            <td>
+                                {{unit.measureCode}}
+                                <div class="hrevert-updatelink-section" ng-show="unit.active">
+                                    <span><a ng-click="vm.measureUnitActionChange(unit, 1)">Edit </a></span>|
+                                    <span><a ng-click="vm.measureUnitActionChange(unit, 2)">Delete</a></span>
+                                </div>
+                                <div class="hrevert-updatelink-section" ng-show="!unit.active">
+                                    <span ng-click="vm.activateMeasureUnit(unit.id)"><a>Activate</a></span>
+                                </div>
+                            </td>
+                            <td>{{unit.measure}}</td>
+                            <td>
+                                <span ng-if="unit.entryMethod==1">Decimal</span>
+                                <span ng-if="unit.entryMethod==2">Fractional</span>
+                                <span ng-if="unit.entryMethod==3">Hour</span>
+                                <span ng-if="unit.entryMethod==4">Min</span>
+                                <span ng-if="unit.entryMethod==5">Day</span>
+                            </td>
+                            <!--<td ng-show="unit.active">
+                                <div class="push-down-10">
+                                    <button class="btn btn-default" ng-click="vm.measureUnitActionChange(unit, 1)"><span class="fa fa-pencil"></span> Edit</button>
+                                    <button class="btn btn-default" ng-click="vm.measureUnitActionChange(unit, 2)"><span class="fa fa-recycle"></span> Delete</button>
+                                </div>-->
+                                <!--<select class="form-control select" ng-model="action" ng-options="action.id as action.name for action in vm.actionItems" ng-change="vm.actionChanged($event, unit, action)">
+                        <option class="" style="display: none" value="">Option</option>
+                    </select>-->
+                            <!--</td>-->
+                            <!--<td ng-show="!unit.active">
+                                <button type="button" class="btn btn-info waves-effect" ng-click="vm.activateMeasureUnit(unit.id)"> Activate </button>
+                            </td>-->
+                        </tr>
+                        <tr ng-show="vm.measureUnit.length==0">
+                            <td colspan="7">There is no data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <div class="row" ng-show="showModal">
+        <div class="col-md-12">
+
+            <form class="form-horizontal" name="vm.measureUnitForm" novalidate>
+
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Measure Unit</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Measure Code*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input class="form-control" name="measureCode" placeholder="Measure Code" ng-model="vm.activeMeasureUnit.measureCode" ng-change="vm.checkIfExistCode(vm.activeMeasureUnit.measureCode)" ng-model-options="{debounce: 1500}" required />
+                                        <span ng-show="vm.measureUnitForm.measureCode.$touched && vm.measureUnitForm.measureCode.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Measure Name*</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" name="measureName" placeholder="Measure Name" ng-model="vm.activeMeasureUnit.measure" ng-change="vm.checkIfExistName(vm.activeMeasureUnit.measure)" ng-model-options="{debounce: 1500}" required />
+                                        <span ng-show="vm.measureUnitForm.measureName.$touched && vm.measureUnitForm.measureName.$error.required" style="color:red;">Required</span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Entry Method*</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control show-tick date" data-selected-text-format="count" name="entryMethod" ng-options="entryMethod.id as entryMethod.value for entryMethod in vm.entryMethodTypes" ng-model="vm.activeMeasureUnit.entryMethod" required>
+                                            <option class="" value="" style="display:none;">Select Entry Method</option>
+                                        </select>
+                                        <span ng-show="vm.measureUnitForm.entryMethod.$touched && vm.measureUnitForm.entryMethod.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-click="vm.saveMeasureUnit(vm.activeMeasureUnit)" ng-disabled="vm.measureUnitForm.$invalid">{{vm.measureUnitBtnText}}<span class="fa fa-floppy-o fa-right"></span></button>
+                            <button class="btn btn-primary" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,430 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+    .form-control[disabled], .form-control[readonly] {
+        color: #7b7272;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Purchase Order</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="panel panel-default" ng-show="!showModal">
+        <div class="panel-heading">
+            <div class="col-md-2" ng-show="selected.length>0">
+                <button class="btn btn-danger" value="Delete Selected" ng-click="vm.deleteSelected(selected)"> Delete Selected</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="open()"><span class="fa fa-plus"></span> New Purchase Order</button>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control date" placeholder="Search Purchase Order" ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+           
+            <div class="col-md-2">
+                <select class="form-control select" data-selected-text-format="count" ng-options="pagesize as pagesize for pagesize in vm.pageSizes track by pagesize" ng-model="vm.pageSize" ng-change="vm.searchParamChanged()"></select>
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width:5%"><input type="checkbox" ng-model="selectAll" name="" ng-click="vm.checkAll()" /></th>
+                        <th style="width:5%">#</th>
+                        <th style="width:15%">Purchase Order Code</th>
+                        <th style="width:15%">Vendor Name</th>
+                        <th style="width:15%">Sales Order Number</th>
+                        <th style="width:10%">Order Date</th>
+                        <th style="width:10%">Status</th>
+                        <th style="width:10%">Invoiced Date</th>
+                      <!--  <th style="width:20%">Action</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="purchaseOrder in vm.allPurchaseOrders | filter:q as results" ng-hide="vm.allPurchaseOrders.length==0" ng-class="purchaseOrder.active ?'hrevert-inactiveLink' :'hrevert-activeLink'">
+                        <td><input type="checkbox" ng-model="selected" name="" ng-checked="vm.exist(purchaseOrder)" ng-click="vm.toggleSelection(purchaseOrder, $event)" /></td>
+                        <td>{{($index+1)+(vm.pageNumber-1)* vm.pageSize}}</td>
+                        <td>
+                            {{purchaseOrder.purchaseOrderCode}}
+                            <div class="hrevert-updatelink-section" ng-show="purchaseOrder.active">
+                                <span><a ng-click="vm.methodActionChanged(purchaseOrder, 1)">Edit </a></span>|
+                                <span><a ng-click="vm.methodActionChanged(purchaseOrder, 2)">Delete</a></span>
+
+                            </div>
+                        </td>
+                        <td>{{purchaseOrder.vendorName}}</td>
+                        <td>{{purchaseOrder.salesOrderNumber}}</td>
+                        <td>{{purchaseOrder.orderDate| date:'yyyy-MM-dd'}}</td>
+                        <td>
+                            <span ng-if="purchaseOrder.status==1">Purchase Order</span>
+                            <span ng-if="purchaseOrder.status==2">Purchase Quote</span>
+                            <span ng-if="purchaseOrder.status==3">Purchase Invoice</span>
+                            <span ng-if="purchaseOrder.status==4">Credit Quote</span>
+                            <span ng-if="purchaseOrder.status==5">Credit Order</span>
+                            <span ng-if="purchaseOrder.status==6">Credit Memo</span>
+                        </td>
+                        <td>{{purchaseOrder.invoicedDate| date:'yyyy-MM-dd'}}</td>
+                        <!--<td ng-show="purchaseOrder.active">
+                            <div class="push-down-10">
+                                <button class="btn btn-default" ng-click="vm.methodActionChanged(purchaseOrder, 1)"><span class="fa fa-pencil"></span> Edit</button>
+                                <button class="btn btn-default" ng-click="vm.methodActionChanged(purchaseOrder, 2)"><span class="fa fa-recycle"></span> Delete</button>
+                            </div>-->
+                            <!--<select class="form-control select" ng-model="action" ng-options="action.id as action.name for action in vm.actionItems" ng-change="vm.actionChanged($event, purchaseOrder, action)">
+                                <option class="" style="display: none" value="">Option</option>
+                            </select>-->
+                        <!--</td>
+                        <td ng-show="!purchaseOrder.active">
+                            <button type="button" class="btn btn-info waves-effect" ng-click="vm.activatePurchaseOrder(purchaseOrder)"> Activate </button>
+                        </td>-->
+                    </tr>
+                    <tr ng-show="vm.allPurchaseOrders.length==0">
+                        <td colspan="7">There is no data.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <nav class="pull-right" ng-if="vm.totalPage >=2">
+                <div paging
+                     page="vm.pageNumber"
+                     page-size="1"
+                     total="vm.totalPage"
+                     show-prev-next="true"
+                     show-first-last="true"
+                     text-first="&laquo;"
+                     text-last="&raquo;"
+                     text-next="&rsaquo;"
+                     text-prev="&lsaquo;"
+                     text-title-page="Page {page}"
+                     text-title-first="First Page"
+                     text-title-last="Last Page"
+                     text-title-next="Next Page"
+                     text-title-prev="Previous"
+                     paging-action="vm.pageChanged(page)">
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row" ng-show="showModal">
+        <div class="col-md-12">
+
+            <form class="form-horizontal" name="vm.purchaseOrderForm">
+
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Purchase Order information</a></li>
+                        <!--<li><a href="#tab-second" role="tab" data-toggle="tab">purchaseOrder Image</a></li>-->
+                        <!--<li><a href="#tab-third" role="tab" data-toggle="tab">Tax Information</a></li>-->
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <fieldset ng-disabled="vm.disableAllFields">
+                                <div class="col-md-6" style="margin-bottom:10px;">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Vendor*</label>
+                                        <div class="col-md-9 col-xs-12">
+                                            <select class="form-control" name="vendor" ng-options="vendor.id as vendor.contactName for vendor in vm.allVendors" ng-model="vm.activePurchaseOrder.vendorId" ng-change="vm.selectUser(vm.activePurchaseOrder.vendorId)" required>
+                                                <option class="" value="" style="display:none;">Select Vendor</option>
+                                            </select>
+                                            <span ng-show="vm.purchaseOrderForm.vendor.$touched && vm.purchaseOrderForm.vendor.$error.required" style="color:red;">Required</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Email</label>
+                                        <div class="col-md-9">
+                                            <input type="email" class="form-control" placeholder="Email" ng-model="vm.activePurchaseOrder.email" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Order Number</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" placeholder="Order number" ng-model="vm.activePurchaseOrder.purchaseOrderNumber" ng-disabled="vm.salesPurchaseOrderNumber">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Delivery Method*</label>
+                                        <div class="col-md-9 col-xs-12">
+                                            <select class="form-control" name="deliveryMethod" ng-options="deliveryMethod.id as deliveryMethod.description for deliveryMethod in vm.allDeliveryMethod" ng-model="vm.activePurchaseOrder.deliveryMethodId" required>
+                                                <option class="" value="" style="display:none;">Select Delivery Method</option>
+                                            </select>
+                                            <span ng-show="vm.purchaseOrderForm.deliveryMethod.$touched && vm.purchaseOrderForm.deliveryMethod.$error.required" style="color:red;">Required</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-show="vm.showPurchaseOrderCode">
+                                        <label class="col-md-3 control-label">Order Code*</label>
+                                        <div class="col-md-9 col-xs-12">
+                                            <input type="text" name="orderCode" placeholder="Purchase Order Code" class="form-control date" ng-model="vm.activePurchaseOrder.purchaseOrderCode" disabled>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Order Type*</label>
+                                        <div class="col-md-9 col-xs-12">
+                                            <select class="form-control" name="orderType" ng-options="order.id as order.value for order in vm.purcaseOrderTypes" ng-model="vm.activePurchaseOrder.orderType" ng-change="vm.showFullyPaid(vm.activePurchaseOrder.orderType)" required>
+                                                <option class="" value="" style="display:none;">Select Order Type</option>
+                                            </select>
+                                            <span ng-show="vm.purchaseOrderForm.orderType.$touched && vm.purchaseOrderForm.orderType.$error.required" style="color:red;">Required</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Order Status*</label>
+                                        <div class="col-md-9 col-xs-12">
+                                            <select class="form-control" name="orderStatus" ng-options="status.id as status.value for status in vm.purchaseOrderStatus" ng-model="vm.activePurchaseOrder.status" required>
+                                                <option class="" value="" style="display:none;">Select Order Status</option>
+                                            </select>
+                                            <span ng-show="vm.purchaseOrderForm.orderStatus.$touched && vm.purchaseOrderForm.orderStatus.$error.required" style="color:red;">Required</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Billing Address*</label>
+                                        <div class="col-md-9 col-xs-12">
+                                            <select class="form-control" name="billingAddress" ng-options="address.id as address.city for address in vm.userBillingAddresses" ng-model="vm.activePurchaseOrder.billingAddressId" required>
+                                                <option class="" value="" style="display:none;">Select Billing Address</option>
+                                            </select>
+                                            <span ng-show="vm.purchaseOrderForm.billingAddress.$touched && vm.purchaseOrderForm.billingAddress.$error.required" style="color:red;">Required</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Shipping Address*</label>
+                                        <div class="col-md-9 col-xs-12">
+                                            <select class="form-control" name="shippingAddress" ng-options="address.id as address.city for address in vm.userShippingAddresses" ng-model="vm.activePurchaseOrder.shippingAddressId" required>
+                                                <option class="" value="" style="display:none;">Select Shipping Address</option>
+                                            </select>
+                                            <span ng-show="vm.purchaseOrderForm.shippingAddress.$touched && vm.purchaseOrderForm.shippingAddress.$error.required" style="color:red;">Required</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Term*</label>
+                                        <div class="col-md-9 col-xs-12">
+                                            <select class="form-control" name="term" ng-options="term.id as term.termCode for term in vm.allTerms" ng-model="vm.activePurchaseOrder.paymentTermId" ng-change="onTimeSet(vm.activePurchaseOrder.invoicedDate, vm.activePurchaseOrder.paymentTermId)" required>
+                                                <option class="" value="" style="display:none;">Select Term</option>
+                                            </select>
+                                            <span ng-show="vm.purchaseOrderForm.term.$touched && vm.purchaseOrderForm.term.$error.required" style="color:red;">Required</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Invoiced Date*</label>
+                                        <div class="col-md-9 col-xs-12">
+                                            <div class="dropdown" ng-show="vm.disableInvoicedDate">
+                                                <div class="input-group">
+                                                    <input type="text" placeholder="Ex: 30/07/2016" class="form-control" data-ng-model="vm.activePurchaseOrder.invoicedDate" data-date-time-input="YYYY-MM-DD" name="date" id="date" ng-disabled="vm.disableInvoicedDate" required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                </div>
+                                                <span ng-show="vm.purchaseOrderForm.date.$touched && vm.purchaseOrderForm.date.$error.required" style="color:red;">Required</span>
+                                            </div>
+                                            <div class="dropdown" ng-show="!vm.disableInvoicedDate">
+                                                <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                                    <div class="input-group">
+                                                        <input type="text" placeholder="Ex: 30/07/2016" class="form-control" data-ng-model="vm.activePurchaseOrder.invoicedDate" data-date-time-input="YYYY-MM-DD" name="date" id="date" required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                    </div>
+                                                    <span ng-show="vm.purchaseOrderForm.date.$touched && vm.purchaseOrderForm.date.$error.required" style="color:red;">Required</span>
+                                                </a>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                    <datetimepicker data-ng-model="vm.activePurchaseOrder.invoicedDate" data-on-set-time="onTimeSet(newDate, vm.activePurchaseOrder.paymentTermId)" data-datetimepicker-config="{ dropdownSelector: '#dropdown2',startView:'day', minView:'day'}" />
+                                                </ul>
+                                            </div>
+                                            <!--<input type="text" placeholder="Ex: 30/07/2016" id="materialDatePicker" class="form-control date" ng-model="vm.activePurchaseOrder.invoicedDate" ng-change="vm.getDueDateByTermIdAndDate(vm.activePurchaseOrder.paymentTermId,vm.activePurchaseOrder.invoicedDate)" required>-->
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Due Date</label>
+                                        <div class="col-md-9 col-xs-12">
+                                            <input type="text" class="form-control date" placeholder="Due Date" ng-model="vm.activePurchaseOrder.dueDate" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-condensed table-striped table-hover js-basic-example dataTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Product Name</th>
+                                                        <th>Description</th>
+                                                        <th>Quantity</th>
+                                                        <th>Rate</th>
+                                                        <th>Discount Type</th>
+                                                        <th>Discount</th>
+                                                        <th>Tax</th>
+                                                        <th>Amount</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="purchaseOrderList in vm.activePurchaseOrder.purchaseOrderLines">
+                                                        <td>
+                                                            <label ng-value="purchaseOrderList.indexing=$index+1">{{$index+1}}</label>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <div class="form-line">
+                                                                    <select class="form-control" ng-model="purchaseOrderList.productId" ng-options="product.id as product.name for product in vm.allProductList" ng-change="vm.productNameSelect(purchaseOrderList, vm.activePurchaseOrder.purchaseOrderLines)">
+                                                                        <option value="" class="">Select Product</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <div class="form-line">
+                                                                    <input type="text" title="{{purchaseOrderList.description}}" class="form-control date" placeholder="Description" ng-model="purchaseOrderList.description" disabled>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <div class="form-line">
+                                                                    <input type="number" class="form-control date" placeholder="Quantity" ng-model="purchaseOrderList.itemQuantity" ng-change="vm.editproduct(vm.activePurchaseOrder.purchaseOrderLines)">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <div class="form-line">
+                                                                    <input type="number" class="form-control date" placeholder="Rate" disabled ng-model="purchaseOrderList.itemPrice">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <div class="form-line">
+                                                                    <select class="form-control" ng-model="purchaseOrderList.discountType" ng-options="discount.id as discount.value for discount in vm.discountTypeOption" ng-change="vm.editproduct(vm.activePurchaseOrder.purchaseOrderLines)">
+                                                                        <option value="0" class="">Select Discount </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <div class="form-line">
+                                                                    <input type="number" class="form-control date" placeholder="Discount" ng-model="purchaseOrderList.discount" ng-change="vm.editproduct(vm.activePurchaseOrder.purchaseOrderLines)">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <div class="form-line">
+                                                                    <select class="form-control" ng-model="purchaseOrderList.taxId" ng-options="tax.id as tax.taxCode for tax in vm.allTax" ng-change="vm.editproduct(vm.activePurchaseOrder.purchaseOrderLines, $index)">
+                                                                        <option value="" class="">None </option>
+                                                                    </select>
+
+
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <div class="form-line">
+                                                                    <input type="number" class="form-control date" placeholder="Price" ng-model="purchaseOrderList.amount" disabled>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-remove" ng-disabled="disableRemoveIcon" ng-model="purchaseOrderList.recycle" ng-click="vm.removeRow($index, purchaseOrderList)"></span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-9">
+                                            <button type="button" class="btn btn-primary waves-effect" ng-click="vm.addProductDetails(vm.activePurchaseOrder)">Add New Row</button>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="col-md-8">
+                                                <b class="pull-right">Total Amount : </b>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <span class="pull-left">{{vm.total}}</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!--<div class="col-md-12" ng-hide="vm.taxType === 'false'" ng-show="vm.taxType === 'true'">
+                <div class="col-md-7">
+
+                </div>
+                <div class="col-md-2">
+                    VAT/TAX
+                </div>
+
+                <div class="col-md-1">
+
+                </div>
+
+                <div class="col-md-2">
+                    <label class="pull-right">{{vm.totalVatAmount}}</label>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-7">
+
+                </div>
+                <div class="col-md-2">
+                    <b>Total Amount</b>
+                </div>
+
+                <div class="col-md-1">
+
+                </div>
+
+                <div class="col-md-2">
+                    <label></label><span class="pull-right">{{vm.total + vm.totalVatAmount}}</span>
+                </div>
+            </div>-->
+                 </div>
+                                </fieldset>
+                                </div>
+
+</div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-left" ng-show="vm.showCheckbox" ng-disabled="vm.disableFullyPaid">
+                            <input type="checkbox" ng-model="vm.activePurchaseOrder.fullyPaid" /> <span><b style="color:red">Fully Paid</b></span>
+                        </div>
+                        <div class="pull-right">
+                           
+                            <button ng-show="showButton" class="btn btn-primary" ng-click="vm.savePurchaseOrder(vm.activePurchaseOrder)" ng-disabled="vm.purchaseOrderForm.$invalid">{{vm.purchaseOrderBtnText}}<span class="fa fa-floppy-o fa-right"></span></button>
+                            <button class="btn btn-primary" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+<!--<script type="text/javascript">
+		$(document).ready(function()
+		{
+		    $('#materialDatePicker').bootstrapMaterialDatePicker
+			({
+				time: false,
+				clearButton: true,
+				weekStart: 0
+			});
+		});
+</script>-->

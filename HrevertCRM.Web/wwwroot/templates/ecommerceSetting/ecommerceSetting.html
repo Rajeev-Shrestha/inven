@@ -1,0 +1,356 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+
+    .cropArea {
+        background: #E4E4E4;
+        overflow: hidden;
+        width: 495px;
+        height: 300px;
+    }
+
+    .preview-image {
+        margin: 25px auto;
+        background: #E4E4E4;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Ecommerce Settings</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+
+    <div class="page-content-wrap">
+        <div class="panel panel-default" ng-show="!showModal">
+            <div class="panel-heading">
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Ecommerce Setting</a></li>
+                       
+                    </ul>
+                    <form name="vm.ecommerceSettingForm">
+                        <div class="row" style="margin-top:20px;">
+                            <div class="form-group col-md-4">
+                                <label class="col-md-4 col-xs-12 control-label">Products per category</label>
+                                <div class="col-md-8">
+                                    <input type="number" name="productPerCategory" class="form-control date" placeholder="Products per category" ng-model="vm.settingsData.productPerCategory" min="1" required>
+                                    <span ng-show="vm.ecommerceSettingForm.productPerCategory.$touched && vm.ecommerceSettingForm.productPerCategory.$error.required" style="color:red;">Required</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label class="col-md-4 col-xs-12 control-label">Quantity Status</label>
+                                <div class="col-md-8">
+                                    <select class="form-control show-tick date" name="quantityStatus" data-selected-text-format="count" ng-options="status.id as status.name for status in vm.quantityStatus" ng-model="vm.settingsData.displayQuantity" required>
+                                        <option class="" value="" style="display: none">Select Status</option>
+                                    </select>
+                                    <span ng-show="vm.ecommerceSettingForm.quantityStatus.$touched && vm.ecommerceSettingForm.quantityStatus.$error.required" style="color:red;">Required</span>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="col-md-4 col-xs-12 control-label">Due Date Period</label>
+                                <div class="col-md-8">
+                                    <input type="number" name="dueDatePeriod" class="form-control date" placeholder="Due Date Period" ng-model="vm.settingsData.dueDatePeriod" min="1" required>
+                                    <span ng-show="vm.ecommerceSettingForm.dueDatePeriod.$touched && vm.ecommerceSettingForm.dueDatePeriod.$error.required" style="color:red;">Required</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <!-- <label class="col-md-5 col-xs-12 control-label">Quantity Status</label>-->
+                                <div class="col-md-7">
+                                    <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.settingsData.includeQuantityInSalesOrder" /> Include Items From Sales Order</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div class="col-md-7">
+                                    <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.settingsData.displayOutOfStockItems" /> Display out of stock item</label>
+                                </div>
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                <!--<label class="col-md-5 col-xs-12 control-label">Decrease Quantity on Order</label>-->
+                                <div class="col-md-7">
+                                    <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.settingsData.decreaseQuantityOnOrder" checked /> Decrease Quantity On Order</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Ecommerce Logo:</label>
+                            </div>
+                            <div class="col-md-10">
+                                <button type="button" class="btn btn-primary waves-effect" ng-click="openImageDialog()" ng-show="!vm.settingsData.imageUrl">Add Ecommerce Logo</button>
+                                <div class="form-group col-md-12" ng-show="vm.settingsData.imageUrl">
+                                    <img ng-src="{{vm.settingsData.imageUrl}}" class="img-responsive" /><br />
+                                    <button type="button" class="btn btn-primary waves-effect" ng-click="vm.removeLogo(vm.settingsData.imageUrl)">
+                                        <span class="fa fa-recycle"></span> Remove Image
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom:20px;">
+                                <button type="button" class="btn btn-primary waves-effect pull-right" ng-click="vm.saveSettings(vm.settingsData)" ng-disabled="vm.ecommerceSettingForm.$invalid"><span class="fa fa-plus"></span> Save</button>
+                        </div>
+                        
+                    </form>
+                    <div class="row" ng-show="showEcommerceModal">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" name="vm.ecommerceLogoForm" novalidate>
+                                
+                                   
+                                            <div class="col-md-12">
+                                                <div>Select an image file: <input type="file" id="fileInput1" class="fileInput" /></div>
+                                                <div class="col-lg-6">
+                                                    <div class="cropArea">
+                                                        <!--<img-crop image="logoImage" area-type="rectangle" aspect-ratio="1" result-image="logoCroppedImage" result-image-size='[{w: 170,h: 102}]' result-array-image='logoArray'></img-crop>-->
+                                                        <img-crop image="logoImage"
+                                                                  area-type="rectangle"
+                                                                   aspect-ratio="2"
+                                                                  result-height="{{vm.logoImageSize.h}}"
+                                                                  result-x="{{vm.logoImageSize.w}}"
+                                                                  result-y="{{vm.logoImageSize.h}}"
+                                                                  original-width="{{vm.logoImageSize.w}}"
+                                                                  original-height="{{vm.logoImageSize.h}}"
+                                                                  original-crop-x="{{vm.logoImageSize.w}}"
+                                                                  original-crop-y="{{vm.logoImageSize.h}}"
+                                                                  original-crop-width="{{vm.logoImageSize.w}}"
+                                                                  original-crop-height="{{vm.logoImageSize.h}}"
+                                                                  result-image-size="[{w:vm.logoImageSize.w,h:vm.logoImageSize.h}]"
+                                                                  result-image='logoCroppedImage'
+                                                                  result-array-image='logoArray'>
+                                                        </img-crop>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-offset-2 col-lg-4">
+                                                    <h3>Preview Image:</h3>
+                                                    <div>
+                                                        <img id="img" ng-src="{{logoArray[0].dataURI}}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                       
+                                    <div class="panel-footer">
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-primary" ng-disabled="vm.ecommerceLogoForm.$invalid" ng-click="vm.saveEcommerceLogo(logoCroppedImage)">Save Image</button>
+                                            <button type="button" class="btn btn-primary" ng-click="closeEcommerceModal()">Cancel</button>
+                                        </div>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                </div>
+            
+
+<div class="panel-footer">
+    <div class="col-md-12">
+        <div class="form-group col-md-12">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-primary waves-effect" ng-click="open()">Add Carousel Image</button>
+            </div>
+
+        </div>
+        <div class="form-group col-md-12">
+            <div class="col-md-3" ng-repeat="image in vm.allImageList">
+                <img src="{{image.imageUrl}}" class="img-responsive" />
+                <button type="button" class="btn btn-primary waves-effect" ng-click="vm.removeCarousel(image)">
+                    <span class="fa fa-recycle"></span> Remove Image
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+    </div>
+
+<div class="row" ng-show="showModal">
+    <div class="col-md-12">
+        <ng-form class="form-horizontal" name="vm.ecommerceMethodImageForm">
+            <div class="panel panel-default tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Add Carousel Image</a></li>
+                </ul>
+                <div class="panel-body tab-content">
+                    <div class="tab-pane active" id="tab-first">
+                        <div class="row clearfix">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        Select an image file: <input type="file" name="image1" id="fileInput" class="fileInput" onchange="angular.element(this).scope().fileNameChanged(files)" required />
+                                        <div ng-show="vm.ecommerceMethodImageForm.image1.$touched && vm.ecommerceMethodImageForm.image1.$error.required" style="color:red;">Required</div>
+                                    </div>  <!--onchange="angular.element(this).scope().fileNameChanged(files)"-->
+                                    <div class="col-md-6">
+                                        <div class="form-group col-md-12">
+                                            <label class="col-md-5 col-xs-12 control-label">Product</label>
+                                            <div class="col-md-7">
+                                                <select class="form-control show-tick date" name="product1" data-selected-text-format="count" ng-options="product.id as product.name for product in vm.products" ng-model="vm.itemId" required>
+                                                    <option class="" value="" style="display: none">Select Product</option>
+                                                </select>
+                                                <div ng-show="vm.ecommerceMethodImageForm.product1.$touched && vm.ecommerceMethodImageForm.product1.$error.required" style="color:red;">Required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-lg-6">
+                                        <h3>Crop Area for {{vm.selectedOption.name}}</h3>
+                                        <div class="cropArea">
+                                            <img-crop image="myImage"
+                                                      aspect-ratio="3"
+                                                      area-type="rectangle"
+                                                      result-height="{{vm.carouselResultImageSize.h}}"
+                                                      result-x="{{vm.carouselResultImageSize.w}}"
+                                                      result-y="{{vm.carouselResultImageSize.h}}"
+                                                      original-width="{{vm.carouselResultImageSize.w}}"
+                                                      original-height="{{vm.carouselResultImageSize.h}}"
+                                                      original-crop-x="{{vm.carouselResultImageSize.w}}"
+                                                      original-crop-y="{{vm.carouselResultImageSize.h}}"
+                                                      original-crop-width="{{vm.carouselResultImageSize.w}}"
+                                                      original-crop-height="{{vm.carouselResultImageSize.h}}"
+                                                      result-image-size="[{w:vm.carouselResultImageSize.w,h:vm.carouselResultImageSize.h}]"
+                                                      result-image='myCroppedImage'
+                                                      result-array-image='myArray'>
+                                            </img-crop>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-offset-2 col-lg-4">
+                                        <h3>Preview Image:</h3>
+                                        <div>
+                                            <img id="img" ng-src="{{myArray[0].dataURI}}" class="img-responsive" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--<div class="row clearfix">
+                                <div class="col-md-1 form-control-label">
+                                    <label for="product" style="white-space:nowrap;">Product</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <select class="form-control show-tick date" data-selected-text-format="count" ng-options="product.id as product.name for product in vm.products" ng-model="vm.itemId" required>
+                                                <option class="" value="" style="display: none">Select Product</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="pull-right">
+                        <button class="btn btn-primary" ng-click="vm.saveCarouselImage(myArray,vm.itemId)" ng-disabled="vm.ecommerceMethodImageForm.$invalid">Save Changes <span class="fa fa-floppy-o fa-right"></span></button>
+                        <button class="btn btn-primary" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                    </div>
+                </div>
+            </div>
+
+        </ng-form>
+
+    </div>
+</div>
+
+<!--<div class="row" ng-show="showAssignModal">
+    <div class="col-md-12">
+        <form class="form-horizontal" name="vm.deliveryMethodForm">
+            <div class="panel panel-default tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Assign Roles</a></li>
+                </ul>
+                <div class="panel-body tab-content">
+                    <div class="tab-pane active" id="tab-first">
+                        <div class="row clearfix">
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="card">
+                                    <div class="header">
+                                        <h2>SELECT TERM</h2>
+                                    </div>
+                                    <div class="body">
+                                        <div class="list-group">
+                                            <button type="button" class="list-group-item" ng-repeat="term in vm.allPaymentTermWithoutAccountType" ng-click="vm.termNameSelected(term, vm.paymentGroup)">{{term.termCode}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8" ng-hide="vm.termAssign">
+                                <h2>Please Select payment term to assign</h2>
+                            </div>
+
+                            <div class="col-md-8" ng-show="vm.termAssign && !vm.loadingTermAssign">
+
+                                <div class="multi-sortable" sv-root sv-on-sort="vm.checkDirty($item)">
+                                    <div class="col-md-12">
+                                        <h2>
+                                            <span class="fa fa-user"></span> Selected Term: {{vm.termName}}
+                                        </h2>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="sortable-container col-md-6" sv-part="vm.paymentGroup">
+                                            <md-card>
+                                                <md-card-content>
+                                                    <div sv-placeholder class="placeholder-left">
+                                                        <span>Place here to assign</span>
+                                                    </div>
+                                                    <div class="card">
+                                                        <div class="header">
+                                                            <h2>SELECTED PAYMENT METHODS</h2>
+                                                        </div>
+                                                        <div class="body">
+                                                            <button class="list-group-item" ng-repeat="payment in vm.paymentGroup" sv-element>
+                                                                <span>{{payment.methodName}}</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                </md-card-content>
+                                            </md-card>
+                                        </div>
+                                        <div class="sortable-container col-md-6" sv-part="vm.notAssignedPaymentMethod">
+                                            <md-card>
+                                                <md-card-content>
+                                                    <div sv-placeholder class="placeholder-left">
+                                                        <span>Place here to assign</span>
+                                                    </div>
+                                                    <div class="card">
+                                                        <div class="header">
+                                                            <h2>NOT ASSIGNED PAYMENT METHODS</h2>
+                                                        </div>
+                                                        <div class="body">
+                                                            <button type="button" class="list-group-item" ng-repeat="payment in vm.notAssignedPaymentMethod" sv-element>
+                                                                {{payment.methodName}}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                </md-card-content>
+                                            </md-card>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="pull-right">
+                        <button class="btn btn-primary" ng-click="vm.savePaymentRole(vm.paymentGroup)" ng-disabled="!vm.dirtyList">Assign <span class="fa fa-floppy-o fa-right"></span></button>
+                        <button class="btn btn-primary" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>-->
+        
+</div>
+
+

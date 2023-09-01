@@ -1,0 +1,505 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+</style>
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">vendor</a></li>
+</ul>
+<div class="page-content-wrap">
+    <div class="panel panel-default" ng-show="!vm.showModal">
+        <div class="panel-heading">
+            <div class="col-md-2" ng-show="selected.length>0">
+                <button class="btn btn-danger" value="Delete Selected" ng-click="vm.deleteSelected(selected)"> Delete Selected</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="vm.open()"><span class="fa fa-plus"></span> New vendor</button>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="Search vendor" ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+            <div class="col-md-2">
+                <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.searchParamChanged()" /> Include Inactive</label>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control select" data-selected-text-format="count" ng-options="pagesize as pagesize for pagesize in vm.pageSizes track by pagesize" ng-model="vm.pageSize" ng-change="vm.searchParamChanged()"></select>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width:5%"><input type="checkbox" ng-model="selectAll" name="" ng-click="vm.checkAll()" /></th>
+                            <th style="width:5%">#</th>
+                            <th style="width:25%">Contact Name</th>
+                            <th style="width:10%">Contact Code</th>
+                            <th style="width:10%">Email</th>
+                            <th style="width:10%">Credit Limit</th>
+                            <!--  <th style="width:15%">Action</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="vendor in vm.vendors | filter:q as results" ng-hide="vm.vendors.length==0" ng-class="vendor.active ?'hrevert-inactiveLink' :'hrevert-activeLink'">
+                            <td><input type="checkbox" ng-model="selected" name="" ng-checked="vm.exist(vendor)" ng-click="vm.toggleSelection(vendor, $event)" /></td>
+
+                            <td ng-click="vm.editItem(vendor.id,vendor.active)">{{($index+1)+(vm.pageNumber-1)* vm.pageSize}}</td>
+                            <td ng-click="vm.editItem(vendor.id, vendor.active)">
+                                {{vendor.contactName}}
+                                <div class="hrevert-updatelink-section" ng-show="vendor.active">
+                                    <span><a ng-click="vm.actionChanged(vendor, 1)">Edit </a></span>|
+                                    <span><a ng-click="vm.actionChanged(vendor, 2)">Delete</a></span>
+
+                                </div>
+                                <div class="hrevert-updatelink-section" ng-show="!vendor.active">
+                                    <span ng-click="vm.activateVendor(vendor)"><a>Activate</a></span>
+                                </div>
+                            </td>
+                            <td ng-click="vm.editItem(vendor.id, vendor.active)">{{vendor.code}}</td>
+                            <td ng-click="vm.editItem(vendor.id, vendor.active)">{{vendor.addresses[0].email}}</td>
+                            <td ng-click="vm.editItem(vendor.id, vendor.active)">{{vendor.creditLimit}}</td>
+                            <!--<td ng-show="vendor.active">
+                    <div class="push-down-10">
+                        <button class="btn btn-default" ng-click="vm.actionChanged(vendor, 1)"><span class="fa fa-pencil"></span> Edit</button>
+                        <button class="btn btn-default" ng-click="vm.actionChanged(vendor, 2)"><span class="fa fa-recycle"></span> Delete</button>
+                    </div>
+                </td>
+                <td ng-show="!vendor.active">
+                    <button type="button" class="btn btn-info waves-effect" ng-click="vm.activateVendor(vendor)"> Activate</button>
+                </td>-->
+                        </tr>
+                        <tr ng-show="vm.products.length==0">
+                            <td colspan="7">There is no data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+         
+            <nav class="pull-right" ng-if="vm.pagingList >= 2">
+                <div paging
+                     page="vm.pageNumber"
+                     page-size="1"
+                     total="vm.pagingList"
+                     show-prev-next="true"
+                     show-first-last="true"
+                     text-first="&laquo;"
+                     text-last="&raquo;"
+                     text-next="&rsaquo;"
+                     text-prev="&lsaquo;"
+                     text-title-page="Page {page}"
+                     text-title-first="First Page"
+                     text-title-last="Last Page"
+                     text-title-next="Next Page"
+                     text-title-prev="Previous"
+                     paging-action="vm.pageChanged(page)">
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="row" ng-show="vm.showModal">
+        <div class="col-md-12">
+            <form class="form-horizontal" name="vm.vendorForm">
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab"  data-toggle="tab">Vendor Details</a></li>
+                        <li><a href="#tab-second" role="tab" data-toggle="tab">Address</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Code</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" placeholder="XXXXXXXX" ng-model="vm.editingItem.code" maxlength="{{vm.vendorCodeLength}}" ng-disabled="vm.vendorCode" ng-change="vm.checkVendorCode(vm.editingItem.code)" ng-model-options="{debounce: 1500}">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Suffix*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <select class="form-control" name="suffix" ng-model="vm.editingItem.billingAddress.suffix" ng-options="suffix.id as suffix.value for suffix in vm.suffixes" required>
+                                            <option class="" value="">Select Suffix</option>
+                                        </select>
+                                        <span ng-show="vm.vendorForm.suffix.$touched && vm.vendorForm.suffix.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Title*</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="title" ng-model="vm.editingItem.billingAddress.title" ng-options="title.id as title.value for title in vm.titles" required>
+                                            <option class="" value="">Select Title</option>
+                                        </select>
+                                        <span ng-show="vm.vendorForm.title.$touched && vm.vendorForm.title.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">First Name*</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="firstName" placeholder="First Name" class="form-control" ng-model="vm.editingItem.billingAddress.firstName" ng-change="vm.nameChange(vm.editingItem.billingAddress.firstName, vm.editingItem.billingAddress.lastName)" required>
+                                        <span ng-show="vm.vendorForm.firstName.$touched && vm.vendorForm.firstName.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Middle Name</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control date" placeholder="Middle Name" ng-model="vm.editingItem.billingAddress.middleName">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Last Name*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" name="lastName" class="form-control" placeholder="Last Name" ng-model="vm.editingItem.billingAddress.lastName" ng-change="vm.nameChange(vm.editingItem.billingAddress.firstName, vm.editingItem.billingAddress.lastName)" required>
+                                        <span ng-show="vm.vendorForm.lastName.$touched && vm.vendorForm.lastName.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Contact Name*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" name="contactName" class="form-control" placeholder="Contact Name" ng-model="vm.editingItem.contactName" required ng-disabled="vm.userName">
+                                        <span ng-show="vm.vendorForm.contactName.$touched && vm.vendorForm.contactName.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Credit Limit*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="number" min="0" name="creditLimit" class="form-control" placeholder="Credit Limit" ng-model="vm.editingItem.creditLimit" required>
+                                        <span ng-show="vm.vendorForm.creditLimit.$touched && vm.vendorForm.creditLimit.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Mobile Number*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" class="form-control" name="mobileNumber" placeholder="Mobile Number" ng-model="vm.editingItem.billingAddress.mobilePhone" required>
+                                        <span ng-show="vm.vendorForm.mobileNumber.$touched && vm.vendorForm.mobileNumber.$error.required" style="color:red;">Required</span>
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Email Address*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" class="form-control" name="email" placeholder="Email Address" ng-model="vm.editingItem.billingAddress.email" ng-disabled="vm.vendorEmail" ng-change="vm.checkEmail(vm.editingItem.billingAddress.email)" ng-pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/" ng-model-options="{debounce: 500}" required>
+                                        <span ng-show="vm.vendorForm.email.$touched && vm.vendorForm.email.$error.required" style="color:red;">Required</span>
+                                        <span ng-show="vm.vendorForm.email.$touched && vm.vendorForm.email.$error.email" style="color:red;">Invalid   Email Address</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Tax Reg No.</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" class="form-control" placeholder="Tax Reg No" ng-model="vm.editingItem.taxRegNo">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Zip Code*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" name="zipCode" class="form-control date" placeholder="Zip Code" ng-model="vm.editingItem.billingAddress.zipCode" required>
+                                        <span ng-show="vm.vendorForm.zipCode.$touched && vm.vendorForm.zipCode.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                    </div>
+                                </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Address Line 1*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" name="addressLine1" class="form-control date" placeholder="Address Line 1" ng-model="vm.editingItem.billingAddress.addressLine1" required>
+                                        <span ng-show="vm.vendorForm.addressLine1.$touched && vm.vendorForm.addressLine1.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Address Line 2</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" class="form-control date" placeholder="Address Line 2" ng-model="vm.editingItem.billingAddress.addressLine2">
+                                    </div>
+                                    </div>
+                                </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">City*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" name="city" class="form-control date" placeholder="City" ng-model="vm.editingItem.billingAddress.city" required>
+                                        <span ng-show="vm.vendorForm.city.$touched && vm.vendorForm.city.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">State*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" name="state" class="form-control date" placeholder="State" ng-model="vm.editingItem.billingAddress.state" required>
+                                        <span ng-show="vm.vendorForm.state.$touched && vm.vendorForm.state.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Country*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <select name="country" class="form-control show-tick date"
+                                                ng-model="vm.editingItem.billingAddress.countryId" ng-options="country.id as country.name for country in vm.countries" required>
+                                            <option class="" style="display: none" value="">Select Country </option>
+                                        </select>
+                                        <span ng-show="vm.vendorForm.country.$touched && vm.vendorForm.country.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            
+                       
+                        <div class="tab-pane" id="tab-second">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-condensed" style="margin-top:25px;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Street</th>
+                                            <th>City/Town</th>
+                                            <th>State</th>
+                                            <th>Address Type</th>
+                                            <th>Is Default</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="addresses in vm.editingItem.addresses">
+                                            <td ng-click="vm.addressEdit(addresses)">{{$index + 1}}</td>
+                                            <td ng-click="vm.addressEdit(addresses)">{{addresses.addressLine1}}</td>
+                                            <td ng-click="vm.addressEdit(addresses)">{{addresses.city}}</td>
+                                            <td ng-click="vm.addressEdit(addresses)">{{addresses.state}}</td>
+                                            <td ng-click="vm.addressEdit(addresses)">
+                                                <div ng-if="addresses.addressType==2">Shipping</div>
+                                                <div ng-if="addresses.addressType==3">Contact</div>
+                                            </td>
+                                            <td ng-click="vm.addressEdit(addresses)">
+                                                {{addresses.isDefault}}
+                                                <!--<div ng-if="addresses.isDefault==true">True</div>
+                    <div ng-if="addresses.isDefault==false">False</div>-->
+                                            </td>
+                                            <td>
+                                                <span ng-if="addresses.active==true" class="glyphicon glyphicon-remove" ng-click="vm.removeRow(addresses,$index)"></span>
+                                                <button class="btn btn-primary" ng-if="addresses.active==false" ng-click="vm.activateAddress(addresses.id)">Activate</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                           
+                            <button type="button" class="btn btn-primary waves-effect" ng-click="vm.newAddressDialog(vm.showHideButtonText)">{{vm.showHideButtonText}}</button>
+
+                            <div ng-hide="vm.newAddressShow === 'false'" ng-show="vm.newAddressShow == 'true'">
+                                <ng-form name="vm.address" isolate-form>
+
+                                    <div class="row clearfix" style="padding:10px;">
+                                        <div class="col-md-1 form-control-label">
+                                            <label class="control-label">First Name</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-line form-inline-spacing">
+                                                    <input type="text" name="firstname" class="form-control" placeholder="First Name" ng-model="vm.newAddress.firstName" required>
+                                                    <span ng-show="vm.address.firstname.$touched && vm.address.firstname.$error.required" style="color:red;">Required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-1 form-control-label">
+                                            <label class="control-label">Middle Name</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-line form-inline-spacing">
+                                                    <input type="text" class="form-control" placeholder="Middle Name" ng-model="vm.newAddress.middleName">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 form-control-label">
+                                            <label class="control-label">Last Name*</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-line form-inline-spacing">
+                                                    <input type="text" name="lastName" class="form-control" placeholder="Last Name" ng-model="vm.newAddress.lastName" required>
+                                                    <span ng-show="vm.address.lastName.$touched && vm.address.lastName.$error.required" style="color:red;">Required</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row clearfix" style="padding:10px;">
+                                        <div class="col-md-1 form-control-label">
+                                            <label class="control-label" style="text-align:left;">Mobile Number*</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-line form-inline-spacing">
+                                                    <input type="text" name="mobileNumber" class="form-control" placeholder="Mobile Number" ng-model="vm.newAddress.mobilePhone" required>
+                                                    <span ng-show="vm.address.mobileNumber.$touched && vm.address.mobileNumber.$error.required" style="color:red;">Required</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-1 form-control-label">
+                                            <label class="control-label">Telephone</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-line form-inline-spacing">
+                                                    <input type="text" class="form-control date" placeholder="Telephone" ng-model="vm.newAddress.telephone">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 form-control-label">
+                                            <label class="control-label">Fax</label>
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-line form-inline-spacing">
+                                                    <input type="text" class="form-control date" placeholder="Fax Number" ng-model="vm.newAddress.fax" required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row clearfix" style="padding:10px;">
+                                        <div class="col-md-1 form-control-label">
+                                            <label class="control-label">Email*</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-line form-inline-spacing">
+                                                    <input type="email" name="email" class="form-control date" placeholder="Email address" ng-disabled="vm.vendorAddressEmail" ng-model="vm.newAddress.email" ng-pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/" required>
+                                                    <span ng-show="vm.address.email.$touched && vm.address.email.$error.required" style="color:red;">Required</span>
+                                                    <span ng-show="vm.address.email.$touched && vm.address.email.$error.email" style="color:red; ">Invalid Email</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-1 form-control-label">
+                                            <label class="control-label">Zip Code*</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-line form-inline-spacing">
+                                                    <input type="text" name="zipCode" class="form-control date" placeholder="Zip code" ng-model="vm.newAddress.zipCode" required>
+                                                    <span ng-show="vm.address.zipCode.$touched && vm.address.zipCode.$error.required" style="color:red;">Required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 form-control-label">
+                                            <label class="control-label" style="text-align:left;">Addresss Line 1*</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-line form-inline-spacing">
+                                                    <input type="text" name="addressLine1" class="form-control date" placeholder="Address line 1" ng-model="vm.newAddress.addressLine1">
+                                                    <span ng-show="vm.address.addressLine1.$touched && vm.address.addressLine1.$error.required" style="color:red;" required>Required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row clearfix" style="padding:10px;">
+                                        <div class="col-md-1 form-control-label">
+                                            <label class="control-label">Address Line 2</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-line form-inline-spacing">
+                                                    <input type="text" class="form-control date" placeholder="Address line 2" ng-model="vm.newAddress.addressLine2">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-1 form-control-label">
+                                            <label class="control-label">City*</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-line form-inline-spacing">
+                                                    <input type="text" name="city" class="form-control date" placeholder="City" ng-model="vm.newAddress.city" required>
+                                                    <span ng-show="vm.address.city.$touched && vm.address.city.$error.required" style="color:red; ">Required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 form-control-label">
+                                            <label class="control-label">State*</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-line form-inline-spacing">
+                                                    <input type="text" name="state" class="form-control date" placeholder="State" ng-model="vm.newAddress.state" required>
+                                                    <span ng-show="vm.address.state.$touched && vm.address.state.$error.required" style="color:red;">Required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row clearfix" style="padding:10px;">
+                                        <div class="col-md-1 form-control-label">
+                                            <label class="control-label">Country*</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-line form-inline-spacing">
+                                                    <select class="form-control select" name="country"
+                                                            ng-model="vm.newAddress.countryId" ng-options="country.id as country.name for country in vm.countries" required>
+                                                        <option class="" style="display: none" value="">Select Country </option>
+                                                    </select>
+                                                    <span ng-show="vm.address.country.$touched && vm.address.country.$error.required" style="color:red;">Required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-1 form-control-label">
+                                            <label class="  control-label">Address Type*</label>
+
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <div class="form-line form-inline-spacing">
+                                                    <select class="form-control select" name="addressType"
+                                                            ng-model="vm.newAddress.addressType" ng-options="add.id as add.value for add in vm.allAddressType" required>
+                                                        <option class="" style="display: none" value="">Select Address Type</option>
+                                                    </select>
+                                                    <span ng-show="vm.address.addressType.$touched && vm.address.addressType.$error.required" style="color:red;">Required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="demo-checkbox">
+                                                <label for="basic_checkbox_6">Is Default</label>
+                                                <input type="checkbox" id="basic_checkbox_6" ng-model="vm.newAddress.isDefault" style="margin-left: 53px;" />
+                                            </div>
+                                        </div>
+                                        <!--<button type="button" class="btn btn-primary pull-right" ng-click="vm.addNewAddress(vm.newAddress)" ng-show="vm.showAddNew">Add New</button>-->
+                                        <button type="button" class="btn btn-primary pull-right" ng-click="vm.updateAddress(vm.newAddress)" ng-show="vm.updateAddressButton">Update</button>
+                                    </div>
+                                </ng-form>
+                            </div>
+                            <!--<button type="button" class="btn btn-primary pull-right" ng-click="vm.addNewAddress(vm.newAddress)" ng-show="vm.showAddNew">Add New</button>
+                            <button type="button" class="btn btn-primary" ng-click="vm.updateAddress(vm.newAddress)" ng-show="vm.showUpdate"><span class="fa fa-plus"></span>Update</button>-->
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right" ng-show="vm.footerBar">
+                            <button type="button" class="btn btn-primary" ng-click="vm.hide()">Close</button>
+                            <button type="button" class="btn btn-primary" ng-click="vm.addNewAddress(vm.newAddress)" ng-show="vm.newAddressShow ==='true'">Add New</button>
+                            <!--<button type="button" class="btn btn-primary waves-effect" ng-click="vm.updateAddress(vm.newAddress)"><span class="fa fa-plus"></span>Update</button>-->
+                            <button type="button" class="btn btn-primary" ng-click="vm.updateVendor(vm.editingItem)" ng-hide="vm.newAddressShow === 'true'">{{vm.vendorBtnText}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,130 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">delivery</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="panel panel-default" ng-show="!showModal">
+        <div class="panel-heading">
+            <div class="col-md-2" ng-show="selected.length>0">
+                <button class="btn btn-danger" value="Delete Selected" ng-click="vm.deleteSelected(selected)"> Delete Selected</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="open()"><span class="fa fa-plus"></span> New Delivery Method</button>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control date" placeholder="Search Delivery" ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+            <div class="col-md-2">
+                <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.searchParamChanged()" /> Include Inactive</label>
+            </div>
+            <div class="col-md-2">
+                <!--<select class="form-control select" data-selected-text-format="count" ng-options="pagesize as pagesize for pagesize in vm.pageSizes track by pagesize" ng-model="vm.pageSize" ng-change="vm.getPageSize(vm.pageSize)"></select>-->
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width:5%"><input type="checkbox" ng-model="selectAll" name="" ng-click="vm.checkAll()" /></th>
+
+                            <th style="width:5%">#</th>
+                            <th style="width:30%">Delivery Code</th>
+
+                            <th style="width:30%">Delivery Description</th>
+                            <!--<th style="width:15%">Action</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="delivery in vm.allDeliveryMethod | filter:q as results" ng-hide="vm.allDeliveryMethod.length==0" ng-class="delivery.active ?'hrevert-inactiveLink' :'hrevert-activeLink'">
+                            <td><input type="checkbox" ng-model="selected" name="" ng-checked="vm.exist(delivery)" ng-click="vm.toggleSelection(delivery, $event)" /></td>
+
+                            <td>{{$index+1}}</td>
+                            <td>
+                                {{delivery.deliveryCode}}
+                                <div class="hrevert-updatelink-section" ng-show="delivery.active">
+                                    <span><a ng-click="vm.methodActionChanged(delivery, 1)">Edit </a></span>|
+                                    <span><a ng-click="vm.methodActionChanged(delivery, 2)">Delete</a></span>
+
+                                </div>
+                                <div class="hrevert-updatelink-section" ng-show="!delivery.active">
+                                    <span ng-click="vm.activeDeliveryMethod(delivery.id)"><a>Activate</a></span>
+                                </div>
+                            </td>
+                            <td>{{delivery.description}}</td>
+                            <!--<td ng-show="delivery.active">
+                                <div class="push-down-10">
+                                    <button class="btn btn-default" ng-click="vm.methodActionChanged(delivery, 1)"><span class="fa fa-pencil"></span> Edit</button>
+                                    <button class="btn btn-default" ng-click="vm.methodActionChanged(delivery, 2)"><span class="fa fa-recycle"></span> Delete</button>
+                                </div>-->
+                                <!--<select class="form-control select" ng-model="action" ng-options="action.id as action.name for action in vm.actionItems" ng-change="vm.actionChanged($event, delivery, action)">
+                        <option class="" style="display: none" value="">Option</option>
+                    </select>-->
+                            <!--</td>
+                            <td ng-show="!delivery.active">
+                                <button type="button" class="btn btn-info waves-effect" ng-click="vm.activeDeliveryMethod(delivery.id)"> Activate</button>
+                            </td>-->
+                        </tr>
+                        <tr ng-show="vm.allDeliveryMethod.length==0">
+                            <td colspan="7">There is no data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            
+        </div>
+
+    </div>
+
+    <div class="row" ng-show="showModal">
+        <div class="col-md-12">
+
+            <form class="form-horizontal" name="vm.deliveryMethodForm">
+
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">delivery Method</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Delivery Code*</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="deliveryCode" class="form-control date" placeholder="Delivery Code" ng-model="vm.activeDeliveryItem.deliveryCode" ng-change="vm.checkIfExistCode(vm.activeDeliveryItem.deliveryCode)" ng-model-options="{debounce: 1500}" required>
+                                        <span ng-show="vm.deliveryMethodForm.deliveryCode.$touched && vm.deliveryMethodForm.deliveryCode.$error.required" style="color:red;">Enter Delivery Code</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Description*</label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="description" class="form-control date" placeholder="Delivery Description" ng-model="vm.activeDeliveryItem.description" required>
+                                        <span ng-show="vm.deliveryMethodForm.description.$touched && vm.deliveryMethodForm.description.$error.required" style="color:red;">Enter Payment Name</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-click="vm.saveDeliveryMethod(vm.activeDeliveryItem)" ng-disabled="vm.deliveryMethodForm.$invalid">{{vm.btnDeliveryMethodText}}<span class="fa fa-floppy-o fa-right"></span></button>
+                            <button class="btn btn-primary" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

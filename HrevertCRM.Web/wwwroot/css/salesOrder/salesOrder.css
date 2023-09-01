@@ -1,0 +1,115 @@
+﻿.red{
+
+    margin-top:5%;
+    margin-right:0 auto;
+    margin-left:26%;
+    margin-bottom:0 auto;
+
+  background: red;
+  background-image: radial-gradient(brown, transparent);
+  background-size: 5px 5px; 
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  position: absolute;
+  animation: 1s red infinite;
+  border: dotted 2px red;
+  box-shadow: 
+    0 0 20px #111 inset,
+    0 0 10px red;
+}
+
+.yellow{
+    margin-top:5%;
+    margin-right:0 auto;
+    margin-left:26%;
+    margin-bottom:0 auto;
+
+  background: yellow;
+  background-image: radial-gradient(orange, transparent);
+  background-size: 5px 5px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: dotted 2px yellow;
+  position: absolute;
+  animation: 1s yellow infinite;
+  box-shadow: 
+    0 0 20px #111 inset,
+    0 0 10px yellow;
+}
+
+.green{
+    margin-top:5%;
+    margin-right:0 auto;
+    margin-left:26%;
+    margin-bottom:0 auto;
+
+  background: green;
+  background-image: radial-gradient(lime, transparent);
+  background-size: 5px 5px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: dotted 2px lime;
+  position: absolute;
+  box-shadow: 
+    0 0 20px #111 inset,
+    0 0 10px lime;
+  animation: 1s green infinite;
+}
+
+.blue{
+    margin-top:5%;
+    margin-right:0 auto;
+    margin-left:26%;
+    margin-bottom:0 auto;
+
+    background: blue;
+  background-image: radial-gradient(white, transparent);
+  background-size: 5px 5px; 
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  position: absolute;
+  animation: 1s blue infinite;
+  border: dotted 2px blue;
+  box-shadow: 
+    0 0 20px #111 inset,
+    0 0 10px blue;
+}
+
+@keyframes red{
+  0%{opacity: 1}
+  20%{opacity: 1}
+  40%{opacity: 1}
+  60%{opacity: .1}
+  80%{opacity: .1}
+  100%{opacity: .1}
+}
+
+@keyframes yellow{
+  0%{opacity: 1}
+  20%{opacity: 1}
+  40%{opacity: 1}
+  60%{opacity: .1}
+  80%{opacity: .1}
+  100%{opacity: .1}
+}
+
+@keyframes green{
+  0%{opacity: 1}
+  20%{opacity: 1}
+  40%{opacity: 1}
+  60%{opacity: .1}
+  80%{opacity: .1}
+  100%{opacity: .1}
+}
+@keyframes blue{
+  0%{opacity: 1}
+  20%{opacity: 1}
+  40%{opacity: 1}
+  60%{opacity: .1}
+  80%{opacity: .1}
+  100%{opacity: .1}
+}

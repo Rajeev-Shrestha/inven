@@ -1,0 +1,26 @@
+﻿
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "_Layout";
+}
+@section Scripts{
+    <script src="~/js/profile/app-profile.js" asp-append-version="true"></script>
+    <script src="~/js/profile/profile.controller.js" asp-append-version="true"></script>
+    <script src="~/js/profile/profile.service.js" asp-append-version="true"></script>
+    <script src="~/manual/angularSortable.js"></script>
+    <script src="~/manual/paging.min.js"></script>
+    <script src="~/lib/angular-moment/moment.js"></script>
+    <script src="~/lib/angular-sanitize/angular-sanitize.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("profile"), ['app-profile']);
+</script>
+}
+@section css{
+    <link href="~/manual/icon.css" rel="stylesheet" />
+}
+<div ng-non-bindable>
+    <div class="" id="profile">
+        <ui-view></ui-view>
+    </div>
+</div>

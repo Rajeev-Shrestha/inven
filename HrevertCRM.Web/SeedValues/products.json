@@ -1,0 +1,135 @@
+//products
+[
+  {
+    "Code": "DELL-201",
+    "Name": "DELL Inspiron 16 9000 series",
+    "Active": true,
+    "UnitPrice": 58000,
+    "QuantityOnHand": 10,
+    "QuantityOnOrder": 0,
+    "ShortDescription": "Affordable laptops and 2-in-1 PCs that offer versatile computing",
+    "LongDescription": "N/A"
+  },
+
+  {
+    "Code": "DELL-15",
+    "Name": "ULTRABOOK Inspiron 5423 ",
+    "Active": true,
+    "UnitPrice": 76000,
+    "QuantityOnHand": 10,
+    "QuantityOnOrder": 0,
+    "ShortDescription": "Affordable laptops and 2-in-1 PCs that offer versatile everyday computing",
+    "LongDescription": "N/A"
+  },
+
+  {
+    "Code": "HP-360",
+    "Name": "HP Spectre",
+    "Active": true,
+    "UnitPrice": 128000,
+    "QuantityOnHand": 10,
+    "QuantityOnOrder": 0,
+    "ShortDescription": "Experience technology at its very best. Refined craftsmanship meets unquestionable power",
+    "LongDescription": "N/A"
+  },
+
+  {
+    "Code": "HP-Envy",
+    "Name": "HP Envy",
+    "Active": true,
+    "UnitPrice": 80000,
+    "QuantityOnHand": 10,
+    "QuantityOnOrder": 0,
+    "ShortDescription": "Experience technology at its very best. Refined craftsmanship meets unquestionable power",
+    "LongDescription": "N/A"
+  },
+
+  {
+    "Code": "Lenovo -P",
+    "Name": "Lenovo Thinkpad",
+    "Active": true,
+    "UnitPrice": 145000,
+    "QuantityOnHand": 10,
+    "QuantityOnOrder": 0,
+    "ShortDescription": "Experience technology at its very best. Refined craftsmanship meets unquestionable power",
+    "LongDescription": "N/A"
+  },
+
+  {
+    "Code": "Lenovo -Yoga 260",
+    "Name": "Lenovo Professional Series",
+    "Active": true,
+    "UnitPrice": 180000,
+    "QuantityOnHand": 10,
+    "QuantityOnOrder": 0,
+    "ShortDescription": "Experience technology at its very best. Refined craftsmanship meets unquestionable power",
+    "LongDescription": "N/A"
+  },
+
+
+  {
+    "Code": "DWERT",
+    "Name": "Dynamic RT",
+    "Active": true,
+    "UnitPrice": 34000,
+    "QuantityOnHand": 10,
+    "QuantityOnOrder": 0,
+    "ShortDescription": "Experience technology at its very best. Refined craftsmanship meets unquestionable power",
+    "LongDescription": "N/A"
+  },
+
+  {
+    "Code": "Hoy",
+    "Name": "Hyosoung RT",
+    "Active": true,
+    "UnitPrice": 245000,
+    "QuantityOnHand": 10,
+    "QuantityOnOrder": 0,
+    "ShortDescription": "Experience technology at its very best. Refined craftsmanship meets unquestionable power",
+    "LongDescription": "N/A"
+  },
+
+  {
+    "Code": "HH",
+    "Name": "Honda Hornet",
+    "Active": true,
+    "UnitPrice": 245000,
+    "QuantityOnHand": 10,
+    "QuantityOnOrder": 0,
+    "ShortDescription": "Experience technology at its very best. Refined craftsmanship meets unquestionable power",
+    "LongDescription": "N/A"
+  },
+
+  {
+    "Code": "SS01",
+    "Name": "Samsung X01",
+    "Active": true,
+    "UnitPrice": 35000,
+    "QuantityOnHand": 10,
+    "QuantityOnOrder": 0,
+    "ShortDescription": "Experience technology at its very best. Refined craftsmanship meets unquestionable power",
+    "LongDescription": "N/A"
+  },
+
+  {
+    "Code": "Sam-Led",
+    "Name": "Samsung Smart Led",
+    "Active": true,
+    "UnitPrice": 90000,
+    "QuantityOnHand": 10,
+    "QuantityOnOrder": 0,
+    "ShortDescription": "Experience technology at its very best. Refined craftsmanship meets unquestionable power",
+    "LongDescription": "N/A"
+  },
+
+  {
+    "Code": "Sam-Gear",
+    "Name": "Samsung iWatch",
+    "Active": true,
+    "UnitPrice": 55000,
+    "QuantityOnHand": 10,
+    "QuantityOnOrder": 0,
+    "ShortDescription": "Experience technology at its very best. ",
+    "LongDescription": "N/A"
+  }
+]

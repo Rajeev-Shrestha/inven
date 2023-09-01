@@ -1,0 +1,239 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Discount Settings</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="panel panel-default" ng-show="!showModal">
+        <div class="panel-heading">
+            <div class="col-md-2" ng-show="selected.length>0">
+                <button class="btn btn-danger" value="Delete Selected" ng-click="vm.deleteSelected(selected)"> Delete Selected</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="open()"><span class="fa fa-plus"></span> New Discount</button>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control date" placeholder="Search Discount" ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+            <div class="col-md-2">
+                <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.searchParamChanged()"/> Include Inactive</label>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control show-tick date" data-selected-text-format="count" ng-options="pagesize as pagesize for pagesize in vm.pageSizes track by pagesize" ng-model="vm.pageSize" ng-change="vm.searchParamChanged()"></select>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width:5%"><input type="checkbox" ng-model="selectAll" name="" ng-click="vm.checkAll()" /></th>
+
+                            <th style="width:5%">#</th>
+                            <th style="width:30%">Item Name</th>
+                            <th style="width:15%">Start Date</th>
+                            <th style="width:15%">End Date</th>
+                            <th style="width:15%">Minimum Quantity</th>
+                           <!-- <th style="width:20%">Action</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="discount in vm.discount | filter:q as results" ng-hide="vm.discount.length==0" ng-class="discount.active ?'hrevert-inactiveLink' :'hrevert-activeLink'">
+                            <td><input type="checkbox" ng-model="selected" name="" ng-checked="vm.exist(discount)" ng-click="vm.toggleSelection(discount, $event)" /></td>
+                            <td>{{($index+1)+(vm.pageNumber-1)* vm.pageSize}}</td>
+                            <td>
+                                {{discount.itemName}}
+                                <div class="hrevert-updatelink-section" ng-show="discount.active">
+                                    <span><a ng-click="vm.discountActionChange(discount, 1)">Edit </a></span>|
+                                    <span><a ng-click="vm.discountActionChange(discount, 2)">Delete</a></span>
+
+                                </div>
+                                <div class="hrevert-updatelink-section" ng-show="!discount.active">
+                                    <span ng-click="vm.activeDiscountSetting(discount)"><a>Activate</a></span>
+                                </div>
+                            </td>
+                            <td>{{discount.discountStartDate| date:'yyyy-MM-dd'}}</td>
+                            <td>{{discount.discountEndDate| date:'yyyy-MM-dd'}}</td>
+                            <td>{{discount.minimumQuantity}}</td>
+                            <!--<td ng-show="discount.active">
+                                <div class="push-down-10">
+                                    <button class="btn btn-default" ng-click="vm.discountActionChange(discount, 1)"><span class="fa fa-pencil"></span> Edit</button>
+                                    <button class="btn btn-default" ng-click="vm.discountActionChange(discount, 2)"><span class="fa fa-recycle"></span> Delete</button>
+                                </div>-->
+                                <!--<select class="form-control select" ng-model="action" ng-options="action.id as action.name for action in vm.actionItems" ng-change="vm.actionChanged($event, discount, action)">
+                        <option class="" style="display: none" value="">Option</option>
+                    </select>-->
+                            <!--</td>
+                            <td ng-show="!discount.active">
+                                <button type="button" class="btn btn-info waves-effect" ng-click="vm.activeDiscountSetting(discount)"> Activate</button>
+                            </td>-->
+                        </tr>
+                        <tr ng-show="vm.discount.length==0">
+                            <td colspan="7">There is no data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <nav class="pull-right">
+                <div paging
+                     page="vm.pageNumber"
+                     page-size="1"
+                     total="vm.pagingList"
+                     show-prev-next="true"
+                     show-first-last="true"
+                     text-first="&laquo;"
+                     text-last="&raquo;"
+                     text-next="&rsaquo;"
+                     text-prev="&lsaquo;"
+                     text-title-page="Page {page}"
+                     text-title-first="First Page"
+                     text-title-last="Last Page"
+                     text-title-next="Next Page"
+                     text-title-prev="Previous"
+                     paging-action="vm.PageChange(page)">
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row" ng-show="showModal">
+        <div class="col-md-12">
+            <form class="form-horizontal" name="vm.discountForm" novalidate>
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Discount information</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Product</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <select class="form-control show-tick date" data-selected-text-format="count" ng-options="product.id as product.name for product in vm.products" ng-model="vm.activeDiscount.itemId" ng-disabled="vm.disableDiscountProduct" ng-change="vm.disableFields(vm.activeDiscount)">
+                                            <option class="" value="" style="display:none;">Select Product</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Product Category</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control show-tick date" data-selected-text-format="count" ng-options="category.id as category.name for category in vm.productCategory" ng-model="vm.activeDiscount.categoryId" ng-disabled="vm.disableDiscountCategory" ng-change="vm.disableFields(vm.activeDiscount)">
+                                            <option class="" value="" style="display:none;">Select Product Category</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Discount Type*</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control show-tick date" name="discountType" data-selected-text-format="count" ng-options="discType.id as discType.value for discType in vm.discountTypeForDiscountSetting" ng-model="vm.activeDiscount.discountType" ng-disabled="vm.discountTypeForCategory" ng-change="vm.discountValueChange(vm.activeDiscount.discountType,vm.activeDiscount.discountValue)" required>
+                                            <option class="" value="" style="display:none;">Select Discount type</option>
+                                        </select>
+                                        <span ng-show="vm.discountForm.discountType.$touched && vm.discountForm.discountType.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Discount Value*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="number" class="form-control date" name="discountValue" placeholder="Discount Value" ng-model="vm.activeDiscount.discountValue" ng-change="vm.discountValueChange(vm.activeDiscount.discountType,vm.activeDiscount.discountValue)" required>
+                                        <span ng-show="vm.discountForm.discountValue.$touched && vm.discountForm.discountValue.$error.required" style="color:red;">Required</span>
+                                        <span ng-show="vm.discountForm.discountValue.$touched && vm.discountForm.discountValue.$error.number" style="color:red;">Enter Only Integers</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Start Date*</label>
+                                    <!--<div class="col-md-9 col-xs-12">
+                                        <input type="text" class="form-control date" placeholder="Ex:30/02/2010" id="materialDatePicker1" ng-model="vm.activeDiscount.discountStartDate" required>
+                                    </div>-->
+                                    <div class="dropdown col-md-9 col-xs-12">
+                                        <a class="dropdown-toggle" name="discountStartDate" id="dropdownStartDate" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                            <div class="input-group">
+                                                <input type="text" name="discountStartDate" placeholder="Ex:30/02/2010" class="form-control" data-ng-model="vm.activeDiscount.discountStartDate" data-date-time-input="YYYY-MM-DD" required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-ng-model="vm.activeDiscount.discountStartDate" data-datetimepicker-config="{ dropdownSelector: '#dropdownStartDate',startView:'day', minView:'day' }" />
+                                        </ul>
+                                        <span ng-show="vm.discountForm.discountStartDate.$touched && vm.discountForm.discountStartDate.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">End Date*</label>
+                                    <!--<div class="col-md-9 col-xs-12">
+                                        <input type="text" class="form-control date" id="materialDatePicker2" placeholder="Ex:30/10/2010" ng-model="vm.activeDiscount.discountEndDate" required>
+                                    </div>-->
+                                    <div class="dropdown col-md-9 col-xs-12">
+                                        <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                            <div class="input-group">
+                                                <input type="text" name="discountEndDate" placeholder="Ex:30/02/2010" class="form-control" data-ng-model="vm.activeDiscount.discountEndDate" data-date-time-input="YYYY-MM-DD" id="date"  required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker data-ng-model="vm.activeDiscount.discountEndDate" data-datetimepicker-config="{ dropdownSelector: '#dropdown2',startView:'day', minView:'day'}" />
+                                        </ul>
+                                        <span ng-show="vm.discountForm.discountEndDate.$touched && vm.discountForm.discountEndDate.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Minimum Quantity*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="number" name="minimumQuantity" class="form-control date" placeholder="Minimum Quantity" ng-model="vm.activeDiscount.minimumQuantity" required>
+                                        <span ng-show="vm.discountForm.minimumQuantity.$touched && vm.discountForm.minimumQuantity.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Customer</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <select class="form-control show-tick date" data-selected-text-format="count" ng-options="customer.id as customer.displayName for customer in vm.customers" ng-model="vm.activeDiscount.customerId" ng-disabled="vm.disableDiscountCustomer" ng-change="vm.disableFields(vm.activeDiscount)">
+                                            <option class="" value="" style="display:none;">Select Customer</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Customer Level</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <select class="form-control show-tick date" data-selected-text-format="count" ng-options="customerLevel.id as customerLevel.name for customerLevel in vm.customerLevel" ng-model="vm.activeDiscount.customerLevelId" ng-disabled="vm.disableDiscountLevel" ng-change="vm.disableFields(vm.activeDiscount)">
+                                            <option class="" value="" style="display:none;">Select Customer Level</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-click="vm.saveDiscount(vm.activeDiscount)" ng-disabled="vm.discountForm.$invalid">{{vm.discountSettingBtnText}}<span class="fa fa-floppy-o fa-right"></span></button>
+                            <button class="btn btn-primary" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+		$(document).ready(function()
+		{
+		    $('#materialDatePicker1').bootstrapMaterialDatePicker
+			({
+				time: false,
+				clearButton: true,
+				weekStart: 0
+			});
+
+		    $('#materialDatePicker2').bootstrapMaterialDatePicker
+           ({
+               time: false,
+               clearButton: true,
+               weekStart: 0
+           });
+			//$.material.init()
+		});
+</script>

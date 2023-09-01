@@ -1,0 +1,38 @@
+﻿[
+  {
+    "name": "Nepal",
+    "code": "+977"
+  },
+  {
+    "name": "India",
+    "code": "+91"
+  },
+  {
+    "name": "Bangladesh",
+    "code": "+880"
+  },
+  {
+    "name": "Srilanka",
+    "code": "+94"
+  },
+  {
+    "name": "Bhutan",
+    "code": "+975"
+  },
+  {
+    "name": "Pakistan",
+    "code": "+92"
+  },
+  {
+    "name": "Afghanistan",
+    "code": "+93"
+  },
+  {
+    "name": "Maldives",
+    "code": "+960"
+  },
+  {
+    "name": "Australia",
+    "code": "+61"
+  }
+]

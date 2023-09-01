@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@section Scripts{
+    <script src="~/js/retailer/app-retailer.js" asp-append-version="true"></script>
+    <script src="~/js/retailer/retailer.controller.js" asp-append-version="true"></script>
+    <script src="~/js/retailer/retailer.service.js" asp-append-version="true"></script>
+    <script src="~/manual/plugins/waitme/waitMe.js" asp-append-version="true"></script>
+    <link href="~/manual/plugins/waitme/waitMe.css" rel="stylesheet" />
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("retailer"), ['app-retailer']);
+    </script>
+}
+@*<div class="row" ng-app="app-home">
+        <ui-view></ui-view>
+    </div>*@
+<div>
+    <div class="" id="retailer">
+        <ui-view></ui-view>
+    </div>
+</div>

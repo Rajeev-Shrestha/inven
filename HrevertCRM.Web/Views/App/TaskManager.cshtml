@@ -1,0 +1,43 @@
+﻿@section Scripts {
+
+
+<script src="~/manual/input-number/bootstrap-number-input.js"></script>   
+<script src="~/js/common/common.js"></script>
+<script src="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.js"></script>
+<script src="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.templates.js"></script>
+@*<script src="~/manual/datetimepicker/angularjs-datetime-picker.js"></script>*@
+<script src="~/js/taskmanager/app-taskmanager.js" asp-append-version="true"></script>
+<script src="~/js/taskmanager/taskmanager.controller.js" asp-append-version="true"></script>
+<script src="~/js/taskmanager/taskmanager.service.js" asp-append-version="true"></script>
+@*<link href="~/manual/datetimepicker/angularjs-datetime-picker.css" rel="stylesheet" />*@
+<link href="~/manual/angular-bootstrap-datetimepicker-1.1.4/datetimepicker.css" rel="stylesheet" />
+<style>
+    .angularjs-datetime-picker {
+        color: #333;
+        font: normal 14px sans-serif;
+        border: 1px solid #ddd;
+        display: inline-block;
+        background: #fff;
+        z-index: 1100;
+    }
+</style>
+
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("taskmanager"), ['app-taskManager']);
+       
+    </script>
+   
+}
+@section css{
+}
+@{
+    ViewBag.Title = "Contact Manager";
+    Layout = "_Layout";
+}
+
+
+<div ng-non-bindable>
+    <div class="" id="taskmanager">
+        <ui-view></ui-view>
+    </div>
+</div>

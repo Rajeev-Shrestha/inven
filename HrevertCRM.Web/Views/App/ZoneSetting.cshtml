@@ -1,0 +1,26 @@
+﻿
+
+@{
+    ViewBag.Title = "Zone Setting";
+    Layout = "_Layout";
+}
+@section Scripts{
+
+    <script src="~/js/zonesetting/app-zoneSetting.js" asp-append-version="true"></script>
+    <script src="~/js/zonesetting/zoneSetting.controller.js" asp-append-version="true"></script>
+    <script src="~/js/zonesetting/zoneSetting.service.js" asp-append-version="true"></script>
+    <script src="~/manual/angular-messages.js"></script>
+    <script src="~/manual/angularSortable.js"></script>
+    <script src="~/manual/angular-animate.min.js"></script>
+    <script src="~/manual/angular-aria.min.js"></script>
+<script type="text/javascript">
+    angular.bootstrap(document.getElementById("zoneSetting"), ['app-zoneSetting']);
+</script>
+}
+@section css{
+}
+<div ng-non-bindable>
+    <div class="" id="zoneSetting">
+        <ui-view></ui-view>
+    </div>
+</div>

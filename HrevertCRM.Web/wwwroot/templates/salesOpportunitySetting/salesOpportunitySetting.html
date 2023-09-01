@@ -1,0 +1,439 @@
+﻿<style>
+    @media (min-width: 1200px) {
+        .container {
+            width: 100%;
+        }
+    }
+</style>
+<div class="container">
+    <div class="card">
+        <div class="panel panel-primary" style="margin-top: -4px;">
+            <div class="panel-heading">
+                <h1 class="panel-title" style="font-size:18px;"><span class="glyphicon glyphicon-cog pull-l1 left" style="padding-right:20px;"></span>Sales Opportunity Setup</h1>
+            </div>
+            <div class="panel-body">
+                <div class="card">
+                    <div class="card-block" style="margin-top: -20px;">
+                        <h2 class="card-title" style="font-size:20px; margin-top:20px;">
+                            <button class="btn btn-primary" style="margin-right:10px;" data-toggle="modal" data-target="#addStage" ng-click="vm.resetStageform()">Add Stage <span class="glyphicon glyphicon-plus-sign" title="Add"></span></button>
+                            <span class="demo-checkbox pull-right" >
+                                <input type="checkbox" id="basic_checkbox_1" ng-model="vm.check" ng-click="vm.checkInActiveStage(vm.check)"/>
+                                <label for="basic_checkbox_1">Include Inactive</label>
+                            </span>
+                        </h2> 
+                        <!--table-->
+                        <div class="body">
+                            <div class="table table-responsive">
+                                <table class="table table-bordered table-striped table-hover dataTable " style="margin-top:0px;">
+                                    <thead>
+                                        <tr class="success">
+                                            <th style="display: none">Id</th>
+                                            <th><a href="#">Stage Name</a></th>
+                                            <th><a href="#">Rank</a></th>
+                                            <th><a href="#">Probabilty</a></th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="stage in vm.stages">
+                                            <td style="display: none">{{stage.id}}</td>
+                                            <td>{{stage.stageName}}</td>
+                                            <td>{{stage.rank}}</td>
+                                            <td>{{stage.probability}}</td>
+                                            <td ng-show="stage.active">
+                                                <ul class="header-dropdown m-r--5" style="list-style-type: none;">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li ng-repeat="action in vm.actionItems" ng-click="vm.actionChanged(stage, action.id,'stage')"><a href="">{{action.name}}</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td ng-show="!stage.active">
+                                                <button type="button" class="btn btn-primary waves-effect" ng-click="vm.activateStage(stage)">Activate</button>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="vm.stages.length==0">
+                                            <td colspan="8">
+                                                There is no data.
+                                            </td>
+                                        </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!--end-->
+                    </div>
+                </div>
+                <div id="addStage" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h2>Stage</h2>
+                                <p>Please add Stages</p>
+                            </div>
+                            <hr />
+
+                            <div class="modal-body">
+                                <div style="padding: 10px;">
+                                    <form role="form" method="post">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" name="stage_name" ng-model="vm.stage.stageName" id="stage_name" class="form-control input-md" placeholder="Stage Name" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" name="rank" ng-model="vm.stage.rank" id="rank" class="form-control input-md" placeholder="Add Rank" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" name="probability" ng-model="vm.stage.probability" id="probability" class="form-control input-md" placeholder="Probability" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <input type="submit" value="{{vm.buttonText}}" class="btn btn-primary btn-block btn-lg" ng-click="vm.createStage(vm.stage)" tabindex="7" style="text-align: center;">
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <input type="reset" value="Reset" ng-click="vm.resetStage()" class="btn btn-primary btn-block btn-lg" tabindex="7" style="text-align: center;">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-block" style="margin-top: -20px;">
+                        <h2 class="card-title" style="font-size:20px;">
+                            <button class="btn btn-primary" style="margin-right:10px;" data-toggle="modal" data-target="#addSource" ng-click="vm.resetSource()">Add Source <span class="glyphicon glyphicon-plus-sign" title="Add"></span></button>
+                            <span class="demo-checkbox pull-right">
+                                <input type="checkbox" id="basic_checkbox_2" ng-model="vm.checkSource" ng-click="vm.checkInActiveSource(vm.checkSource)" />
+                                <label for="basic_checkbox_2">Include Inactive</label>
+                            </span>
+
+                        </h2>
+                        <div class="body">
+                            <div class="table table-responsive">
+                                <table class="table table-bordered table-striped table-hover dataTable" style="margin-top:0px;">
+                                    <thead>
+                                        <tr class="success">
+                                            <th style="display: none">Id</th>
+                                            <th><a href="#">Source</a></th>                                        
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="source in vm.sources">
+                                            <td style="display: none">{{source.id}}</td>
+                                            <td>{{source.sourceName}}</td>                                        
+                                            <td ng-show="source.active">
+                                                <ul class="header-dropdown m-r--5" style="list-style-type: none;">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li ng-repeat="action in vm.actionItems" ng-click="vm.actionChanged(source, action.id,'source')"><a href="">{{action.name}}</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td ng-show="!source.active">
+                                                <button type="button" class="btn btn-primary waves-effect" ng-click="vm.activateSource(source)">Activate</button>
+                                            </td>                                       
+                                        </tr>
+                                        <tr ng-show="vm.sources.length==0">
+                                            <td colspan="8">There is no data.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="addSource" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h2>Source</h2>
+                                <p>Please add Source</p>
+                            </div>
+                            <hr />
+                            <div class="modal-body">
+                                <div style="padding: 10px;">
+                                    <form role="form">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="source" ng-model="vm.source.sourceName" id="source" class="form-control input-md" placeholder="Add Source" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6"></div>
+                                        </div>
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <input type="submit" value="{{vm.buttonText}}" class="btn btn-primary btn-block btn-lg" ng-click="vm.createSource(vm.source)" tabindex="7" style="text-align: center;">
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <input type="reset" value="Reset" ng-click="vm.resetSource()" class="btn btn-primary btn-block btn-lg" tabindex="7" style="text-align: center;">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-block" style="margin-top: -20px;">
+                        <h2 class="card-title" style="font-size:20px;">
+                            <button class="btn btn-primary" style="margin-right:10px;" data-toggle="modal" data-target="#addGrade" ng-click="vm.resetGrade()">Add Grade <span class="glyphicon glyphicon-plus-sign" title="Add"></span></button>
+                            <span class="demo-checkbox pull-right">
+                                <input type="checkbox" id="basic_checkbox_3" ng-model="vm.checkGrade" ng-click="vm.checkInActiveGrade(vm.checkGrade)" />
+                                <label for="basic_checkbox_3">Include Inactive</label>
+                            </span>
+                        </h2>
+                        <!--table-->
+                        <div class="body">
+                            <div class="table table-responsive">
+                                <table class="table table-bordered table-striped table-hover dataTable" style="margin-top:0px;">
+                                    <thead>
+                                        <tr class="success">
+                                            <th style="display: none">Id</th>
+                                            <th> <a href="#">Grade</a></th>
+                                            <th><a href="#">Rank</a></th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="grade in vm.grades">
+                                            <td style="display: none">{{grade.id}}</td>
+                                            <td>{{grade.gradeName}}</td>
+                                            <td>{{grade.rank}}</td>
+                                            <td ng-show="grade.active">
+                                                <ul class="header-dropdown m-r--5" style="list-style-type: none;">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li ng-repeat="action in vm.actionItems" ng-click="vm.actionChanged(grade, action.id, 'grade')"><a href="">{{action.name}}</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td ng-show="!grade.active">
+                                                <button type="button" class="btn btn-primary waves-effect" ng-click="vm.activateGrade(grade)">Activate</button>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="vm.grades.length==0">
+                                            <td colspan="8">There is no data.</td>
+                                        </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!--end-->
+                    </div>
+                </div>
+                <div id="addGrade" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h2>Grade</h2>
+                                <p>Please add Grade</p>
+                            </div>
+                            <hr />
+                            <div class="modal-body">
+                                <div style="padding: 10px;">
+                                    <form role="form">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="grade" ng-model="vm.grade.gradeName" id="grade" class="form-control input-md" placeholder="Add Grade" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="rank" ng-model="vm.grade.rank" id="rank" class="form-control input-md" placeholder="Add Rank" required>
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <input type="submit" value="{{vm.buttonText}}" class="btn btn-primary btn-block btn-lg" ng-click="vm.createGrade(vm.grade)" tabindex="7" style="text-align: center;">
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <input type="reset" value="Reset" class="btn btn-primary btn-block btn-lg" tabindex="7" style="text-align: center;">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-block" style="margin-top: -20px;">
+                        <h2 class="card-title" style="font-size:20px;">
+                            <button class="btn btn-primary" style="margin-right:10px;" data-toggle="modal" data-target="#addReason" ng-click="vm.resetReason()">Add Reason <span class="glyphicon glyphicon-plus-sign" title="Add"></span></button>
+                            <span class="demo-checkbox pull-right">
+                                <input type="checkbox" id="basic_checkbox_4" ng-model="vm.checkReason" ng-click="vm.checkInActiveReason(vm.checkReason)" />
+                                <label for="basic_checkbox_4">Include Inactive</label>
+                            </span>
+                        </h2>
+                        <!--table-->
+                        <div class="body">
+                            <div class="table table-responsive">
+                                <table class="table table-bordered table-striped table-hover dataTable" style="margin-top:0px;">
+                                    <thead>
+                                        <tr class="success">
+                                            <th style="display: none">Id</th>
+                                            <th> <a href="#">Reason</a></th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="reason in vm.reasons">
+                                            <td style="display: none">{{reason.id}}</td>
+                                            <td>{{reason.reason}}</td>                                           
+                                            <td ng-show="reason.active">
+                                                <ul class="header-dropdown m-r--5" style="list-style-type: none;">
+                                                    <li class="dropdown">
+                                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="material-icons">more_vert</i>
+                                                        </a>
+                                                        <ul class="dropdown-menu pull-right">
+                                                            <li ng-repeat="action in vm.actionItems" ng-click="vm.actionChanged(reason, action.id, 'reason')"><a href="">{{action.name}}</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td ng-show="!reason.active">
+                                                <button type="button" class="btn btn-primary waves-effect" ng-click="vm.activateReason(reason)">Activate</button>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="vm.reasons.length==0">
+                                            <td colspan="8">There is no data.</td>
+                                        </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!--end-->
+                    </div>
+                </div>
+                <div id="addReason" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h2>Reason</h2>
+                                <p>Please add Reason</p>
+                            </div>
+                            <hr />
+                            <div class="modal-body">
+                                <div style="padding: 10px;">
+                                    <form role="form">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="reason" ng-model="vm.reason.reason" id="reason" class="form-control input-md" placeholder="Add Reason" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <input type="submit" value="{{vm.buttonText}}" class="btn btn-primary btn-block btn-lg" ng-click="vm.createReason(vm.reason)" tabindex="7" style="text-align: center;">
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <input type="reset" value="Reset" class="btn btn-primary btn-block btn-lg" tabindex="7" style="text-align: center;">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .form-group .form-control 
+    {
+        border: 1px solid #aaa;
+        padding: 7px;
+        color: none;
+    }
+    hr 
+    {
+        border: none;
+        height: 1px;
+        /* Set the hr color */
+        color: #333; /* old IE */
+        background-color: #333; /* Modern Browsers */
+    }
+    .modal-dialog 
+    {
+        width: 80%;
+        height: 80%;
+        margin: 0 auto;
+    }
+    .modal-content 
+    {
+        margin: 71px 0px 0px 40px;
+        background-color: #F3F5F6;
+    }
+
+    .modal-header 
+    {
+        padding: 13px 15px 0px 19px;
+    }
+    h2
+    {
+        margin-left: 8px;
+    }
+    p 
+    {
+        margin-left: 13px;
+    }
+    .input.btn.btn-primary.btn-block.btn-lg 
+    {
+        margin-bottom: 12px;
+    }
+</style> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

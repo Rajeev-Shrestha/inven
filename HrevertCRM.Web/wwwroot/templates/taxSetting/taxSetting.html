@@ -1,0 +1,173 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">Tax Setting</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="panel panel-default" ng-show="!vm.editPanel">
+        <div class="panel-heading">
+            <div class="col-md-2" ng-show="selected.length>0">
+                <button class="btn btn-danger" value="Delete Selected" ng-click="vm.deleteSelected(selected)"> Delete Selected</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="open()"><span class="fa fa-plus"></span> Add New Tax</button>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="Search Tax.." ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+            <div class="col-md-2">
+                <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.searchParamChanged()" /> Include Inactive</label>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width:5%"><input type="checkbox" ng-model="selectAll" name="" ng-click="vm.checkAll()" /></th>
+                            <th>#</th>
+                            <th>Tax Code</th>
+                            <th>Is Recoverable</th>
+                            <th>Tax Type</th>
+                            <th>Tax Rate</th>
+                            <!--<th>Recoverable Calculation Type</th>-->
+                           <!-- <th>Action</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="tax in vm.taxes | filter:q as results" ng-hide="vm.taxes.length==0" ng-class="tax.active ?'hrevert-inactiveLink' :'hrevert-activeLink'">
+                            <td><input type="checkbox" ng-model="selected" name="" ng-checked="vm.exist(tax)" ng-click="vm.toggleSelection(tax, $event)" /></td>
+                            <td ng-click="vm.editTax(tax.id,tax.active)">{{($index+1)}}</td>
+                            <td ng-click="vm.editTax(tax.taxCode, tax.active)">
+                                {{tax.taxCode}}
+                                <div class="hrevert-updatelink-section" ng-show="tax.active">
+                                    <span><a ng-click="vm.editItem(tax.id, tax.active)">Edit </a></span>|
+                                    <span><a ng-click="vm.deleteItem(tax)">Delete</a></span>
+
+                                </div>
+                                <div class="hrevert-updatelink-section" ng-show="!tax.active">
+                                    <span ng-click="vm.activateTax(tax)"><a>Activate</a></span>
+                                </div>
+                            </td>
+                            <td ng-click="vm.editTax(tax.isRecoverable, tax.active)" ng-if="tax.isRecoverable == true">Yes</td>
+                            <td ng-click="vm.editTax(tax.isRecoverable, tax.active)" ng-if="tax.isRecoverable == false">No</td>
+                            <td ng-click="vm.editTax(tax.taxType, tax.active)" ng-if="tax.taxType==1">Percent</td>
+                            <td ng-click="vm.editTax(tax.taxType, tax.active)" ng-if="tax.taxType==2">Fixed</td>
+                            <td ng-click="vm.editTax(tax.taxRate, tax.active)">{{tax.taxRate}}</td>
+                          <!--  <td ng-click="vm.editTax(tax.recoverableCalculationType, tax.active)">{{tax.recoverableCalculationType}}</td>-->
+                            <!--<td ng-show="tax.active">
+                                <div class="push-down-10">
+                                    <button class="btn btn-default" ng-click="vm.editItem(tax.id, tax.active)"><span class="fa fa-pencil"></span> Edit</button>
+                                    <button class="btn btn-default" ng-click="vm.deleteItem(tax)"><span class="fa fa-recycle"></span> Delete</button>
+                                </div>-->
+                                <!--<select class="form-control select" ng-model="action" ng-options="action.id as action.name for action in vm.actionItems" ng-change="vm.actionChanged($event, product, action)">
+                                    <option class="" style="display: none" value="">Option</option>
+                                </select>-->
+                            <!--</td>
+                            <td ng-show="!tax.active">
+                                <button type="button" class="btn btn-info waves-effect" ng-click="vm.activateTax(tax)"> Activate </button>
+                            </td>-->
+                        </tr>
+                        <tr ng-show="vm.taxes.length==0">
+                            <td colspan="7">There is no data.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="vm.editPanel">
+        <div class="col-md-12">
+            <form name="vm.taxForm" novalidate>
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active" ng-click="vm.addNewTax()"><a href="#tab-first" role="tab" data-toggle="tab">Add New Tax</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="modal-body">
+                                <section>
+                                    <div class="container-fluid">
+                                        <!-- Input Group -->
+                                        <div class="row clearfix">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="card">
+                                                    <div class="body">
+                                                        <div class="row clearfix">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label class="col-md-3 col-xs-12 control-label">Tax Code*</label>
+                                                                    <div class="col-md-9 col-xs-12">
+                                                                        <input type="text" class="form-control" name="taxCode" ng-model="vm.tax.taxCode" ng-change="vm.checkIfTaxCodeExists(vm.tax.taxCode)" ng-model-options="{debounce: 1500}" required />
+                                                                        <span ng-show="vm.taxForm.taxCode.$touched && vm.taxForm.taxCode.$error.required" style="color:red;">Enter Tax Code</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label class="col-md-3 control-label"> Tax Description</label>
+                                                                    <div class="col-md-9 col-xs-12">
+                                                                        <input type="text" class="form-control" ng-model="vm.tax.description" max="200" maxlength="200" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label class="col-md-3 control-label"> Tax Type</label>
+                                                                    <div class="col-md-9 col-xs-12">
+                                                                        <select class="form-control select" name="taxType" ng-model="vm.tax.taxType" ng-options="taxType.id as taxType.name for taxType in vm.taxTypes" required>
+                                                                            <option class="" style="display: none" value="">Select Tax Type</option>
+                                                                        </select>
+                                                                        <span ng-show="vm.taxForm.taxType.$touched && vm.taxForm.taxType.$error.required" style="color:red;">Select Tax Type</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label class="col-md-3 col-xs-12 control-label">Tax Rate*</label>
+                                                                    <div class="col-md-9 col-xs-12">
+                                                                        <input type="text" class="form-control" name="taxRate" ng-model="vm.tax.taxRate" required />
+                                                                        <span ng-show="vm.taxForm.taxRate.$touched && vm.taxForm.taxRate.$error.required" style="color:red;">Enter Rate</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+
+                                                                <div class="form-group col-md-6">
+                                                                    <label class="col-md-3 col-xs-12 control-label">Tax IsRecoverable*</label>
+                                                                    <div class="col-md-9 col-xs-12">
+                                                                        <input type="checkbox" class="icheckbox" ng-model="vm.tax.isRecoverable" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label class="col-md-3 col-xs-12 control-label">WebActive*</label>
+                                                                    <div class="col-md-9 col-xs-12">
+                                                                        <input type="checkbox" class="icheckbox" ng-model="vm.tax.webActive" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" ng-click="vm.saveTax(vm.tax)" data-dismiss="modal">{{vm.btnSaveText}}</button>
+                            <button type="button" class="btn btn-primary" ng-click="vm.hideTaxDialog()" data-dismiss="modal">Cancel</button>
+                        </div>
+</form>
+
+        </div>
+    </div>
+</div>
+

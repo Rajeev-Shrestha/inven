@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "SalesOpportunitySetting";
+    Layout = "_Layout";
+}
+@section Scripts{
+
+    <script src="~/js/salesopportunitysetting/app-salesOpportunitySetting.js" asp-append-version="true"></script>
+    <script src="~/js/salesopportunitysetting/salesOpportunitySetting.controller.js" asp-append-version="true"></script>
+    <script src="~/js/salesopportunitysetting/salesOpportunitySetting.service.js" asp-append-version="true"></script>
+    <script src="~/lib/angular-moment/moment.js"></script>
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("salesOpportunitySetting"), ['app-salesOpportunitySetting']);
+    </script>
+}
+@section css{
+    <link href="~/manual/icon.css" rel="stylesheet" />
+
+}
+<div ng-non-bindable>
+    <div class="" id="salesOpportunitySetting">
+        <ui-view></ui-view>
+    </div>
+</div>

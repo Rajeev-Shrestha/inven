@@ -1,0 +1,131 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">payment</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="panel panel-default" ng-show="!showModal">  
+
+        <div class="panel-heading">
+            <div class="col-md-2" ng-show="selected.length>0">
+                <button class="btn btn-danger" value="Delete Selected" ng-click="vm.deleteAllSelected(selected)"> Delete Selected</button>
+            </div> 
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="open()"><span class="fa fa-plus"></span> New Payment Method</button>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control date" placeholder="Search Payment" ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+            <div class="col-md-2">
+                <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.searchParamChanged()" /> Include Inactive</label>
+            </div>
+            <div class="col-md-2">
+                <!--<select class="form-control select" data-selected-text-format="count" ng-options="pagesize as pagesize for pagesize in vm.pageSizes track by pagesize" ng-model="vm.pageSize" ng-change="vm.getPageSize(vm.pageSize)"></select>-->
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width:5%"><input type="checkbox" ng-model="selectAll" name="" ng-click="vm.checkAll()" /></th>
+                        <th style="width:5%">#</th>
+                        <th style="width:30%">Payment Code</th>
+                        <th style="width:30%">Payment Name</th>
+                      <!--  <th style="width:15%">Action</th>-->
+                    </tr>
+                </thead>  
+                <tbody> 
+                    <tr ng-repeat="payment in vm.allPaymentMethod | filter:q as results" ng-hide="vm.allPaymentMethod.length==0" ng-class="payment.active ?'hrevert-inactiveLink' :'hrevert-activeLink'">
+                        <td><input type="checkbox" ng-model="selected" name="" ng-checked="vm.exist(payment)" ng-click="vm.toggleSelection(payment, $event)" /></td>
+                        <td>{{$index+1}}</td>
+                        <td>
+                            {{payment.methodCode}}
+                            <div class="hrevert-updatelink-section" ng-show="payment.active">
+                                <span><a ng-click="vm.paymentActionChanged(payment, 1)">Edit </a></span>|
+                                <span><a ng-click="vm.paymentActionChanged(payment, 2)">Delete</a></span>
+
+                            </div>
+                            <div class="hrevert-updatelink-section" ng-show="!payment.active">
+                                <span ng-click="vm.activePaymentMethod(payment.id)"><a>Activate</a></span>
+                            </div>
+                        </td>
+                        <td>{{payment.methodName}}</td>
+                        <!--<td ng-show="payment.active">
+                            <div class="push-down-10">
+                                <button class="btn btn-default" ng-click="vm.paymentActionChanged(payment, 1)"><span class="fa fa-pencil"></span> Edit</button>
+                                <button class="btn btn-default" ng-click="vm.paymentActionChanged(payment, 2)"><span class="fa fa-recycle"></span> Delete</button>
+                            </div>-->
+                            <!--<select class="form-control select" ng-model="action" ng-options="action.id as action.name for action in vm.actionItems" ng-change="vm.actionChanged($event, payment, action)">
+                                <option class="" style="display: none" value="">Option</option>
+                            </select>-->
+                        <!--</td>
+                        <td ng-show="!payment.active">
+                            <button type="button" class="btn btn-info waves-effect" ng-click="vm.activePaymentMethod(payment.id)"> Activate</button>
+                        </td>-->
+                    </tr>
+                    <tr ng-show="vm.allPaymentMethod.length==0">
+                        <td colspan="7">There is no data.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="row" ng-show="showModal">
+        <div class="col-md-12">
+
+            <form class="form-horizontal" name="vm.paymentMethodForm">
+
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Payment Method</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-1 control-label pull-left">Payment Code*</label>
+                                    <div class="col-md-11 col-xs-12">
+                                        <input type="text" name="paymentCode" class="form-control date" placeholder="Payment Code" ng-model="vm.activeItem.methodCode" ng-change="vm.checkIfExistCode(vm.activeItem.methodCode)" ng-model-options="{debounce: 1500}" required>
+                                        <span ng-show="vm.paymentMethodForm.paymentCode.$touched && vm.paymentMethodForm.paymentCode.$error.required" style="color:red;">Enter Payment Code</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-1 control-label pull-left">Payment Name*</label>
+                                    <div class="col-md-11">
+                                        <input type="text" name="paymentName" class="form-control date" placeholder="Payment Name" ng-model="vm.activeItem.methodName" ng-disabled="vm.productCode" ng-change="vm.checkIfExistName(vm.activeItem.methodName)" ng-model-options="{debounce: 1500}" required>
+                                        <span ng-show="vm.paymentMethodForm.paymentName.$touched && vm.paymentMethodForm.paymentName.$error.required" style="color:red;">Enter Payment Name</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-1 control-label pull-left">Receipt Memo</label>
+                                    <div class="col-md-11">
+                                        <input type="text" name="receiptMemo" class="form-control date" placeholder="Receipt memo" ng-model="vm.activeItem.receipentMemo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-click="vm.savePaymentMethod(vm.activeItem)" ng-disabled="vm.paymentMethodForm.$invalid">{{vm.btnPaymentMethodText}}<span class="fa fa-floppy-o fa-right"></span></button>
+                            <button class="btn btn-primary" ng-click="hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

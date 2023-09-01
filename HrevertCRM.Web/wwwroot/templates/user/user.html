@@ -1,0 +1,306 @@
+﻿<style>
+    .select {
+        background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important;
+    }
+</style>
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li><a href="#">Dashboard</a></li>
+    <li><a href="#">User</a></li>
+</ul>
+<!-- END BREADCRUMB -->
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+    <div class="panel panel-default" ng-show="!vm.showModal">
+        <div class="panel-heading">
+            <div class="col-md-2" ng-show="selected.length>0">
+                <button class="btn btn-danger" value="Delete Selected" ng-click="vm.deleteSelected(selected)"> Delete Selected</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="vm.addEditUser()"><span class="fa fa-plus"></span> New User</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" ng-click="vm.openAssignRoleDialog()"><span class="fa fa-plus"></span> Assign Role</button>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control date" placeholder="Search user" ng-model="vm.searchText" ng-change="vm.searchParamChanged()" ng-model-options="{debounce: 1500}">
+            </div>
+            <div class="col-md-2">
+                <label class="check"><input type="checkbox" class="icheckbox" ng-model="vm.check" ng-click="vm.searchParamChanged()" /> Include Inactive</label>
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width:5%"><input type="checkbox" ng-model="selectAll" name="" ng-click="vm.checkAll()" /></th>
+                        <th style="width:5%">#</th>
+                        <th style="width:20%">First Name</th>
+                        <th style="width:10%">Email</th>
+                        <th style="width:10%">Active</th>
+                       <!-- <th style="width:15%">Action</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in vm.users | filter:q as results" ng-hide="vm.users.length==0" ng-class="user.active ?'hrevert-inactiveLink' :'hrevert-activeLink'">
+                        <td><input type="checkbox" ng-model="selected" name="" ng-checked="vm.exist(user)" ng-click="vm.toggleSelection(user, $event)" /></td>
+                        <td>{{$index+1}}</td>
+                        <td>
+                            {{user.firstName}}
+                            <div class="hrevert-updatelink-section" ng-show="user.active">
+                                <span><a ng-click="vm.actionChanged(user, 1)">Edit </a></span>|
+                                <span><a ng-click="vm.actionChanged(user, 2)">Delete</a></span>
+
+                            </div>
+                            <div class="hrevert-updatelink-section" ng-show="!user.active">
+                                <span ng-click="vm.activeUsers(user)"><a>Activate</a></span>
+                            </div>
+                        </td>
+                        <td>{{user.email}}</td>
+                        <td>
+                            <span ng-show="user.active"><i class="glyphicon glyphicon-ok"></i></span>
+                            <span ng-show="!user.active"><i class="glyphicon glyphicon-remove"></i></span>
+                        </td>
+                        <!--<td ng-show="user.active">
+                            <div class="push-down-10">
+                                <button class="btn btn-default" ng-click="vm.actionChanged(user, 1)"><span class="fa fa-pencil"></span> Edit</button>
+                                <button class="btn btn-default" ng-click="vm.actionChanged(user, 2)"><span class="fa fa-recycle"></span> Delete</button>
+                            </div>-->
+                            <!--<select class="form-control select" ng-model="action" ng-options="action.id as action.name for action in vm.actionItems" ng-change="vm.actionChanged($event, user, action)">
+                                <option class="" style="display: none" value="">Option</option>
+                            </select>-->
+                        <!--</td>
+                        <td ng-show="!user.active">
+                            <button type="button" class="btn btn-info waves-effect" ng-click="vm.activeUsers(user)"> Activate </button>
+                        </td>-->
+                    </tr>
+                    <tr ng-show="vm.users.length==0">
+                        <td colspan="7">There is no data.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="row" ng-show="vm.showModal">
+        <div class="col-md-12">
+
+            <form class="form-horizontal" name="vm.userForm" novalidate>
+
+                <div class="panel panel-default tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active" ng-click="vm.productInformation()"><a href="#tab-first" role="tab" data-toggle="tab">User information</a></li>
+                    </ul>
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-first">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">First Name*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" class="form-control required" name="firstName" placeholder="First Name" ng-model="vm.activeUser.firstName" required>
+                                        <span ng-show="vm.userForm.firstName.$touched && vm.userForm.firstName.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Middle Name</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" class="form-control required" placeholder="Middle Name" ng-model="vm.activeUser.middleName">
+                                    </div>
+                                </div>
+                                </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Last Name*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" name="lastName" class="form-control required" placeholder="Last Name" ng-model="vm.activeUser.lastName" required>
+                                        <span ng-show="vm.userForm.lastName.$touched && vm.userForm.lastName.$error.required" style="color:red;">Required</span>
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Gender*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <select class="form-control show-tick date" name="gender" ng-model="vm.activeUser.gender" ng-options="gender.id  as gender.name for gender in vm.gender" required>
+                                            <option class="" style="display: none" value="">Select a gender</option>
+                                        </select>
+                                        <span ng-show="vm.userForm.gender.$touched && vm.userForm.gender.$error.required" style="color:red;">Required</span>
+
+                                    </div>
+                                </div>
+                                </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">User Type*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <select class="form-control show-tick date" name="userType" ng-model="vm.activeUser.userType" ng-options="roles.id as roles.value for roles in vm.roles" required>
+                                            <option class="" style="display: none" value="">Select user type</option>
+                                        </select>
+                                        <span ng-show="vm.userForm.userType.$touched && vm.userForm.userType.$error.required" style="color:red;">Required</span>
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Address*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="text" class="form-control date" name="address" placeholder="Addresses" ng-model="vm.activeUser.address" required>
+                                        <span ng-show="vm.userForm.address.$touched && vm.userForm.address.$error.required" style="color:red;">Required</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Email*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="email" class="form-control date" name="email" placeholder="Email" ng-model="vm.activeUser.email" required ng-disabled="vm.userEmail" ng-pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/" ng-change="vm.checkIfExistEmail(vm.activeUser.email)" ng-model-options="{debounce: 1500}">
+                                        <span ng-show="vm.userForm.email.$touched && vm.userForm.email.$error.required" style="color:red;">Required</span>
+                                        <span ng-show="vm.userForm.email.$touched && vm.userForm.email.$error.email" style="color:red;">Invalid Email Address</span>
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Password*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="password" name="password" class="form-control date" placeholder="Password" ng-model="vm.activeUser.password" ng-required="vm.passwordRequired === true" required>
+                                        <span ng-show="vm.userForm.password.$touched && vm.userForm.password.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-3 control-label">Confirm Password*</label>
+                                    <div class="col-md-9 col-xs-12">
+                                        <input type="password" name="confirmPassword" class="form-control date" ng-match="vm.activeUser.password" placeholder="Confirm Password" ng-model="vm.activeUser.confirmPassword" ng-required="vm.confirmPasswordRequired === true" required>
+                                        <span ng-show="vm.userForm.confirmPassword.$touched && vm.userForm.confirmPassword.$error.required" style="color:red;">Required</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2>Roles</h2>
+                                    <div class="demo-checkbox">
+                                        <div class="col-md-3" ng-repeat="securityRoles in vm.securityRoles">
+                                            <input type="checkbox" id="{{securityRoles.id}}" value="{{securityRoles.id}}" ng-checked="vm.activeUser.securityGroupIdList.indexOf(securityRoles.id)>-1" ng-model="status" ng-click="vm.roleChange(status,securityRoles)" />
+                                            <label for="{{securityRoles.id}}">{{securityRoles.groupName}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-primary" ng-disabled="vm.userForm.$invalid" ng-click="vm.saveUser(vm.activeUser)">{{vm.userBtnText}}<span class="fa fa-floppy-o fa-right"></span></button>
+                            <button class="btn btn-primary" ng-click="vm.hide()">Cancel <span class="fa fa-floppy-o fa-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+<div id="assignRoleModal" class="modal fade" role="dialog" modal="vm.showAssignRoleModal">
+    <div class="modal-dialog" style="margin: 0px; width: 100%; height: 100%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Assign Roles</h4>
+                <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" id="successMessage"></div>
+            </div>
+            <div class="modal-body">
+                <section>
+                    <div class="container-fluid">
+                        <!-- Input Group -->
+                        <div class="row">
+                            <div id="termAssignErrorMessage">
+
+                            </div>
+                            <br />
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="header">
+                                        <h2>
+                                            SELECT ROLE
+                                        </h2>
+                                    </div>
+                                    <div class="body">
+                                        <button type="button" class="list-group-item" style="min-width:250px; margin-top:5px;" ng-repeat="securityRoles in vm.securityRoles" ng-click="vm.groupUserName(securityRoles)">{{securityRoles.groupName}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="col-md-8" ng-show="vm.hideRoles">
+                                    <h2>Please Select roles to assign</h2>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" ng-hide="vm.hideRoles">
+                                        <div class="col-md-12">
+                                            <h2>
+                                                <span class="fa fa-user"></span> Selected User: {{vm.assignRoleText}}
+                                            </h2>
+                                        </div>
+                                        <div class="multi-sortable" sv-root sv-on-sort="vm.checkDirty($item)">
+                                            <div class="col-md-12">
+                                                <div class="sortable-container col-md-6" sv-part="vm.groupName">
+                                                    <md-card>
+                                                        <md-card-content>
+                                                            <div sv-placeholder class="placeholder-left">
+                                                                <span>Place here to assign</span>
+                                                            </div>
+                                                            <div class="card">
+                                                                <div class="header">
+                                                                    <h2>SELECTED USER</h2>
+                                                                </div>
+                                                                <div class="body">
+                                                                    <button type="button" class="list-group-item" style="min-width:250px; margin-top:5px;" ng-repeat="group in vm.groupName" sv-element>
+                                                                        {{group.email}}
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+
+                                                        </md-card-content>
+                                                    </md-card>
+                                                </div>
+                                                <div class="sortable-container col-md-6" sv-part="vm.notAssignedUsers">
+                                                    <md-card>
+                                                        <md-card-content>
+                                                            <div sv-placeholder class="placeholder-left">
+                                                                <span>Place here to assign</span>
+                                                            </div>
+                                                            <div class="card">
+                                                                <div class="header">
+                                                                    <h2 class="row">NOT ASSIGNED USERS</h2>
+                                                                </div>
+                                                                <div class="body">
+                                                                    <button type="button" class="list-group-item" style="min-width:250px; margin-top:5px;" ng-repeat="user in vm.notAssignedUsers" sv-element>
+                                                                        {{user.email}}
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </md-card-content>
+                                                    </md-card>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="vm.hideAssignDialog()">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="vm.saveRole(vm.activeUserGroup, vm.groupName)" ng-disabled="!vm.dirtyList">Save</button>
+            </div>
+        </div>
+
+    </div>
+</div>

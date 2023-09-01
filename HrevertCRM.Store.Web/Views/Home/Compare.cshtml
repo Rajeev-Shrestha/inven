@@ -1,0 +1,26 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Compare";
+    Layout = "_Layout";
+}
+@section Scripts {
+
+    <script src="~/js/compare/app-compare.js"></script>
+    <script src="~/js/compare/compare.controller.js"></script>
+    <script src="~/js/compare/compare.service.js"></script>
+    <script type="text/javascript">
+        angular.bootstrap(document.getElementById("compare"), ['app-compare']);
+    </script>
+}
+
+
+@section css{
+
+
+}
+<div ng-non-bindable>
+    <div class="" id="compare">
+        <ui-view></ui-view>
+    </div>
+</div>
