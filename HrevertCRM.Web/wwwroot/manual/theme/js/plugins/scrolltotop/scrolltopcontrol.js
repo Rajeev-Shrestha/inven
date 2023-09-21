@@ -8,9 +8,9 @@
 var scrolltotop={
 	//startline: Integer. Number of pixels from top of doc scrollbar is scrolled before showing control
 	//scrollto: Keyword (Integer, or "Scroll_to_Element_ID"). How far to scroll document up when control is clicked on (0=top).
-	setting: {startline:200, scrollto: 0, scrollduration:500, fadeduration:[500, 100]},
-	controlHTML: '<a id="scrolltotop"></a>', //HTML for control, which is auto wrapped in DIV w/ ID="topcontrol"
-	controlattrs: {offsetx:0, offsety:0}, //offset of control relative to right/ bottom of window corner
+	setting: {startline:400, scrollto: 0, scrollduration:1200, fadeduration:[500, 100]},
+	controlHTML: '<!-- TO TOP --><div class="to-top"><span class="fa fa-angle-up"></span></div><!-- END TO TOP -->', //HTML for control, which is auto wrapped in DIV w/ ID="topcontrol"
+	controlattrs: {offsetx:10, offsety:10}, //offset of control relative to right/ bottom of window corner
 	anchorkeyword: '#top', //Enter href value of HTML anchors on the page that should also act as "Scroll Up" links
 
 	state: {isvisible:false, shouldvisible:false},
@@ -55,9 +55,8 @@ var scrolltotop={
 			mainobj.cssfixedsupport=!iebrws || iebrws && document.compatMode=="CSS1Compat" && window.XMLHttpRequest //not IE or IE7+ browsers in standards mode
 			mainobj.$body=(window.opera)? (document.compatMode=="CSS1Compat"? $('html') : $('body')) : $('html,body')
 			mainobj.$control=$('<div id="topcontrol">'+mainobj.controlHTML+'</div>')
-				/*.css({position:mainobj.cssfixedsupport? 'fixed' : 'absolute', bottom:mainobj.controlattrs.offsety, right:mainobj.controlattrs.offsetx, opacity:0, cursor:'pointer'})*/
-				.css({position:mainobj.cssfixedsupport? 'fixed' : 'absolute', bottom:8, right:10, opacity:0, cursor:'pointer','z-index':'100003' })
-				.attr({title:'Click To Top'})
+				.css({position:mainobj.cssfixedsupport? 'fixed' : 'absolute', bottom:mainobj.controlattrs.offsety, right:mainobj.controlattrs.offsetx, opacity:0, cursor:'pointer'})
+				.attr({title:'Scroll Back to Top'})
 				.click(function(){mainobj.scrollup(); return false})
 				.appendTo('body')
 			if (document.all && !window.XMLHttpRequest && mainobj.$control.text()!='') //loose check for IE6 and below, plus whether control contains any text

@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v1.1.1
+ * v1.1.1-master-8f8274a
  */
 goog.provide('ngmaterial.components.fabActions');
 goog.require('ngmaterial.core');
@@ -52,7 +52,7 @@ goog.require('ngmaterial.core');
           children.wrap('<div class="md-fab-action-item">');
         }
       }
-    }
+    };
   }
 
 })();

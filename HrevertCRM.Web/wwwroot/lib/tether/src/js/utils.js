@@ -55,7 +55,7 @@ function getScrollParents(el) {
     }
 
     const {overflow, overflowX, overflowY} = style;
-    if (/(auto|scroll|overlay)/.test(overflow + overflowY + overflowX)) {
+    if (/(auto|scroll)/.test(overflow + overflowY + overflowX)) {
       if (position !== 'absolute' || ['relative', 'absolute', 'fixed'].indexOf(style.position) >= 0) {
         parents.push(parent)
       }
@@ -84,7 +84,7 @@ const getOrigin = () => {
   // are equivilant or not.  We place an element at the top left of the page that will
   // get the same jitter, so we can cancel the two out.
   let node = zeroElement;
-  if (!node || !document.body.contains(node)) {
+  if (!node) {
     node = document.createElement('div');
     node.setAttribute('data-tether-id', uniqueId());
     extend(node.style, {
