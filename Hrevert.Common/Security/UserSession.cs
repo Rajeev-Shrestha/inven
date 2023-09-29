@@ -31,6 +31,7 @@ namespace Hrevert.Common.Security
         {
             get
             {
+                if(HttpHelper.HttpContext == null || HttpHelper.HttpContext.User == null) return null;
                 try
                 {
                     // return ((ClaimsPrincipal)HttpHelper.HttpContext.User).FindFirst(ClaimTypes.Name).Value;

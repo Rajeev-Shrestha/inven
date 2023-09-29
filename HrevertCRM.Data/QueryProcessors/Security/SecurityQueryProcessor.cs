@@ -37,7 +37,7 @@ namespace HrevertCRM.Data.QueryProcessors
                     return true;
 
             var hasRight = _dbContext.Set<SecurityGroupMember>().Include(x => x.SecurityGroup).ThenInclude(x => x.Rights).Where(u => u.MemberId == LoggedInUser.Id)
-                .Select(t => t.SecurityGroup.Rights.Select(x => x.Security.SecurityCode == securityCode && x.Allowed).First()).First();
+                .Select(t => t.SecurityGroup.Rights.Select(x => x.Security.SecurityCode == securityCode && x.Allowed).First()).FirstOrDefault();
             //var isDenied = securityRights.Any(r => !r.Allowed);
             //if (!hasRight)
             //{

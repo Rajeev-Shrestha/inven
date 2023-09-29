@@ -1,0 +1,56 @@
+{
+  "_from": "angular-sortable-view",
+  "_id": "angular-sortable-view@0.0.21",
+  "_inBundle": false,
+  "_integrity": "sha512-uofCGqq6oN/eyixcHduuAkuuoppOXgwpYjSl4IzubSysKJW9gZYwGsDAI0yeSAlueixfjaKx4rcCM4jUoTzpug==",
+  "_location": "/angular-sortable-view",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "angular-sortable-view",
+    "name": "angular-sortable-view",
+    "escapedName": "angular-sortable-view",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-sortable-view/-/angular-sortable-view-0.0.21.tgz",
+  "_shasum": "15cf784ee20c79863b8945297efe4e3b5721c93b",
+  "_spec": "angular-sortable-view",
+  "_where": "C:\\overt\\incollav\\updatesource\\HrevertCRM.Web\\wwwroot\\manual",
+  "author": {
+    "name": "Kamil Pekala",
+    "email": "kamilkp@gmail.com",
+    "url": "http://github.com/kamilkp"
+  },
+  "bugs": {
+    "url": "https://github.com/kamilkp/angular-sortable-view/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {},
+  "deprecated": false,
+  "description": "Fully declarative (multi)sortable for AngularJS",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.4.0"
+  },
+  "homepage": "http://kamilkp.github.io/angular-sortable-view",
+  "main": "./src/angular-sortable-view.js",
+  "name": "angular-sortable-view",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamilkp/angular-sortable-view.git"
+  },
+  "scripts": {
+    "build": "grunt min",
+    "test": "grunt travis"
+  },
+  "version": "0.0.21"
+}
